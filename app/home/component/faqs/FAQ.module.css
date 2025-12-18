@@ -1,0 +1,321 @@
+/* FAQ.module.css */
+.faqSection {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #6b7280;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 20px;
+}
+
+.tab {
+  padding: 12px 30px;
+  border: none;
+  background: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  margin: 0 10px;
+}
+
+.tab:hover {
+  color: #3b82f6;
+}
+
+.tab.active {
+  color: #3b82f6;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  border-radius: 2px;
+}
+
+/* CTA Section */
+.ctaSection {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  border-radius: 16px;
+  padding: 40px;
+  margin-bottom: 40px;
+  text-align: center;
+  color: white;
+}
+
+.ctaContent h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.ctaContent p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  opacity: 0.9;
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: 15px 30px;
+  background: white;
+  color: #3b82f6;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* FAQ Grid */
+.faqGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 50px;
+}
+
+.faqItem {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faqItem:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.question {
+  width: 100%;
+  padding: 25px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  transition: all 0.3s ease;
+}
+
+.question:hover {
+  color: #3b82f6;
+}
+
+.questionText {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.icon {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #3b82f6;
+  transition: all 0.3s ease;
+}
+
+.answer {
+  padding: 0 25px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faqItem.active .answer {
+  padding: 0 25px 25px;
+  max-height: 500px;
+}
+
+.answer p {
+  color: #6b7280;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Support Section */
+.supportSection {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.supportContent h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 12px;
+}
+
+.supportContent p {
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-bottom: 25px;
+}
+
+.supportButtons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.supportButton {
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.supportButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+.whatsappButton {
+  padding: 12px 25px;
+  background: #25d366;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.whatsappButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .faqSection {
+    padding: 60px 0;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .tabs {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .tab {
+    width: 200px;
+    margin: 5px 0;
+  }
+  
+  .tab.active::after {
+    bottom: -12px;
+  }
+  
+  .ctaSection {
+    padding: 30px 20px;
+  }
+  
+  .supportButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .supportButton,
+  .whatsappButton {
+    width: 200px;
+  }
+  
+  .question {
+    padding: 20px;
+    font-size: 1rem;
+  }
+  
+  .answer {
+    padding: 0 20px;
+  }
+  
+  .faqItem.active .answer {
+    padding: 0 20px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .ctaSection {
+    padding: 25px 15px;
+  }
+  
+  .supportSection {
+    padding: 30px 20px;
+  }
+  
+  .question {
+    padding: 18px;
+  }
+}

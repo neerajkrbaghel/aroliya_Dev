@@ -1,0 +1,1282 @@
+.container {
+  min-height: 100vh;
+  background: var(--neutral-50);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Header Section */
+.header {
+  background: white;
+  border-bottom: 1px solid var(--neutral-200);
+  padding: 1.5rem 0;
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.headerMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.headerText {
+  flex: 1;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.pageSubtitle {
+  font-size: 1.125rem;
+  color: var(--neutral-600);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.headerControls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.invoiceButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--success-green);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.invoiceButton:hover {
+  background: #047857;
+  transform: translateY(-1px);
+}
+
+.currencySelector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--neutral-100);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--neutral-200);
+}
+
+.globeIcon {
+  color: var(--neutral-500);
+  font-size: 0.875rem;
+}
+
+.currencySelect {
+  background: none;
+  border: none;
+  color: var(--neutral-700);
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  font-size: 0.875rem;
+}
+
+/* Main Content */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Current Plan Section */
+.currentPlanSection {
+  width: 100%;
+}
+
+.currentPlanCard {
+  background: white;
+  border: 1px solid var(--neutral-200);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.currentPlanCard:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.planStatusHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  gap: 2rem;
+}
+
+.planInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  flex: 1;
+}
+
+.planIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.planDetails {
+  flex: 1;
+}
+
+.planName {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin: 0 0 0.5rem 0;
+}
+
+.planDescription {
+  color: var(--neutral-600);
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+}
+
+.recentPurchase {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--success-green);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.planStats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+  min-width: 200px;
+}
+
+.connectsCount {
+  text-align: center;
+}
+
+.availableConnects {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  line-height: 1;
+}
+
+.connectsLabel {
+  font-size: 0.875rem;
+  color: var(--neutral-500);
+  font-weight: 500;
+}
+
+.progressSection {
+  width: 200px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: var(--neutral-200);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progressText {
+  font-size: 0.75rem;
+  color: var(--neutral-500);
+  text-align: center;
+}
+
+.planActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--neutral-200);
+}
+
+.resetInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--neutral-600);
+  font-size: 0.875rem;
+}
+
+.calendarIcon {
+  color: var(--neutral-500);
+}
+
+.upgradeButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--premium-orange);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.upgradeButton:hover {
+  background: #b45309;
+  transform: translateY(-1px);
+}
+
+/* Plans Section */
+.plansSection {
+  width: 100%;
+}
+
+.plansGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.planCard {
+  background: white;
+  border: 1px solid var(--neutral-200);
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+}
+
+.planCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.planCard.popular {
+  border-color: var(--premium-orange);
+  box-shadow: var(--shadow-md);
+}
+
+.popularBadge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  background: var(--premium-orange);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.planHeader {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+.planIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 2rem;
+}
+
+.planName {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin: 0 0 1rem 0;
+}
+
+.connectsDisplay {
+  margin-bottom: 1.5rem;
+}
+
+.connectsCount {
+  display: block;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.connectsLabel {
+  font-size: 0.875rem;
+  color: var(--neutral-500);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.priceSection {
+  margin-top: 1rem;
+}
+
+.freePrice {
+  text-align: center;
+}
+
+.priceAmount {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--neutral-900);
+  line-height: 1;
+}
+
+.pricePeriod {
+  font-size: 0.875rem;
+  color: var(--neutral-500);
+  font-weight: 500;
+}
+
+.paidPrice {
+  text-align: center;
+}
+
+.priceLine {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.currencySymbol {
+  font-size: 1.5rem;
+  color: var(--neutral-700);
+}
+
+.priceAmount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--neutral-900);
+  line-height: 1;
+}
+
+.gstNote {
+  font-size: 0.75rem;
+  color: var(--neutral-500);
+  margin-top: 0.5rem;
+}
+
+.planDescription {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.planDescription p {
+  color: var(--neutral-600);
+  font-style: italic;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.featuresSection {
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.featuresTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--neutral-800);
+  margin: 0 0 1rem 0;
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--neutral-700);
+  line-height: 1.4;
+}
+
+.featureIcon {
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  font-size: 0.875rem;
+}
+
+.limitationsSection {
+  margin-bottom: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--neutral-200);
+}
+
+.limitationsTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--neutral-800);
+  margin: 0 0 1rem 0;
+}
+
+.limitationsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.limitationItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--neutral-500);
+  line-height: 1.4;
+}
+
+.limitationIcon {
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  font-size: 0.875rem;
+}
+
+.planActionsRow {
+  margin-top: auto;
+}
+
+.selectButton {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.selectButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.selectButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.popularButton {
+  box-shadow: var(--shadow-md);
+}
+
+.currentButton {
+  background: var(--neutral-400) !important;
+}
+
+.buttonLoading,
+.buttonCurrent,
+.buttonUpgrade {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spinningIcon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* History Section */
+.historySection {
+  width: 100%;
+}
+
+.historyCard {
+  background: white;
+  border: 1px solid var(--neutral-200);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.historyHeader {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.historyTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin: 0 0 0.5rem 0;
+}
+
+.historySubtitle {
+  color: var(--neutral-600);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.loadingHistory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  gap: 1rem;
+}
+
+.emptyHistory {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--neutral-500);
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.emptyHistory h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--neutral-700);
+}
+
+.emptyHistory p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.historyItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--neutral-50);
+  border-radius: 8px;
+  border: 1px solid var(--neutral-200);
+  transition: all 0.2s ease;
+}
+
+.historyItem:hover {
+  background: var(--neutral-100);
+}
+
+.historyIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--primary-blue-light);
+  color: var(--primary-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.historyContent {
+  flex: 1;
+}
+
+.historyDescription {
+  font-weight: 500;
+  color: var(--neutral-800);
+  margin-bottom: 0.25rem;
+}
+
+.historyMeta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.historyDate {
+  font-size: 0.75rem;
+  color: var(--neutral-500);
+}
+
+.connectChange {
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.connectChange.positive {
+  background: var(--success-green-light);
+  color: var(--success-green);
+}
+
+.connectChange.negative {
+  background: var(--error-red-light);
+  color: var(--error-red);
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.paymentModal,
+.invoiceModal {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--neutral-200);
+  position: sticky;
+  top: 0;
+  background: white;
+  border-radius: 16px 16px 0 0;
+  z-index: 1;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--neutral-500);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton:hover {
+  background: var(--neutral-100);
+  color: var(--neutral-700);
+}
+
+.paymentContent {
+  padding: 2rem;
+}
+
+.paymentSummary {
+  margin-bottom: 1.5rem;
+}
+
+.planSummary {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--neutral-50);
+  border-radius: 8px;
+}
+
+.planSummary .planIcon {
+  width: 50px;
+  height: 50px;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.planDetails h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--neutral-900);
+}
+
+.planDetails p {
+  margin: 0;
+  color: var(--neutral-600);
+  font-size: 0.875rem;
+}
+
+.priceBreakdown {
+  margin-bottom: 1.5rem;
+}
+
+.priceRow,
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.priceRow {
+  color: var(--neutral-600);
+  font-size: 0.875rem;
+}
+
+.totalRow {
+  border-top: 1px solid var(--neutral-200);
+  padding-top: 1rem;
+  font-weight: 600;
+  color: var(--neutral-900);
+}
+
+.totalAmount {
+  font-size: 1.125rem;
+  color: var(--primary-blue);
+}
+
+.featurePreview {
+  background: var(--neutral-50);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.featurePreview h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--neutral-700);
+}
+
+.featurePreview ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.featurePreview li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--neutral-600);
+}
+
+.paymentSecurity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--neutral-50);
+  border-radius: 8px;
+  color: var(--neutral-600);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.paymentLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  color: var(--neutral-600);
+  font-size: 0.875rem;
+}
+
+.modalActions {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--neutral-200);
+  display: flex;
+  gap: 1rem;
+}
+
+.payNowButton,
+.downloadInvoiceButton {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.payNowButton:hover:not(:disabled),
+.downloadInvoiceButton:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.payNowButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cancelButton,
+.closeModalButton {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--neutral-300);
+  background: white;
+  color: var(--neutral-700);
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelButton:hover,
+.closeModalButton:hover {
+  background: var(--neutral-50);
+  border-color: var(--neutral-400);
+}
+
+/* Invoice Modal Specific Styles */
+.invoiceContent {
+  padding: 2rem;
+}
+
+.invoiceHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--neutral-200);
+}
+
+.invoiceHeader h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+}
+
+.invoiceHeader p {
+  margin: 0;
+  color: var(--neutral-600);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.invoiceDetails,
+.customerDetails,
+.planDetails,
+.priceBreakdown {
+  margin-bottom: 1.5rem;
+}
+
+.invoiceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--neutral-100);
+}
+
+.customerDetails h4,
+.planDetails h4,
+.priceBreakdown h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--neutral-800);
+}
+
+.invoiceFooter {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--neutral-200);
+}
+
+.invoiceFooter p {
+  margin: 0 0 0.5rem 0;
+  color: var(--neutral-600);
+}
+
+.footerNote {
+  font-size: 0.75rem;
+  color: var(--neutral-500);
+  font-style: italic;
+  margin-top: 1rem !important;
+}
+
+/* Loading State */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 1rem;
+  background: var(--neutral-50);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--neutral-200);
+  border-left: 4px solid var(--primary-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loadingContainer p {
+  color: var(--neutral-600);
+  font-size: 1rem;
+}
+/* Currency Toggle Styles */
+.currencyToggle {
+  display: flex;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+  border: 1px solid #e5e7eb;
+}
+
+.toggleButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: #6b7280;
+}
+
+.toggleButton.active {
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.toggleButton:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.5);
+  color: #374151;
+}
+
+.toggleButton svg {
+  font-size: 12px;
+}
+
+/* Header Controls Layout */
+.headerControls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.invoiceButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #059669;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.invoiceButton:hover {
+  background: #047857;
+}
+
+/* Rest of your existing styles remain the same */
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .plansGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .planCard {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerMain {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .headerControls {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .planStatusHeader {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+
+  .planStats {
+    align-items: stretch;
+  }
+
+  .progressSection {
+    width: 100%;
+  }
+
+  .planActions {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .upgradeButton {
+    justify-content: center;
+  }
+
+  .plansGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .planCard {
+    padding: 1.5rem;
+  }
+
+  .main {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .currentPlanCard,
+  .historyCard {
+    padding: 1.5rem;
+  }
+
+  .modalHeader {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .paymentContent,
+  .invoiceContent {
+    padding: 1.5rem;
+  }
+
+  .modalActions {
+    padding: 1.25rem 1.5rem;
+    flex-direction: column;
+  }
+
+  .payNowButton,
+  .downloadInvoiceButton,
+  .cancelButton,
+  .closeModalButton {
+    flex: none;
+  }
+}
+
+@media (max-width: 1390px) {
+  .pageSubtitle {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 480px) {
+  .headerContent {
+    padding: 0 1rem;
+  }
+
+  .plansSection {
+    max-width: 800px;
+  }
+
+  .pageTitle {
+    font-size: 1.75rem;
+  }
+
+  .pageSubtitle {
+    font-size: 1rem;
+  }
+
+  .headerControls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .invoiceButton {
+    justify-content: center;
+  }
+
+  .currencySelector {
+    justify-content: center;
+  }
+
+  .planInfo {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .planIcon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+
+  .availableConnects {
+    font-size: 2rem;
+  }
+
+  .planCard {
+    padding: 1.25rem;
+  }
+
+  .planIcon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .connectsCount {
+    font-size: 2.5rem;
+  }
+
+  .priceAmount {
+    font-size: 2rem;
+  }
+
+  .historyItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    text-align: left;
+  }
+
+  .connectChange {
+    align-self: flex-end;
+  }
+
+  .paymentModal,
+  .invoiceModal {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+  }
+}

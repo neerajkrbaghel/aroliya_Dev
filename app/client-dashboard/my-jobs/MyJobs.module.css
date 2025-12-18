@@ -1,0 +1,675 @@
+/* MyJobs.module.css */
+
+/* Base Styles */
+.myJobs {
+  padding: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.headerContent {
+  margin-bottom: 1.5rem;
+}
+
+.headerContent h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin: 0 0 0.5rem 0;
+}
+
+.headerContent p {
+  color: #6b7280;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.headerActions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 968px) {
+  .headerActions {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Currency Section */
+.currencySection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+@media (min-width: 768px) {
+  .currencySection {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.currencyInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.currencyDisplay {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.currencyLabel {
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.currencyValue {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  background: #eff6ff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.currencyIcon {
+  font-size: 1.25rem;
+}
+
+.exchangeRate {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.currencyToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.currencyToggle:hover {
+  background: #2563eb;
+}
+
+/* Post Job Button */
+.postJobBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.postJobBtn:hover {
+  background: #059669;
+}
+
+/* Stats Overview */
+.statsOverview {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .statsOverview {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .statsOverview {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.statCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  transition: transform 0.2s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+}
+
+.statIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.statContent {
+  flex: 1;
+}
+
+.statContent h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin: 0;
+  line-height: 1;
+}
+
+.statContent p {
+  color: #6b7280;
+  font-size: 0.8rem;
+  margin: 0.5rem 0 0 0;
+}
+
+/* Quick Converter */
+.quickConverter {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.converterHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.converterHeader h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rateBadge {
+  background: #d1fae5;
+  color: #065f46;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.converterBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.conversionExample {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.conversionFrom,
+.conversionTo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.conversionAmount {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+.conversionArrow {
+  color: #6b7280;
+  font-size: 1.25rem;
+}
+
+.converterTips {
+  padding: 1rem;
+  background: #fef3c7;
+  border-radius: 8px;
+  border: 1px solid #fde68a;
+}
+
+.converterTips p {
+  margin: 0;
+  color: #92400e;
+  font-size: 0.875rem;
+}
+
+/* Filters and Search */
+.filtersSection {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+@media (min-width: 640px) {
+  .filtersSection {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.searchBox {
+  flex: 1;
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 3rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  background: white;
+  color: #374151;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .filterGroup {
+    width: auto;
+  }
+}
+
+.filterIcon {
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.filterSelect {
+  flex: 1;
+  padding: 0.875rem 1rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: white;
+  color: #374151;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Jobs Section */
+.jobsSection {
+  margin-bottom: 2rem;
+}
+
+.jobsGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 968px) {
+  .jobsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1410px) {
+  .jobsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Job Card */
+.jobCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.jobHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.jobTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.statusBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.jobDescription {
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+
+.jobMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  border-top: 1px solid #f3f4f6;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.currencyIconSmall {
+  font-size: 0.875rem;
+  color: #3b82f6;
+}
+
+.originalAmount {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-left: 0.25rem;
+  opacity: 0.7;
+}
+
+.skillsSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skillTag {
+  background: #eff6ff;
+  color: #1e40af;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.moreSkills,
+.noSkills {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.jobActions {
+  display: flex;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  color: #4b5563;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.actionBtn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.deleteBtn {
+  border-color: #fca5a5;
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+.deleteBtn:hover {
+  background: #fee2e2;
+  border-color: #f87171;
+}
+
+/* Empty State */
+.emptyState {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  color: #d1d5db;
+  margin-bottom: 1rem;
+}
+
+.emptyState h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 0.5rem 0;
+}
+
+.emptyState p {
+  color: #6b7280;
+  margin: 0 0 1.5rem 0;
+}
+
+/* Loading and Error States */
+.loadingState,
+.errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.errorIcon {
+  font-size: 3rem;
+  color: #dc2626;
+  margin-bottom: 1rem;
+}
+
+.errorActions {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.retryBtn,
+.debugBtn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.retryBtn {
+  background: #3b82f6;
+  color: white;
+}
+
+.retryBtn:hover {
+  background: #2563eb;
+}
+
+.debugBtn {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.debugBtn:hover {
+  background: #e5e7eb;
+}
+
+.debugInfo {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: left;
+  max-width: 600px;
+  margin-top: 1.5rem;
+}
+
+.debugInfo p {
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+  color: #374151;
+}
+
+.debugInfo ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #6b7280;
+}
+
+.debugInfo li {
+  margin-bottom: 0.25rem;
+}

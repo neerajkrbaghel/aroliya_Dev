@@ -1,0 +1,147 @@
+.trustedSection {
+  padding: 50px 0 0;
+  background: #f6faff;
+  position: relative;
+  overflow: hidden;
+}
+
+.trustedContainer {
+  margin: 0 auto;
+}
+
+/* Header Section */
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.trustedTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.trustedSubtitle {
+  font-size: 1.1rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+/* Trust Metrics */
+.trustMetrics {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.metric {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #475569;
+  font-weight: 500;
+}
+
+.metricIcon {
+  color: #2563eb;
+  font-size: 1.1rem;
+}
+
+
+
+/* Logo Slider */
+.logoSliderContainer {
+  position: relative;
+  overflow: hidden;
+  padding: 40px 0;
+}
+
+.logoSlider {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  width: max-content;
+}
+
+.logoItem {
+  padding: 20px 30px;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logoItem:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.companyLogo {
+  height: 70px;
+  width: auto;
+  transition: all 0.3s ease;
+}
+
+.logoItem:hover .companyLogo {
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .trustedSection {
+    padding: 60px 0;
+  }
+
+  .trustedTitle {
+    font-size: 2rem;
+  }
+
+  .trustedSubtitle {
+    font-size: 1rem;
+  }
+
+  .trustMetrics {
+    gap: 20px;
+  }
+
+  .metric {
+    font-size: 0.9rem;
+  }
+
+  .logoSlider {
+    gap: 40px;
+  }
+
+  .logoItem {
+    padding: 15px 25px;
+  }
+
+  .companyLogo {
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .trustedTitle {
+    font-size: 1.8rem;
+  }
+
+  .trustMetrics {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .logoSlider {
+    gap: 30px;
+  }
+
+  .logoItem {
+    padding: 12px 20px;
+  }
+
+  .companyLogo {
+    height: 25px;
+  }
+}

@@ -1,0 +1,1232 @@
+/* app/services/travel-bookings/TravelBookings.module.css */
+
+.travelBookingContainer {
+  background: #ffffff;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Hero Section */
+.heroSection {
+  padding: 140px 5% 100px;
+  background: #0f172a;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.heroText {
+  color: white;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #3b82f6;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.badgeIcon {
+  font-size: 1rem;
+}
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+.highlight {
+  color: #f59e0b;
+}
+
+.heroDescription {
+  font-size: 1rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.heroStats {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.stat {
+  text-align: center;
+}
+
+.statNumber {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f59e0b;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.heroCta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ctaButtonPrimary {
+  background: #f59e0b;
+  color: #1e293b;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.ctaButtonPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+  background: #d97706;
+}
+
+.ctaButtonSecondary {
+  background: transparent;
+  color: white;
+  border: 2px solid #475569;
+  padding: 16px 32px;
+  border-radius: 12px;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.ctaButtonSecondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #f59e0b;
+  transform: translateY(-2px);
+}
+
+.heroGraphics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.graphicCard {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2.5rem 1.5rem;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.graphicCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #f59e0b;
+}
+
+.graphicCard:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.graphicIconWrapper {
+  width: 70px;
+  height: 70px;
+  background: #f59e0b;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.graphicIcon {
+  font-size: 2rem;
+  color: white;
+}
+
+.graphicCard h4 {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+}
+
+.graphicCard p {
+  color: #94a3b8;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* Section Headers */
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
+}
+
+.sectionBadge {
+  display: inline-block;
+  background: #3b82f6;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.sectionSubtitle {
+  font-size: 1.125rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Currency Toggle */
+.currencyToggle {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.currencyButton {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.currencyButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  background: #2563eb;
+}
+
+.currencyNote {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* Services Section */
+.servicesSection {
+  padding: 70px 5%;
+  background: #f8fafc;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.serviceCard {
+  background: white;
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.serviceCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #3b82f6;
+}
+
+.serviceCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+}
+
+.serviceIconContainer {
+  width: 90px;
+  height: 90px;
+  background: #f8fafc;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  border: 1px solid #e2e8f0;
+}
+
+.serviceIcon {
+  font-size: 2.25rem;
+  color: #3b82f6;
+}
+
+.serviceCard h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.serviceCard p {
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.servicePrice {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #059669;
+  margin-bottom: 2rem;
+}
+
+.serviceFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem 0;
+  text-align: left;
+}
+
+.serviceFeatures li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.checkmark {
+  color: #059669;
+  flex-shrink: 0;
+}
+
+.serviceButton {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.serviceButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+  background: #2563eb;
+}
+
+/* Travel Types Section */
+.travelTypesSection {
+  padding: 70px 5%;
+  background: white;
+}
+
+.travelTypesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.travelTypeCard {
+  background: white;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
+}
+
+.travelTypeCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: #e2e8f0;
+}
+
+.travelTypeIconContainer {
+  width: 80px;
+  height: 80px;
+  background: #fef3c7;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.travelTypeIcon {
+  font-size: 2rem;
+  color: #d97706;
+}
+
+.travelTypeCard h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.travelTypeCard p {
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.travelTypePrice {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #059669;
+  margin-bottom: 1.5rem;
+}
+
+.travelTypeButton {
+  background: transparent;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.travelTypeButton:hover {
+  background: #3b82f6;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Destinations Section */
+.destinationsSection {
+  padding: 70px 5%;
+  background: #f8fafc;
+}
+
+.destinationsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.destinationCard {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.destinationCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.destinationIconContainer {
+  position: relative;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.destinationIcon {
+  font-size: 3.5rem;
+  color: #3b82f6;
+  margin-bottom: 1rem;
+}
+
+.destinationType {
+  background: #3b82f6;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.destinationInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.destinationInfo h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.destinationHighlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.highlightTag {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.destinationMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.duration {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.starRating {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.starFilled {
+  color: #f59e0b;
+}
+
+.starEmpty {
+  color: #e2e8f0;
+}
+
+.destinationPrice {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #059669;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.destinationPrice span {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 400;
+}
+
+/* Process Section */
+.processSection {
+  padding: 70px 5%;
+  background: white;
+}
+
+.processSteps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 0 auto;
+}
+
+.processCard {
+  background: white;
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f1f5f9;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.processCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.stepNumber {
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3rem;
+  height: 3rem;
+  background: #f59e0b;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  border: 4px solid white;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.stepIconWrapper {
+  width: 90px;
+  height: 90px;
+  background: #f8fafc;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.stepIcon {
+  font-size: 2.25rem;
+  color: #3b82f6;
+}
+
+.stepTitle {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.stepDescription {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Testimonials Section */
+/* Testimonials Section with Smooth Animation */
+.testimonialsSection {
+  padding: 70px 5%;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.reviewsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  position: relative;
+}
+
+.navButton {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  z-index: 2;
+}
+
+.navButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+  background: #2563eb;
+}
+
+.reviewsSlider {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.reviewsTrack {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.testimonialSlide {
+  flex: 0 0 50%;
+  padding: 0 1rem;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.testimonialCard {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonialCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.testimonialCard:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: #3b82f6;
+  transform: translateY(-5px);
+}
+
+.testimonialCard:hover::before {
+  opacity: 1;
+}
+
+.testimonialRating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.testimonialContent {
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.testimonialContent p {
+  color: #475569;
+  line-height: 1.6;
+  font-style: italic;
+  margin: 0;
+  font-size: 1.125rem;
+  position: relative;
+}
+
+.testimonialContent p::before {
+  content: '"';
+  font-size: 3rem;
+  color: #3b82f6;
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  opacity: 0.3;
+  font-family: serif;
+}
+
+.testimonialFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.testimonialAuthor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+.authorImage {
+  width: 60px;
+  height: 60px;
+  background: rgb(0, 0, 0);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.authorInfo h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 0.25rem 0;
+}
+
+.authorInfo p {
+  color: #64748b;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.reviewIndicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.indicator::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+.indicator:hover::before {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.indicator.active {
+  background: #3b82f6;
+  transform: scale(1.2);
+}
+
+.indicator.active::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  border: 2px solid #3b82f6;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Enhanced responsive design for testimonials */
+@media (max-width: 1024px) {
+  .testimonialSlide {
+    flex: 0 0 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviewsContainer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .navButton {
+    order: 2;
+    margin-top: 1rem;
+  }
+
+  .reviewsSlider {
+    order: 1;
+    width: 100%;
+  }
+
+  .testimonialSlide {
+    flex: 0 0 100%;
+    padding: 0 0.5rem;
+  }
+
+  .testimonialCard {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonialCard {
+    padding: 1.5rem;
+  }
+
+  .testimonialContent p {
+    font-size: 1rem;
+  }
+
+  .authorImage {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+
+  .reviewIndicators {
+    gap: 0.5rem;
+  }
+}
+
+/* Feature Item Styles */
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  color: #475569;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.checkmark {
+  color: #059669;
+  flex-shrink: 0;
+  font-size: 0.875rem;
+}
+
+.crossmark {
+  color: #dc2626;
+  flex-shrink: 0;
+  font-size: 0.875rem;
+}
+
+/* Star Rating Styles */
+.starRating {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.starFilled {
+  color: #f59e0b;
+}
+
+.starEmpty {
+  color: #e2e8f0;
+}
+/* CTA Section */
+.ctaSection {
+  padding: 70px 5%;
+  background: #0f172a;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaContent {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ctaContent h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+.ctaContent p {
+  font-size: 1.25rem;
+  color: #cbd5e1;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .heroContent {
+    gap: 3rem;
+  }
+
+  .heroTitle {
+    font-size: 3rem;
+  }
+
+  .sectionTitle {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 120px 5% 80px;
+  }
+
+  .heroContent {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroStats {
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .heroGraphics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sectionTitle {
+    font-size: 2.25rem;
+  }
+
+  .servicesGrid,
+  .travelTypesGrid,
+  .destinationsGrid,
+  .processSteps {
+    grid-template-columns: 1fr;
+  }
+
+  .reviewsContainer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .navButton {
+    order: 2;
+    margin-top: 1rem;
+  }
+
+  .reviewsFlexContainer {
+    order: 1;
+  }
+
+  .reviewsFlex {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .testimonialCard {
+    min-width: 300px;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ctaButtonPrimary,
+  .ctaButtonSecondary {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroDescription {
+    font-size: 1.125rem;
+  }
+
+  .heroStats {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .heroGraphics {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .serviceCard,
+  .travelTypeCard,
+  .destinationCard,
+  .processCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .ctaContent h2 {
+    font-size: 2.5rem;
+  }
+} /* Add these styles to your existing CSS file */
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.checkmark {
+  color: #059669;
+  flex-shrink: 0;
+  font-size: 0.875rem;
+}
+
+.crossmark {
+  color: #dc2626;
+  flex-shrink: 0;
+  font-size: 0.875rem;
+}
+
+/* Service Features */
+.serviceFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem 0;
+  text-align: left;
+}
+
+/* Travel Type Features */
+.travelTypeFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  text-align: left;
+}
+
+/* Destination Highlights */
+.destinationHighlights {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  text-align: left;
+}
+
+/* Step Features */
+.stepFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0 0;
+  text-align: left;
+}
+
+/* Testimonial Features */
+.testimonialFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0 0;
+  text-align: left;
+}

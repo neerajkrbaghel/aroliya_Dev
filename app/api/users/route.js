@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const users = await prisma.user.findMany({
       include: {
-        profile: true,
+        userprofile: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -26,14 +26,14 @@ export async function GET() {
           registrationMethod: user.registrationMethod,
           createdAt: user.createdAt,
           lastLogin: user.lastLogin,
-          profile: user.profile
+          userprofile: user.profile
             ? {
-                phoneNumber: user.profile.phoneNumber,
-                title: user.profile.title,
-                bio: user.profile.bio,
-                location: user.profile.location,
-                available: user.profile.available,
-              }
+              phoneNumber: user.profile.phoneNumber,
+              title: user.profile.title,
+              bio: user.profile.bio,
+              location: user.profile.location,
+              available: user.profile.available,
+            }
             : null,
         })),
       }),
@@ -106,11 +106,11 @@ export async function POST(request) {
         registrationMethod: "email", // Track registration method
       },
       include: {
-        profile: true,
+        userprofile: true,
       },
     });
 
-    // Create user profile
+    // Create useruserprofile
     await prisma.userProfile.create({
       data: {
         userId: newUser.id,
@@ -118,8 +118,8 @@ export async function POST(request) {
           role === "freelancer"
             ? "Freelancer"
             : role === "client"
-            ? "Client"
-            : "User",
+              ? "Client"
+              : "User",
         bio: "New user",
         available: role === "freelancer",
       },

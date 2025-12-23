@@ -1,9 +1,9 @@
 // app/api/admin/payout-requests/route.js
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+// import { Prisma } from "@prisma/client";
 
-const prisma = new PrismaClient();
-
+// const prisma = new Prisma();
+import { prisma } from "../../../../lib/prisma";
 // GET all payout requests for admin
 export async function GET(request) {
   try {
@@ -129,9 +129,8 @@ export async function PUT(request) {
             where: { id: debitTransaction.id },
             data: {
               status: "completed",
-              description: `Payout to ${
-                payoutRequest.bankDetail.bankName
-              } - ****${payoutRequest.bankDetail.accountNumber.slice(-4)}`,
+              description: `Payout to ${payoutRequest.bankDetail.bankName
+                } - ****${payoutRequest.bankDetail.accountNumber.slice(-4)}`,
             },
           });
         }
@@ -155,9 +154,8 @@ export async function PUT(request) {
           data: {
             amount: payoutRequest.amount,
             type: "credit",
-            description: `Refund: Payout request rejected - ${
-              payoutRequest.bankDetail.bankName
-            } - ****${payoutRequest.bankDetail.accountNumber.slice(-4)}`,
+            description: `Refund: Payout request rejected - ${payoutRequest.bankDetail.bankName
+              } - ****${payoutRequest.bankDetail.accountNumber.slice(-4)}`,
             status: "completed",
             walletId: payoutRequest.walletId,
           },
@@ -169,11 +167,10 @@ export async function PUT(request) {
             where: { id: debitTransaction.id },
             data: {
               status: "rejected",
-              description: `Failed payout to ${
-                payoutRequest.bankDetail.bankName
-              } - ****${payoutRequest.bankDetail.accountNumber.slice(
-                -4
-              )} (Rejected: ${adminNotes || "No reason provided"})`,
+              description: `Failed payout to ${payoutRequest.bankDetail.bankName
+                } - ****${payoutRequest.bankDetail.accountNumber.slice(
+                  -4
+                )} (Rejected: ${adminNotes || "No reason provided"})`,
             },
           });
         }
@@ -188,11 +185,10 @@ export async function PUT(request) {
             where: { id: debitTransaction.id },
             data: {
               status: "approved",
-              description: `Approved payout to ${
-                payoutRequest.bankDetail.bankName
-              } - ****${payoutRequest.bankDetail.accountNumber.slice(
-                -4
-              )} (Processing)`,
+              description: `Approved payout to ${payoutRequest.bankDetail.bankName
+                } - ****${payoutRequest.bankDetail.accountNumber.slice(
+                  -4
+                )} (Processing)`,
             },
           });
         }
@@ -203,9 +199,8 @@ export async function PUT(request) {
 
     let message = "Payout request status updated successfully";
     if (status === "rejected") {
-      message = `Payout request rejected and amount refunded to wallet. Reason: ${
-        adminNotes || "No reason provided"
-      }`;
+      message = `Payout request rejected and amount refunded to wallet. Reason: ${adminNotes || "No reason provided"
+        }`;
     } else if (status === "completed") {
       message = "Payout completed successfully";
     } else if (status === "approved") {

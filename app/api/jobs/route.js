@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
+
 
 // GET - Fetch jobs with filtering and pagination
 export async function GET(request) {
@@ -89,16 +91,15 @@ export async function GET(request) {
     console.log("📊 Prisma OrderBy:", orderBy);
 
     // Get total count first
-    const totalCount = await prisma.jobPost.count({ where });
+    const totalCount = await prisma.JobPost.count({ where });
     console.log("📈 Total jobs count:", totalCount);
 
-    // Fetch jobs with related data
-    const jobs = await prisma.jobPost.findMany({
+    const jobs = await prisma.JobPost.findMany({
       where,
       include: {
         _count: {
           select: {
-            proposals: true,
+            proposal: true,
           },
         },
         user: {
@@ -111,16 +112,15 @@ export async function GET(request) {
                 avatar: true,
               },
             },
-            reviewsReceived: {
+            review: {
               select: {
                 rating: true,
               },
             },
           },
         },
-        // Include saved jobs if userId is provided
         ...(userId && {
-          savedJobs: {
+          SavedJob: {
             where: {
               userId: parseInt(userId),
             },
@@ -136,14 +136,30 @@ export async function GET(request) {
     });
 
     console.log("✅ Jobs found:", jobs.length);
+    const jobsWithExtra = jobs.map((job) => {
+      const reviews = job.user.review || [];
+
+      const avgRating =
+        reviews.length > 0
+          ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+          : 0;
+
+      const isSaved = job.SavedJob?.length > 0;
+
+      return {
+        ...job,
+        isSaved,
+        avgRating: Math.round(avgRating * 10) / 10,
+      };
+    });
 
     // Calculate average ratings for clients and add isSaved flag
     const jobsWithClientRating = jobs.map((job) => {
-      const reviews = job.user.reviewsReceived || [];
+      const reviews = job.user.reviewReceived || [];
       const avgRating =
         reviews.length > 0
           ? reviews.reduce((sum, review) => sum + review.rating, 0) /
-            reviews.length
+          reviews.length
           : 0;
 
       let skills = [];
@@ -158,7 +174,7 @@ export async function GET(request) {
 
       // Check if job is saved by user
       const isSaved = userId
-        ? job.savedJobs && job.savedJobs.length > 0
+        ? job.SavedJobs && job.SavedJobs.length > 0
         : false;
 
       return {
@@ -173,8 +189,8 @@ export async function GET(request) {
         createdAt: job.createdAt.toISOString(),
         updatedAt: job.updatedAt.toISOString(),
         deadline: job.deadline.toISOString(),
-        // Remove savedJobs from response to avoid duplication
-        savedJobs: undefined,
+        // Remove SavedJobs from response to avoid duplication
+        SavedJobs: undefined,
       };
     });
 
@@ -288,7 +304,7 @@ export async function POST(request) {
     }
 
     // Create the job post
-    const job = await prisma.jobPost.create({
+    const job = await prisma.JobPost.create({
       data: {
         title: title.trim(),
         description: description.trim(),
@@ -402,7 +418,7 @@ export async function PUT(request) {
       updateData.skills = JSON.stringify(updateData.skills);
     }
 
-    const updatedJob = await prisma.jobPost.update({
+    const updatedJob = await prisma.JobPost.update({
       where: { id: parseInt(jobId) },
       data: updateData,
       include: {
@@ -483,7 +499,7 @@ export async function DELETE(request) {
 
     console.log("🗑️ Deleting job:", jobId);
 
-    await prisma.jobPost.delete({
+    await prisma.JobPost.delete({
       where: { id: parseInt(jobId) },
     });
 

@@ -13,9 +13,9 @@ export async function GET(request) {
 
     if (!userId) {
       return NextResponse.json(
-        { 
+        {
           success: false,
-          error: 'User ID is required' 
+          error: 'User ID is required'
         },
         { status: 400 }
       );
@@ -29,7 +29,7 @@ export async function GET(request) {
       include: {
         _count: {
           select: {
-            proposals: true
+            proposal: true
           }
         }
       },
@@ -51,7 +51,7 @@ export async function GET(request) {
         console.error('Error parsing skills for job', job.id, error);
         skills = [];
       }
-      
+
       return {
         ...job,
         skills,
@@ -61,18 +61,18 @@ export async function GET(request) {
       };
     });
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       success: true,
-      jobs: jobsWithParsedSkills 
+      jobs: jobsWithParsedSkills
     });
-    
+
   } catch (error) {
     console.error('❌ Get my jobs error:', error);
     return NextResponse.json(
-      { 
+      {
         success: false,
         error: 'Failed to fetch jobs',
-        details: error.message 
+        details: error.message
       },
       { status: 500 }
     );

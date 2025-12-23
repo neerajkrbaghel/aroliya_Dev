@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma"; // MUST BE DEFAULT IMPORT
+import { prisma } from "@/lib/prisma"; // MUST BE DEFAULT IMPORT
 
 export async function POST(req) {
   try {
@@ -52,7 +52,7 @@ export async function PATCH(req) {
     const { id, status } = await req.json();
 
     if (!id || !status) {
-      return NextResponse.json({ success:false, msg:"Missing id or status" });
+      return NextResponse.json({ success: false, msg: "Missing id or status" });
     }
 
     const updated = await prisma.WebDev.update({
@@ -60,8 +60,8 @@ export async function PATCH(req) {
       data: { status }
     });
 
-    return NextResponse.json({ success:true, msg:"Status updated", updated });
+    return NextResponse.json({ success: true, msg: "Status updated", updated });
   } catch (err) {
-    return NextResponse.json({ success:false, error:err.message });
+    return NextResponse.json({ success: false, error: err.message });
   }
 }

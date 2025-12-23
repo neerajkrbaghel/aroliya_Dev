@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 import { uploadToCloudinary } from "@/lib/upload-cloud";
+import { prisma } from "@/lib/prisma";
 
-
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 export async function POST(request) {
   try {
@@ -94,7 +94,7 @@ export async function POST(request) {
     // Create project with transaction
     const result = await prisma.$transaction(async (tx) => {
       // Create the main project
-      const project = await tx.manualProject.create({
+      const project = await tx.project.create({
         data: {
           title: projectData.title.trim(),
           description: projectData.description.trim(),
@@ -144,7 +144,7 @@ export async function POST(request) {
 
       // Save file metadata to database
       if (attachmentsData.length > 0) {
-        await tx.manualProjectAttachment.createMany({
+        await tx.projectAttachment.createMany({
           data: attachmentsData,
         });
       }
@@ -153,25 +153,34 @@ export async function POST(request) {
     });
 
     // Fetch the complete project with attachments
-    const completeProject = await prisma.manualProject.findUnique({
+    const completeproject = await prisma.project.findMany({
       where: { id: result.id },
       include: {
         attachments: true,
+        conversation: true,
+        review: true,
+        user_project_clientIdTouser: true,
+        user_project_freelancerIdTouser: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
+      skip,
+      take: limit,
     });
 
     // Parse skills back to array for response
     const projectWithParsedSkills = {
-      ...completeProject,
-      skills: JSON.parse(completeProject.skills || "[]"),
+      ...completeproject,
+      skills: JSON.parse(completeproject.skills || "[]"),
     };
 
-    console.log("Project created successfully:", completeProject.id);
+    console.log("project created successfully:", completeproject.id);
 
     return NextResponse.json({
       success: true,
       project: projectWithParsedSkills,
-      message: "Project created successfully",
+      message: "project created successfully",
     });
   } catch (error) {
     console.error("Error creating project:", error);
@@ -206,8 +215,8 @@ export async function GET(request) {
     const limit = parseInt(searchParams.get("limit")) || 10;
     const skip = (page - 1) * limit;
 
-    const [projects, total] = await Promise.all([
-      prisma.manualProject.findMany({
+    const [project, total] = await Promise.all([
+      prisma.project.findMany({
         include: {
           attachments: true,
         },
@@ -217,18 +226,18 @@ export async function GET(request) {
         skip,
         take: limit,
       }),
-      prisma.manualProject.count(),
+      prisma.project.count(),
     ]);
 
     // Parse skills for each project
-    const projectsWithParsedSkills = projects.map((project) => ({
+    const projectWithParsedSkills = project.map((project) => ({
       ...project,
       skills: JSON.parse(project.skills || "[]"),
     }));
 
     return NextResponse.json({
       success: true,
-      projects: projectsWithParsedSkills,
+      project: projectWithParsedSkills,
       pagination: {
         page,
         limit,
@@ -237,10 +246,10 @@ export async function GET(request) {
       },
     });
   } catch (error) {
-    console.error("Error fetching projects:", error);
+    console.error("Error fetching project:", error);
 
     return NextResponse.json(
-      { success: false, error: "Failed to fetch projects" },
+      { success: false, error: "Failed to fetch project" },
       { status: 500 }
     );
   } finally {

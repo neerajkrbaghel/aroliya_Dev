@@ -16,7 +16,7 @@ export async function POST(request) {
       );
     }
 
-    // Check if application already exists for this email and job
+    // Check if Application already exists for this email and job
     // Use findFirst with the composite unique constraint
     const existingApplication = await prisma.jobApplication.findFirst({
       where: {
@@ -50,7 +50,7 @@ export async function POST(request) {
     const job = jobs.find((j) => j.id === jobId);
     const jobTitle = job ? job.title : "Unknown Job";
 
-    // Create job application
+    // Create job Application
     const jobApplication = await prisma.jobApplication.create({
       data: {
         name,
@@ -74,7 +74,7 @@ export async function POST(request) {
       data: jobApplication,
     });
   } catch (error) {
-    console.error("Error creating job application:", error);
+    console.error("Error creating job Application:", error);
 
     // Handle Prisma unique constraint violation error
     if (error.code === "P2002") {
@@ -85,7 +85,7 @@ export async function POST(request) {
     }
 
     return NextResponse.json(
-      { error: "Failed to submit application" },
+      { error: "Failed to submit Application" },
       { status: 500 }
     );
   }
@@ -107,7 +107,7 @@ export async function GET(request) {
       whereClause.email = email;
     }
 
-    const applications = await prisma.jobApplication.findMany({
+    const Applications = await prisma.jobApplication.findMany({
       where: whereClause,
       orderBy: {
         createdAt: "desc",
@@ -116,13 +116,13 @@ export async function GET(request) {
 
     return NextResponse.json({
       success: true,
-      count: applications.length,
-      data: applications,
+      count: Applications.length,
+      data: Applications,
     });
   } catch (error) {
-    console.error("Error fetching job applications:", error);
+    console.error("Error fetching job Applications:", error);
     return NextResponse.json(
-      { error: "Failed to fetch applications" },
+      { error: "Failed to fetch Applications" },
       { status: 500 }
     );
   }

@@ -1,7 +1,11 @@
 export const dynamic = "force-dynamic";
+
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
+/* =========================
+   GET USERS
+========================= */
 export async function GET() {
   try {
     const users = await prisma.user.findMany({
@@ -38,13 +42,20 @@ export async function GET() {
     });
   } catch (error) {
     console.error("GET users error:", error);
+
     return Response.json(
-      { success: false, error: error.message },
+      {
+        success: false,
+        error: error.message,
+      },
       { status: 500 }
     );
   }
 }
 
+/* =========================
+   CREATE USER
+========================= */
 export async function POST(request) {
   try {
     const { name, email, password, role } = await request.json();
@@ -107,17 +118,16 @@ export async function POST(request) {
       },
       { status: 201 }
     );
-  }catch (error) {
-  console.error("GET users error:", error);
+  } catch (error) {
+    console.error("POST user error:", error);
 
-  return Response.json(
-    {
-      success: false,
-      error: error.message,
-      stack: error.stack,
-    },
-    { status: 500 }
-  );
+    return Response.json(
+      {
+        success: false,
+        error: error.message,
+        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+      },
+      { status: 500 }
+    );
+  }
 }
-}
-  

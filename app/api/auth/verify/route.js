@@ -83,7 +83,7 @@ export async function GET(request) {
         role: true,
         status: true,
         avatar: true,
-        profile: true,
+        userprofile: true,
       },
     });
 

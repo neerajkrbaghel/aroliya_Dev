@@ -107,11 +107,18 @@ export async function POST(request) {
       },
       { status: 201 }
     );
-  } catch (error) {
-    console.error("POST user error:", error);
-    return Response.json(
-      { success: false, error: error.message },
-      { status: 500 }
-    );
+  }catch (error) {
+  console.error("GET users error:", error);
+
+  return Response.json(
+    {
+      success: false,
+      error: error.message,
+      stack: error.stack,
+    },
+    { status: 500 }
+  );
+}
+
   }
 }

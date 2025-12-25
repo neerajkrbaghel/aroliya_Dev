@@ -35,12 +35,12 @@ model User {
   reviewsReceived           Review[]             @relation("ReviewReceived")
   reviewsGiven              Review[]             @relation("ReviewGiven")
   transactions              Transaction[]
-  userprofile                   UserProfile?
+  userprofile               UserProfile?
   connecttransaction        connecttransaction[]
   plansubscription          plansubscription[]
   clientRefunds             RefundRequest[]      @relation("ClientRefunds")
   freelancerRefunds         RefundRequest[]      @relation("FreelancerRefunds")
- savedjob                   savedjob[]
+  savedjob                  savedjob[]
   userPlan                  UserPlan?
   readMessages              Message[]            @relation("MessageReads")
 }
@@ -52,12 +52,12 @@ model ContactSubmission {
   email     String?   @db.VarChar(255)
   phone     String?   @db.VarChar(20)
   message   String?   @db.Text
-   status    String   @default("new")  // Add this
   type      String?   @db.VarChar(50)
   createdAt DateTime? @default(now()) @db.DateTime(0)
   updatedAt DateTime? @default(now()) @updatedAt @db.DateTime(0)
   service   String?   @db.VarChar(255)
   source    String?   @db.VarChar(100)
+  status    String    @default("new")
 }
 
 model Transaction {
@@ -117,8 +117,7 @@ model JobPost {
   messages        Message[]
   proposals       Proposal[]
   reviews         Review[]
- savedjob         savedjob[]
-
+  savedjob        savedjob[]
 
   @@index([userId], map: "JobPost_userId_fkey")
 }
@@ -392,7 +391,6 @@ model Project {
   clientId      Int
   freelancerId  Int?
   conversations Conversation[]
-  attachments  ManualProjectAttachment[]
   client        User           @relation("ClientProjects", fields: [clientId], references: [id], onDelete: Cascade)
   freelancer    User?          @relation("FreelancerProjects", fields: [freelancerId], references: [id], onDelete: Cascade)
   reviews       Review[]       @relation("ProjectReviews")
@@ -568,9 +566,8 @@ model savedjob {
   updatedAt DateTime @updatedAt
   userId    Int
   jobId     Int
-
-  job  JobPost @relation(fields: [jobId], references: [id], onDelete: Cascade)
-  user User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  job       JobPost  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, jobId])
   @@index([jobId])

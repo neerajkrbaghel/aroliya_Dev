@@ -1,16 +1,9 @@
 import { NextResponse } from "next/server";
-<<<<<<< HEAD
 // import { PrismaClient } from "@prisma/client";
 import { uploadToCloudinary } from "@/lib/upload-cloud";
 import { prisma } from "@/lib/prisma";
 
 // const prisma = new PrismaClient();
-=======
-import { PrismaClient } from "@prisma/client";
-import { uploadToS3 } from "@/lib/upload-cloud";
-
-const prisma = new PrismaClient();
->>>>>>> 744bd99 (Update code from new location)
 
 export async function POST(request) {
   try {
@@ -101,11 +94,7 @@ export async function POST(request) {
     // Create project with transaction
     const result = await prisma.$transaction(async (tx) => {
       // Create the main project
-<<<<<<< HEAD
       const project = await tx.project.create({
-=======
-      const project = await tx.manualProject.create({
->>>>>>> 744bd99 (Update code from new location)
         data: {
           title: projectData.title.trim(),
           description: projectData.description.trim(),
@@ -137,11 +126,7 @@ export async function POST(request) {
       for (const file of files) {
         if (file && file.size > 0) {
           try {
-<<<<<<< HEAD
             const fileUrl = await uploadToCloudinary(file);
-=======
-            const fileUrl = await uploadToS3(file);
->>>>>>> 744bd99 (Update code from new location)
 
             attachmentsData.push({
               name: file.name,
@@ -159,11 +144,7 @@ export async function POST(request) {
 
       // Save file metadata to database
       if (attachmentsData.length > 0) {
-<<<<<<< HEAD
         await tx.projectAttachment.createMany({
-=======
-        await tx.manualProjectAttachment.createMany({
->>>>>>> 744bd99 (Update code from new location)
           data: attachmentsData,
         });
       }
@@ -172,7 +153,6 @@ export async function POST(request) {
     });
 
     // Fetch the complete project with attachments
-<<<<<<< HEAD
     const completeproject = await prisma.project.findMany({
       where: { id: result.id },
       include: {
@@ -187,39 +167,20 @@ export async function POST(request) {
       },
       skip,
       take: limit,
-=======
-    const completeProject = await prisma.manualProject.findUnique({
-      where: { id: result.id },
-      include: {
-        attachments: true,
-      },
->>>>>>> 744bd99 (Update code from new location)
     });
 
     // Parse skills back to array for response
     const projectWithParsedSkills = {
-<<<<<<< HEAD
       ...completeproject,
       skills: JSON.parse(completeproject.skills || "[]"),
     };
 
     console.log("project created successfully:", completeproject.id);
-=======
-      ...completeProject,
-      skills: JSON.parse(completeProject.skills || "[]"),
-    };
-
-    console.log("Project created successfully:", completeProject.id);
->>>>>>> 744bd99 (Update code from new location)
 
     return NextResponse.json({
       success: true,
       project: projectWithParsedSkills,
-<<<<<<< HEAD
       message: "project created successfully",
-=======
-      message: "Project created successfully",
->>>>>>> 744bd99 (Update code from new location)
     });
   } catch (error) {
     console.error("Error creating project:", error);
@@ -254,13 +215,8 @@ export async function GET(request) {
     const limit = parseInt(searchParams.get("limit")) || 10;
     const skip = (page - 1) * limit;
 
-<<<<<<< HEAD
     const [project, total] = await Promise.all([
       prisma.project.findMany({
-=======
-    const [projects, total] = await Promise.all([
-      prisma.manualProject.findMany({
->>>>>>> 744bd99 (Update code from new location)
         include: {
           attachments: true,
         },
@@ -270,30 +226,18 @@ export async function GET(request) {
         skip,
         take: limit,
       }),
-<<<<<<< HEAD
       prisma.project.count(),
     ]);
 
     // Parse skills for each project
     const projectWithParsedSkills = project.map((project) => ({
-=======
-      prisma.manualProject.count(),
-    ]);
-
-    // Parse skills for each project
-    const projectsWithParsedSkills = projects.map((project) => ({
->>>>>>> 744bd99 (Update code from new location)
       ...project,
       skills: JSON.parse(project.skills || "[]"),
     }));
 
     return NextResponse.json({
       success: true,
-<<<<<<< HEAD
       project: projectWithParsedSkills,
-=======
-      projects: projectsWithParsedSkills,
->>>>>>> 744bd99 (Update code from new location)
       pagination: {
         page,
         limit,
@@ -302,17 +246,10 @@ export async function GET(request) {
       },
     });
   } catch (error) {
-<<<<<<< HEAD
     console.error("Error fetching project:", error);
 
     return NextResponse.json(
       { success: false, error: "Failed to fetch project" },
-=======
-    console.error("Error fetching projects:", error);
-
-    return NextResponse.json(
-      { success: false, error: "Failed to fetch projects" },
->>>>>>> 744bd99 (Update code from new location)
       { status: 500 }
     );
   } finally {

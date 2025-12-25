@@ -1,10 +1,6 @@
 import { NextResponse } from 'next/server';
-<<<<<<< HEAD
+// import { uploadToS3 } from '@/lib/s3-upload';
 import { uploadToCloudinary } from "@/lib/upload-cloud";
-=======
-import { uploadToS3 } from '@/lib/s3-upload';
->>>>>>> 744bd99 (Update code from new location)
-
 export async function POST(request) {
   try {
     const formData = await request.formData();
@@ -20,11 +16,7 @@ export async function POST(request) {
     // Validate file type
     const allowedTypes = ['.pdf', '.jpg', '.jpeg', '.png'];
     const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
-<<<<<<< HEAD
-
-=======
     
->>>>>>> 744bd99 (Update code from new location)
     if (!allowedTypes.includes(fileExtension)) {
       return NextResponse.json(
         { error: 'Invalid file type. Only PDF, JPG, JPEG, PNG files are allowed.' },
@@ -42,11 +34,7 @@ export async function POST(request) {
     }
 
     // Upload to AWS S3
-<<<<<<< HEAD
     const fileUrl = await uploadToCloudinary(file, 'documents');
-=======
-    const fileUrl = await uploadToS3(file, 'documents');
->>>>>>> 744bd99 (Update code from new location)
 
     return NextResponse.json({
       success: true,

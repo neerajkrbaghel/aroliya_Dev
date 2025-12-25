@@ -1,15 +1,7 @@
 import { NextResponse } from "next/server";
-<<<<<<< HEAD
-// import { PrismaClient } from "@prisma/client";
-
-// const prisma = new PrismaClient();
-import { prisma } from "@/lib/prisma";
-
-=======
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
->>>>>>> 744bd99 (Update code from new location)
 
 // GET - Fetch jobs with filtering and pagination
 export async function GET(request) {
@@ -27,7 +19,6 @@ export async function GET(request) {
 
     const skip = (page - 1) * limit;
 
-<<<<<<< HEAD
     console.log("📥 API Request Params:", {
       page,
       limit,
@@ -40,14 +31,11 @@ export async function GET(request) {
       sortBy,
     });
 
-=======
->>>>>>> 744bd99 (Update code from new location)
     // Build where clause
     const where = {
       status: "active",
     };
 
-<<<<<<< HEAD
     // Remove userId filter from where clause since we want all active jobs
     // Only use userId for saved jobs check later
 
@@ -74,15 +62,6 @@ export async function GET(request) {
             contains: search,
           },
         },
-=======
-    if (category && category !== "all") where.category = category;
-
-    if (search && search.trim() !== "") {
-      where.OR = [
-        { title: { contains: search, mode: "insensitive" } },
-        { description: { contains: search, mode: "insensitive" } },
-        { skills: { contains: search } },
->>>>>>> 744bd99 (Update code from new location)
       ];
     }
 
@@ -98,7 +77,6 @@ export async function GET(request) {
 
     // Build orderBy
     let orderBy = {};
-<<<<<<< HEAD
     if (sortBy === "budget") {
       orderBy.budget = "desc";
     } else if (sortBy === "deadline") {
@@ -111,30 +89,16 @@ export async function GET(request) {
     console.log("📊 Prisma OrderBy:", orderBy);
 
     // Get total count first
-    const totalCount = await prisma.JobPost.count({ where });
+    const totalCount = await prisma.jobPost.count({ where });
     console.log("📈 Total jobs count:", totalCount);
 
-    const jobs = await prisma.JobPost.findMany({
-=======
-    if (sortBy === "budget") orderBy.budget = "desc";
-    else if (sortBy === "deadline") orderBy.deadline = "asc";
-    else orderBy.createdAt = "desc";
-
-    // Total count
-    const totalCount = await prisma.jobPost.count({ where });
-
-    // Fetch jobs
+    // Fetch jobs with related data
     const jobs = await prisma.jobPost.findMany({
->>>>>>> 744bd99 (Update code from new location)
       where,
       include: {
         _count: {
           select: {
-<<<<<<< HEAD
-            proposal: true,
-=======
             proposals: true,
->>>>>>> 744bd99 (Update code from new location)
           },
         },
         user: {
@@ -143,38 +107,26 @@ export async function GET(request) {
             name: true,
             email: true,
             profile: {
-<<<<<<< HEAD
               select: {
                 avatar: true,
               },
             },
-            review: {
+            reviewsReceived: {
               select: {
                 rating: true,
               },
-=======
-              select: { avatar: true },
-            },
-            reviewsReceived: {
-              select: { rating: true },
->>>>>>> 744bd99 (Update code from new location)
             },
           },
         },
+        // Include saved jobs if userId is provided
         ...(userId && {
-<<<<<<< HEAD
-          SavedJob: {
+          savedJobs: {
             where: {
               userId: parseInt(userId),
             },
             select: {
               id: true,
             },
-=======
-          savedjob: {
-            where: { userId: parseInt(userId) },
-            select: { id: true },
->>>>>>> 744bd99 (Update code from new location)
           },
         }),
       },
@@ -183,38 +135,15 @@ export async function GET(request) {
       take: limit,
     });
 
-<<<<<<< HEAD
     console.log("✅ Jobs found:", jobs.length);
-    const jobsWithExtra = jobs.map((job) => {
-      const reviews = job.user.review || [];
-
-=======
-    // Process jobs
-    const jobsWithExtras = jobs.map((job) => {
-      const reviews = job.user.reviewsReceived || [];
->>>>>>> 744bd99 (Update code from new location)
-      const avgRating =
-        reviews.length > 0
-          ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
-          : 0;
-
-<<<<<<< HEAD
-      const isSaved = job.SavedJob?.length > 0;
-
-      return {
-        ...job,
-        isSaved,
-        avgRating: Math.round(avgRating * 10) / 10,
-      };
-    });
 
     // Calculate average ratings for clients and add isSaved flag
     const jobsWithClientRating = jobs.map((job) => {
-      const reviews = job.user.reviewReceived || [];
+      const reviews = job.user.reviewsReceived || [];
       const avgRating =
         reviews.length > 0
           ? reviews.reduce((sum, review) => sum + review.rating, 0) /
-          reviews.length
+            reviews.length
           : 0;
 
       let skills = [];
@@ -222,24 +151,15 @@ export async function GET(request) {
         if (job.skills) {
           skills = JSON.parse(job.skills);
         }
-=======
-      let skills = [];
-      try {
-        if (job.skills) skills = JSON.parse(job.skills);
->>>>>>> 744bd99 (Update code from new location)
       } catch (error) {
         console.error("Error parsing skills for job", job.id, error);
         skills = [];
       }
 
-<<<<<<< HEAD
       // Check if job is saved by user
       const isSaved = userId
-        ? job.SavedJobs && job.SavedJobs.length > 0
+        ? job.savedJobs && job.savedJobs.length > 0
         : false;
-=======
-      const isSaved = userId ? job.savedjob && job.savedjob.length > 0 : false;
->>>>>>> 744bd99 (Update code from new location)
 
       return {
         ...job,
@@ -253,34 +173,22 @@ export async function GET(request) {
         createdAt: job.createdAt.toISOString(),
         updatedAt: job.updatedAt.toISOString(),
         deadline: job.deadline.toISOString(),
-<<<<<<< HEAD
-        // Remove SavedJobs from response to avoid duplication
-        SavedJobs: undefined,
-=======
-        savedjob: undefined,
->>>>>>> 744bd99 (Update code from new location)
+        // Remove savedJobs from response to avoid duplication
+        savedJobs: undefined,
       };
     });
 
     const totalPages = Math.ceil(totalCount / limit);
-<<<<<<< HEAD
     const hasNextPage = page < totalPages;
     const hasPrevPage = page > 1;
 
     const responseData = {
       success: true,
       jobs: jobsWithClientRating,
-=======
-
-    return NextResponse.json({
-      success: true,
-      jobs: jobsWithExtras,
->>>>>>> 744bd99 (Update code from new location)
       pagination: {
         currentPage: page,
         totalPages,
         totalCount,
-<<<<<<< HEAD
         hasNextPage,
         hasPrevPage,
         limit,
@@ -293,13 +201,6 @@ export async function GET(request) {
     });
 
     return NextResponse.json(responseData);
-=======
-        hasNextPage: page < totalPages,
-        hasPrevPage: page > 1,
-        limit,
-      },
-    });
->>>>>>> 744bd99 (Update code from new location)
   } catch (error) {
     console.error("❌ Get jobs error:", error);
     return NextResponse.json(
@@ -325,7 +226,6 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const body = await request.json();
-<<<<<<< HEAD
     const {
       title,
       description,
@@ -388,23 +288,7 @@ export async function POST(request) {
     }
 
     // Create the job post
-    const job = await prisma.JobPost.create({
-=======
-    const { title, description, category, skills, budget, deadline, experienceLevel, userId } = body;
-
-    if (!title || !description || !category || !budget || !deadline || !userId) {
-      return NextResponse.json({ success: false, error: "Missing required fields" }, { status: 400 });
-    }
-
-    if (budget < 50) {
-      return NextResponse.json({ success: false, error: "Budget must be at least $50" }, { status: 400 });
-    }
-
-    const user = await prisma.user.findUnique({ where: { id: parseInt(userId) } });
-    if (!user) return NextResponse.json({ success: false, error: "User not found" }, { status: 404 });
-
     const job = await prisma.jobPost.create({
->>>>>>> 744bd99 (Update code from new location)
       data: {
         title: title.trim(),
         description: description.trim(),
@@ -422,21 +306,16 @@ export async function POST(request) {
             id: true,
             name: true,
             email: true,
-<<<<<<< HEAD
             profile: {
               select: {
                 avatar: true,
               },
             },
-=======
-            profile: { select: { avatar: true } },
->>>>>>> 744bd99 (Update code from new location)
           },
         },
       },
     });
 
-<<<<<<< HEAD
     console.log("✅ Job created successfully:", job.id);
 
     // Parse skills for response
@@ -497,15 +376,6 @@ export async function POST(request) {
       },
       { status: 500 }
     );
-=======
-    let parsedSkills = [];
-    try { if (job.skills) parsedSkills = JSON.parse(job.skills); } catch {}
-
-    return NextResponse.json({ success: true, job: { ...job, skills: parsedSkills, createdAt: job.createdAt.toISOString(), updatedAt: job.updatedAt.toISOString(), deadline: job.deadline.toISOString() }, message: "Job posted successfully!" }, { status: 201 });
-  } catch (error) {
-    console.error("❌ Create job error:", error);
-    return NextResponse.json({ success: false, error: "Failed to create job", details: error.message }, { status: 500 });
->>>>>>> 744bd99 (Update code from new location)
   }
 }
 
@@ -515,7 +385,6 @@ export async function PUT(request) {
     const body = await request.json();
     const { jobId, ...updateData } = body;
 
-<<<<<<< HEAD
     if (!jobId) {
       return NextResponse.json(
         {
@@ -533,7 +402,7 @@ export async function PUT(request) {
       updateData.skills = JSON.stringify(updateData.skills);
     }
 
-    const updatedJob = await prisma.JobPost.update({
+    const updatedJob = await prisma.jobPost.update({
       where: { id: parseInt(jobId) },
       data: updateData,
       include: {
@@ -570,31 +439,10 @@ export async function PUT(request) {
     return NextResponse.json({
       success: true,
       job: responseJob,
-=======
-    if (!jobId) return NextResponse.json({ success: false, error: "Job ID is required" }, { status: 400 });
-
-    if (updateData.skills && Array.isArray(updateData.skills)) updateData.skills = JSON.stringify(updateData.skills);
-
-    const updatedJob = await prisma.jobPost.update({
-      where: { id: parseInt(jobId) },
-      data: updateData,
-      include: {
-        user: { select: { id: true, name: true, email: true } },
-      },
-    });
-
-    let parsedSkills = [];
-    try { if (updatedJob.skills) parsedSkills = JSON.parse(updatedJob.skills); } catch {}
-
-    return NextResponse.json({
-      success: true,
-      job: { ...updatedJob, skills: parsedSkills, createdAt: updatedJob.createdAt.toISOString(), updatedAt: updatedJob.updatedAt.toISOString(), deadline: updatedJob.deadline.toISOString() },
->>>>>>> 744bd99 (Update code from new location)
       message: "Job updated successfully",
     });
   } catch (error) {
     console.error("❌ Update job error:", error);
-<<<<<<< HEAD
 
     if (error.code === "P2025") {
       return NextResponse.json(
@@ -614,9 +462,6 @@ export async function PUT(request) {
       },
       { status: 500 }
     );
-=======
-    return NextResponse.json({ success: false, error: "Failed to update job", details: error.message }, { status: 500 });
->>>>>>> 744bd99 (Update code from new location)
   }
 }
 
@@ -626,7 +471,6 @@ export async function DELETE(request) {
     const { searchParams } = new URL(request.url);
     const jobId = searchParams.get("jobId");
 
-<<<<<<< HEAD
     if (!jobId) {
       return NextResponse.json(
         {
@@ -639,7 +483,7 @@ export async function DELETE(request) {
 
     console.log("🗑️ Deleting job:", jobId);
 
-    await prisma.JobPost.delete({
+    await prisma.jobPost.delete({
       where: { id: parseInt(jobId) },
     });
 
@@ -670,15 +514,5 @@ export async function DELETE(request) {
       },
       { status: 500 }
     );
-=======
-    if (!jobId) return NextResponse.json({ success: false, error: "Job ID is required" }, { status: 400 });
-
-    await prisma.jobPost.delete({ where: { id: parseInt(jobId) } });
-
-    return NextResponse.json({ success: true, message: "Job deleted successfully" });
-  } catch (error) {
-    console.error("❌ Delete job error:", error);
-    return NextResponse.json({ success: false, error: "Failed to delete job", details: error.message }, { status: 500 });
->>>>>>> 744bd99 (Update code from new location)
   }
 }

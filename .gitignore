@@ -79,3 +79,4 @@ next-env.d.ts
 
 /app/generated/prisma
 >>>>>>> 744bd99 (Update code from new location)
+".env" 

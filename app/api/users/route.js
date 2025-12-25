@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
+import bcrypt from "bcryptjs";
 
 export async function GET() {
   try {
@@ -13,104 +12,72 @@ export async function GET() {
       },
     });
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        users: users.map((user) => ({
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          status: user.status,
-          avatar: user.avatar,
-          registrationMethod: user.registrationMethod,
-          createdAt: user.createdAt,
-          lastLogin: user.lastLogin,
-          userprofile: user.userprofile
-            ? {
+    return Response.json({
+      success: true,
+      users: users.map((user) => ({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        status: user.status,
+        avatar: user.avatar,
+        registrationMethod: user.registrationMethod,
+        createdAt: user.createdAt,
+        lastLogin: user.lastLogin,
+        userprofile: user.userprofile
+          ? {
               phoneNumber: user.userprofile.phoneNumber,
               title: user.userprofile.title,
               bio: user.userprofile.bio,
               location: user.userprofile.location,
               available: user.userprofile.available,
             }
-            : null,
-        })),
-      }),
-      {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+          : null,
+      })),
+    });
   } catch (error) {
-    console.error("Error fetching users:", error);
-    return new Response(
-      JSON.stringify({
-        success: false,
-        error: "Failed to fetch users",
-      }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+    console.error("GET users error:", error);
+    return Response.json(
+      { success: false, error: error.message },
+      { status: 500 }
     );
   }
 }
 
 export async function POST(request) {
   try {
-    const body = await request.json();
-    const { name, email, password, role } = body;
+    const { name, email, password, role } = await request.json();
 
-    // Validate required fields
     if (!name || !email || !password) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: "Name, email, and password are required",
-        }),
+      return Response.json(
+        { success: false, error: "Required fields missing" },
         { status: 400 }
       );
     }
 
-    // Check if user already exists
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
 
     if (existingUser) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: "User with this email already exists",
-        }),
+      return Response.json(
+        { success: false, error: "User already exists" },
         { status: 400 }
       );
     }
 
-    // Hash password (you'll need to import bcrypt)
-    const bcrypt = await import("bcryptjs");
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Create user
     const newUser = await prisma.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
         role: role || "user",
-        registrationMethod: "email", // Track registration method
-      },
-      include: {
-        userprofile: true,
+        registrationMethod: "email",
       },
     });
 
-    // Create useruserprofile
     await prisma.userProfile.create({
       data: {
         userId: newUser.id,
@@ -118,46 +85,32 @@ export async function POST(request) {
           role === "freelancer"
             ? "Freelancer"
             : role === "client"
-              ? "Client"
-              : "User",
+            ? "Client"
+            : "User",
         bio: "New user",
         available: role === "freelancer",
       },
     });
 
-    return new Response(
-      JSON.stringify({
+    return Response.json(
+      {
         success: true,
         user: {
           id: newUser.id,
           name: newUser.name,
           email: newUser.email,
           role: newUser.role,
-          status: newUser.status,
           registrationMethod: newUser.registrationMethod,
           createdAt: newUser.createdAt,
         },
-      }),
-      {
-        status: 201,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+      },
+      { status: 201 }
     );
   } catch (error) {
-    console.error("Error creating user:", error);
-    return new Response(
-      JSON.stringify({
-        success: false,
-        error: "Failed to create user",
-      }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+    console.error("POST user error:", error);
+    return Response.json(
+      { success: false, error: error.message },
+      { status: 500 }
     );
   }
 }

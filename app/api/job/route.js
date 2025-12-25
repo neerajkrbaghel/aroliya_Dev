@@ -16,7 +16,11 @@ export async function POST(request) {
       );
     }
 
+<<<<<<< HEAD
     // Check if Application already exists for this email and job
+=======
+    // Check if application already exists for this email and job
+>>>>>>> 744bd99 (Update code from new location)
     // Use findFirst with the composite unique constraint
     const existingApplication = await prisma.jobApplication.findFirst({
       where: {
@@ -50,7 +54,11 @@ export async function POST(request) {
     const job = jobs.find((j) => j.id === jobId);
     const jobTitle = job ? job.title : "Unknown Job";
 
+<<<<<<< HEAD
     // Create job Application
+=======
+    // Create job application
+>>>>>>> 744bd99 (Update code from new location)
     const jobApplication = await prisma.jobApplication.create({
       data: {
         name,
@@ -74,7 +82,11 @@ export async function POST(request) {
       data: jobApplication,
     });
   } catch (error) {
+<<<<<<< HEAD
     console.error("Error creating job Application:", error);
+=======
+    console.error("Error creating job application:", error);
+>>>>>>> 744bd99 (Update code from new location)
 
     // Handle Prisma unique constraint violation error
     if (error.code === "P2002") {
@@ -85,7 +97,11 @@ export async function POST(request) {
     }
 
     return NextResponse.json(
+<<<<<<< HEAD
       { error: "Failed to submit Application" },
+=======
+      { error: "Failed to submit application" },
+>>>>>>> 744bd99 (Update code from new location)
       { status: 500 }
     );
   }
@@ -107,7 +123,11 @@ export async function GET(request) {
       whereClause.email = email;
     }
 
+<<<<<<< HEAD
     const Applications = await prisma.jobApplication.findMany({
+=======
+    const applications = await prisma.jobApplication.findMany({
+>>>>>>> 744bd99 (Update code from new location)
       where: whereClause,
       orderBy: {
         createdAt: "desc",
@@ -116,6 +136,7 @@ export async function GET(request) {
 
     return NextResponse.json({
       success: true,
+<<<<<<< HEAD
       count: Applications.length,
       data: Applications,
     });
@@ -123,6 +144,15 @@ export async function GET(request) {
     console.error("Error fetching job Applications:", error);
     return NextResponse.json(
       { error: "Failed to fetch Applications" },
+=======
+      count: applications.length,
+      data: applications,
+    });
+  } catch (error) {
+    console.error("Error fetching job applications:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch applications" },
+>>>>>>> 744bd99 (Update code from new location)
       { status: 500 }
     );
   }

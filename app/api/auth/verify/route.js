@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+<<<<<<< HEAD
 // import prisma from "../../../../lib/prisma";
 import { prisma } from "../../../../lib/prisma";
 
+=======
+import prisma from "../../../../lib/prisma";
+>>>>>>> 744bd99 (Update code from new location)
 
 export async function GET(request) {
   try {

@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
+<<<<<<< HEAD
 import { uploadToCloudinary } from "@/lib/upload-cloud";
 
+=======
+import { uploadToS3 } from "@/lib/s3-upload";
+>>>>>>> 744bd99 (Update code from new location)
 
 export async function POST(request) {
   try {
@@ -32,7 +36,11 @@ export async function POST(request) {
     }
 
     // Upload to AWS S3
+<<<<<<< HEAD
     const fileUrl = await uploadToCloudinary(file, "resumes");
+=======
+    const fileUrl = await uploadToS3(file, "resumes");
+>>>>>>> 744bd99 (Update code from new location)
 
     return NextResponse.json({
       success: true,

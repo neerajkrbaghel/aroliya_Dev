@@ -10,6 +10,7 @@ export async function GET(request) {
     const userId = searchParams.get("userId");
 
     if (!userId) {
+<<<<<<< HEAD
       return NextResponse.json(
         { error: "User ID is required" },
         { status: 400 }
@@ -39,15 +40,35 @@ export async function GET(request) {
       orderBy: {
         createdAt: "desc",
       },
+=======
+      return NextResponse.json({ error: "User ID is required" }, { status: 400 });
+    }
+
+    const savedJobs = await prisma.savedJob.findMany({
+      where: { userId: parseInt(userId) },
+      include: {
+        JobPost: {   // Correct relation name in model
+          include: {
+            user: { include: { profile: true } },
+            _count: { select: { proposals: true } },
+          },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+>>>>>>> 744bd99 (Update code from new location)
     });
 
     return NextResponse.json({ savedJobs });
   } catch (error) {
     console.error("Error fetching saved jobs:", error);
+<<<<<<< HEAD
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
     );
+=======
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+>>>>>>> 744bd99 (Update code from new location)
   }
 }
 
@@ -57,6 +78,7 @@ export async function POST(request) {
     const { userId, jobId } = await request.json();
 
     if (!userId || !jobId) {
+<<<<<<< HEAD
       return NextResponse.json(
         { error: "User ID and Job ID are required" },
         { status: 400 }
@@ -71,6 +93,13 @@ export async function POST(request) {
           jobId: parseInt(jobId),
         },
       },
+=======
+      return NextResponse.json({ error: "User ID and Job ID are required" }, { status: 400 });
+    }
+
+    const existingSavedJob = await prisma.savedJob.findUnique({
+      where: { userId_jobId: { userId: parseInt(userId), jobId: parseInt(jobId) } },
+>>>>>>> 744bd99 (Update code from new location)
     });
 
     if (existingSavedJob) {
@@ -78,6 +107,7 @@ export async function POST(request) {
     }
 
     const savedJob = await prisma.savedJob.create({
+<<<<<<< HEAD
       data: {
         userId: parseInt(userId),
         jobId: parseInt(jobId),
@@ -95,6 +125,14 @@ export async function POST(request) {
                 proposals: true,
               },
             },
+=======
+      data: { userId: parseInt(userId), jobId: parseInt(jobId) },
+      include: {
+        JobPost: {
+          include: {
+            user: { include: { profile: true } },
+            _count: { select: { proposals: true } },
+>>>>>>> 744bd99 (Update code from new location)
           },
         },
       },
@@ -103,9 +141,13 @@ export async function POST(request) {
     return NextResponse.json({ savedJob });
   } catch (error) {
     console.error("Error saving job:", error);
+<<<<<<< HEAD
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
     );
+=======
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+>>>>>>> 744bd99 (Update code from new location)
   }
 }

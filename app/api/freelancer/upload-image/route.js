@@ -1,9 +1,7 @@
 // app/api/freelancer/upload-image/route.js
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-// import { uploadToS3 } from "@/lib/s3-upload";
 import { uploadToCloudinary } from "@/lib/upload-cloud";
-
 
 const prisma = new PrismaClient();
 
@@ -58,7 +56,7 @@ export async function POST(request) {
 
     // Upload to S3
     const imageUrl = await uploadToCloudinary(file, userId, "profiles");
-    console.log("File uploaded to Cloud:", imageUrl);
+    console.log("File uploaded to S3:", imageUrl);
 
     // Update database
     const result = await prisma.$transaction(async (tx) => {

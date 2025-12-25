@@ -6,7 +6,11 @@ export async function GET() {
   try {
     const users = await prisma.user.findMany({
       include: {
+<<<<<<< HEAD
         userprofile: true,
+=======
+        profile: true,
+>>>>>>> 744bd99 (Update code from new location)
       },
       orderBy: {
         createdAt: "desc",
@@ -26,6 +30,7 @@ export async function GET() {
           registrationMethod: user.registrationMethod,
           createdAt: user.createdAt,
           lastLogin: user.lastLogin,
+<<<<<<< HEAD
           userprofile: user.profile
             ? {
               phoneNumber: user.profile.phoneNumber,
@@ -34,6 +39,16 @@ export async function GET() {
               location: user.profile.location,
               available: user.profile.available,
             }
+=======
+          profile: user.profile
+            ? {
+                phoneNumber: user.profile.phoneNumber,
+                title: user.profile.title,
+                bio: user.profile.bio,
+                location: user.profile.location,
+                available: user.profile.available,
+              }
+>>>>>>> 744bd99 (Update code from new location)
             : null,
         })),
       }),
@@ -106,11 +121,19 @@ export async function POST(request) {
         registrationMethod: "email", // Track registration method
       },
       include: {
+<<<<<<< HEAD
         userprofile: true,
       },
     });
 
     // Create useruserprofile
+=======
+        profile: true,
+      },
+    });
+
+    // Create user profile
+>>>>>>> 744bd99 (Update code from new location)
     await prisma.userProfile.create({
       data: {
         userId: newUser.id,
@@ -118,8 +141,13 @@ export async function POST(request) {
           role === "freelancer"
             ? "Freelancer"
             : role === "client"
+<<<<<<< HEAD
               ? "Client"
               : "User",
+=======
+            ? "Client"
+            : "User",
+>>>>>>> 744bd99 (Update code from new location)
         bio: "New user",
         available: role === "freelancer",
       },

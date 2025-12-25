@@ -9,45 +9,18 @@ import bcrypt from "bcryptjs";
 export async function GET() {
   try {
     const users = await prisma.user.findMany({
-      include: {
-        userprofile: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
+      include: { userprofile: true },
+      orderBy: { createdAt: "desc" },
     });
 
     return Response.json({
       success: true,
-      users: users.map((user) => ({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        status: user.status,
-        avatar: user.avatar,
-        registrationMethod: user.registrationMethod,
-        createdAt: user.createdAt,
-        lastLogin: user.lastLogin,
-        userprofile: user.userprofile
-          ? {
-              phoneNumber: user.userprofile.phoneNumber,
-              title: user.userprofile.title,
-              bio: user.userprofile.bio,
-              location: user.userprofile.location,
-              available: user.userprofile.available,
-            }
-          : null,
-      })),
+      users,
     });
   } catch (error) {
     console.error("GET users error:", error);
-
     return Response.json(
-      {
-        success: false,
-        error: error.message,
-      },
+      { success: false, error: error.message },
       { status: 500 }
     );
   }
@@ -109,24 +82,16 @@ export async function POST(request) {
         success: true,
         user: {
           id: newUser.id,
-          name: newUser.name,
           email: newUser.email,
           role: newUser.role,
-          registrationMethod: newUser.registrationMethod,
-          createdAt: newUser.createdAt,
         },
       },
       { status: 201 }
     );
   } catch (error) {
     console.error("POST user error:", error);
-
     return Response.json(
-      {
-        success: false,
-        error: error.message,
-        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
-      },
+      { success: false, error: error.message },
       { status: 500 }
     );
   }

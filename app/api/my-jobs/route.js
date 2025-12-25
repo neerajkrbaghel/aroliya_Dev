@@ -13,15 +13,9 @@ export async function GET(request) {
 
     if (!userId) {
       return NextResponse.json(
-<<<<<<< HEAD
         {
           success: false,
           error: 'User ID is required'
-=======
-        { 
-          success: false,
-          error: 'User ID is required' 
->>>>>>> 744bd99 (Update code from new location)
         },
         { status: 400 }
       );
@@ -35,11 +29,7 @@ export async function GET(request) {
       include: {
         _count: {
           select: {
-<<<<<<< HEAD
             proposal: true
-=======
-            proposals: true
->>>>>>> 744bd99 (Update code from new location)
           }
         }
       },
@@ -61,11 +51,6 @@ export async function GET(request) {
         console.error('Error parsing skills for job', job.id, error);
         skills = [];
       }
-<<<<<<< HEAD
-
-=======
-      
->>>>>>> 744bd99 (Update code from new location)
       return {
         ...job,
         skills,
@@ -75,7 +60,6 @@ export async function GET(request) {
       };
     });
 
-<<<<<<< HEAD
     return NextResponse.json({
       success: true,
       jobs: jobsWithParsedSkills
@@ -88,20 +72,6 @@ export async function GET(request) {
         success: false,
         error: 'Failed to fetch jobs',
         details: error.message
-=======
-    return NextResponse.json({ 
-      success: true,
-      jobs: jobsWithParsedSkills 
-    });
-    
-  } catch (error) {
-    console.error('❌ Get my jobs error:', error);
-    return NextResponse.json(
-      { 
-        success: false,
-        error: 'Failed to fetch jobs',
-        details: error.message 
->>>>>>> 744bd99 (Update code from new location)
       },
       { status: 500 }
     );

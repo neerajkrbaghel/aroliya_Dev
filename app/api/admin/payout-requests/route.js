@@ -1,16 +1,9 @@
 // app/api/admin/payout-requests/route.js
 import { NextResponse } from "next/server";
-<<<<<<< HEAD
 // import { Prisma } from "@prisma/client";
 
 // const prisma = new Prisma();
 import { prisma } from "../../../../lib/prisma";
-=======
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
-
->>>>>>> 744bd99 (Update code from new location)
 // GET all payout requests for admin
 export async function GET(request) {
   try {
@@ -136,14 +129,8 @@ export async function PUT(request) {
             where: { id: debitTransaction.id },
             data: {
               status: "completed",
-<<<<<<< HEAD
               description: `Payout to ${payoutRequest.bankDetail.bankName
                 } - ****${payoutRequest.bankDetail.accountNumber.slice(-4)}`,
-=======
-              description: `Payout to ${
-                payoutRequest.bankDetail.bankName
-              } - ****${payoutRequest.bankDetail.accountNumber.slice(-4)}`,
->>>>>>> 744bd99 (Update code from new location)
             },
           });
         }
@@ -167,14 +154,8 @@ export async function PUT(request) {
           data: {
             amount: payoutRequest.amount,
             type: "credit",
-<<<<<<< HEAD
             description: `Refund: Payout request rejected - ${payoutRequest.bankDetail.bankName
               } - ****${payoutRequest.bankDetail.accountNumber.slice(-4)}`,
-=======
-            description: `Refund: Payout request rejected - ${
-              payoutRequest.bankDetail.bankName
-            } - ****${payoutRequest.bankDetail.accountNumber.slice(-4)}`,
->>>>>>> 744bd99 (Update code from new location)
             status: "completed",
             walletId: payoutRequest.walletId,
           },
@@ -186,18 +167,10 @@ export async function PUT(request) {
             where: { id: debitTransaction.id },
             data: {
               status: "rejected",
-<<<<<<< HEAD
               description: `Failed payout to ${payoutRequest.bankDetail.bankName
                 } - ****${payoutRequest.bankDetail.accountNumber.slice(
                   -4
                 )} (Rejected: ${adminNotes || "No reason provided"})`,
-=======
-              description: `Failed payout to ${
-                payoutRequest.bankDetail.bankName
-              } - ****${payoutRequest.bankDetail.accountNumber.slice(
-                -4
-              )} (Rejected: ${adminNotes || "No reason provided"})`,
->>>>>>> 744bd99 (Update code from new location)
             },
           });
         }
@@ -212,18 +185,10 @@ export async function PUT(request) {
             where: { id: debitTransaction.id },
             data: {
               status: "approved",
-<<<<<<< HEAD
               description: `Approved payout to ${payoutRequest.bankDetail.bankName
                 } - ****${payoutRequest.bankDetail.accountNumber.slice(
                   -4
                 )} (Processing)`,
-=======
-              description: `Approved payout to ${
-                payoutRequest.bankDetail.bankName
-              } - ****${payoutRequest.bankDetail.accountNumber.slice(
-                -4
-              )} (Processing)`,
->>>>>>> 744bd99 (Update code from new location)
             },
           });
         }
@@ -234,14 +199,8 @@ export async function PUT(request) {
 
     let message = "Payout request status updated successfully";
     if (status === "rejected") {
-<<<<<<< HEAD
       message = `Payout request rejected and amount refunded to wallet. Reason: ${adminNotes || "No reason provided"
         }`;
-=======
-      message = `Payout request rejected and amount refunded to wallet. Reason: ${
-        adminNotes || "No reason provided"
-      }`;
->>>>>>> 744bd99 (Update code from new location)
     } else if (status === "completed") {
       message = "Payout completed successfully";
     } else if (status === "approved") {

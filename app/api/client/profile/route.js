@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 // app/api/client/profile/route.js
-=======
->>>>>>> 744bd99 (Update code from new location)
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { writeFile } from "fs/promises";
@@ -14,11 +11,7 @@ export async function PUT(request) {
     const formData = await request.formData();
     const userId = formData.get("userId");
     const name = formData.get("name");
-<<<<<<< HEAD
     const businessName = formData.get("businessName");
-=======
-    const businessName = formData.get("businessName"); // Fixed: Get businessName from form data
->>>>>>> 744bd99 (Update code from new location)
     const avatarFile = formData.get("avatar");
 
     console.log("📝 Profile update request:", {
@@ -43,24 +36,11 @@ export async function PUT(request) {
         const bytes = await avatarFile.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-<<<<<<< HEAD
         const timestamp = Date.now();
         const fileExtension = avatarFile.name.split(".").pop();
         const filename = `avatar_${userId}_${timestamp}.${fileExtension}`;
         const publicDir = path.join(process.cwd(), "public", "avatars");
 
-=======
-        // Create unique filename
-        const timestamp = Date.now();
-        const fileExtension = avatarFile.name.split(".").pop();
-        const filename = `avatar_${userId}_${timestamp}.${fileExtension}`;
-
-        // In production, you'd want to upload to cloud storage (AWS S3, Cloudinary, etc.)
-        // For development, we'll save to public folder
-        const publicDir = path.join(process.cwd(), "public", "avatars");
-
-        // Create directory if it doesn't exist
->>>>>>> 744bd99 (Update code from new location)
         const fs = await import("fs");
         if (!fs.existsSync(publicDir)) {
           fs.mkdirSync(publicDir, { recursive: true });
@@ -73,7 +53,6 @@ export async function PUT(request) {
         console.log("✅ Avatar uploaded:", avatarUrl);
       } catch (uploadError) {
         console.error("❌ Avatar upload failed:", uploadError);
-<<<<<<< HEAD
       }
     }
 
@@ -87,33 +66,6 @@ export async function PUT(request) {
       select: {
         id: true,
         name: true,
-=======
-        // Continue without avatar if upload fails
-      }
-    }
-
-    // Prepare update data
-    const updateData = {
-      name: name?.trim(),
-      businessName: businessName?.trim() || null, // Fixed: Include businessName in update
-    };
-
-    // Only add avatar if we have a new one
-    if (avatarUrl) {
-      updateData.avatar = avatarUrl;
-    }
-
-    console.log("🔄 Updating user with data:", updateData);
-
-    // Update user in database
-    const updatedUser = await prisma.user.update({
-      where: { id: parseInt(userId) },
-      data: updateData,
-      select: {
-        id: true,
-        name: true,
-        businessName: true, // Fixed: Include businessName in response
->>>>>>> 744bd99 (Update code from new location)
         email: true,
         avatar: true,
         role: true,
@@ -121,7 +73,6 @@ export async function PUT(request) {
       },
     });
 
-<<<<<<< HEAD
     // Update or create userProfile for businessName
     const updatedProfile = await prisma.userProfile.upsert({
       where: { userId: parseInt(userId) },
@@ -137,21 +88,11 @@ export async function PUT(request) {
     console.log("✅ User profile updated successfully:", {
       ...updatedUser,
       businessName: updatedProfile.businessName,
-=======
-    console.log("✅ User updated successfully:", {
-      id: updatedUser.id,
-      name: updatedUser.name,
-      businessName: updatedUser.businessName,
->>>>>>> 744bd99 (Update code from new location)
     });
 
     return NextResponse.json({
       success: true,
-<<<<<<< HEAD
       user: { ...updatedUser, businessName: updatedProfile.businessName },
-=======
-      user: updatedUser,
->>>>>>> 744bd99 (Update code from new location)
     });
   } catch (error) {
     console.error("❌ Profile update error:", error);
@@ -185,10 +126,6 @@ export async function GET(request) {
       select: {
         id: true,
         name: true,
-<<<<<<< HEAD
-=======
-        businessName: true,
->>>>>>> 744bd99 (Update code from new location)
         email: true,
         avatar: true,
         role: true,
@@ -203,7 +140,6 @@ export async function GET(request) {
       );
     }
 
-<<<<<<< HEAD
     const profile = await prisma.userProfile.findUnique({
       where: { userId: parseInt(userId) },
       select: { businessName: true },
@@ -212,11 +148,6 @@ export async function GET(request) {
     return NextResponse.json({
       success: true,
       user: { ...user, businessName: profile?.businessName || null },
-=======
-    return NextResponse.json({
-      success: true,
-      user,
->>>>>>> 744bd99 (Update code from new location)
     });
   } catch (error) {
     console.error("❌ Profile fetch error:", error);

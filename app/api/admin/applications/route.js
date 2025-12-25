@@ -45,11 +45,7 @@ export async function GET(request) {
     }
 
     const [applications, total] = await Promise.all([
-<<<<<<< HEAD
       prisma.job.findMany({
-=======
-      prisma.jobApplication.findMany({
->>>>>>> 744bd99 (Update code from new location)
         where: whereClause,
         orderBy: {
           createdAt: "desc",
@@ -57,11 +53,7 @@ export async function GET(request) {
         skip,
         take: limit,
       }),
-<<<<<<< HEAD
       prisma.job.count({ where: whereClause }),
-=======
-      prisma.jobApplication.count({ where: whereClause }),
->>>>>>> 744bd99 (Update code from new location)
     ]);
 
     return NextResponse.json({
@@ -104,11 +96,7 @@ export async function PATCH(request) {
       return NextResponse.json({ error: "Invalid status" }, { status: 400 });
     }
 
-<<<<<<< HEAD
     const updatedApplication = await prisma.job.update({
-=======
-    const updatedApplication = await prisma.jobApplication.update({
->>>>>>> 744bd99 (Update code from new location)
       where: { id },
       data: {
         status,

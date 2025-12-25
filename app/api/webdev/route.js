@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
-<<<<<<< HEAD
 import { prisma } from "@/lib/prisma"; // MUST BE DEFAULT IMPORT
-=======
-import prisma from "@/lib/prisma"; // MUST BE DEFAULT IMPORT
->>>>>>> 744bd99 (Update code from new location)
 
 export async function POST(req) {
   try {
@@ -56,11 +52,8 @@ export async function PATCH(req) {
     const { id, status } = await req.json();
 
     if (!id || !status) {
-<<<<<<< HEAD
-      return NextResponse.json({ success: false, msg: "Missing id or status" });
-=======
+
       return NextResponse.json({ success:false, msg:"Missing id or status" });
->>>>>>> 744bd99 (Update code from new location)
     }
 
     const updated = await prisma.WebDev.update({
@@ -68,14 +61,9 @@ export async function PATCH(req) {
       data: { status }
     });
 
-<<<<<<< HEAD
-    return NextResponse.json({ success: true, msg: "Status updated", updated });
-  } catch (err) {
-    return NextResponse.json({ success: false, error: err.message });
-=======
+
     return NextResponse.json({ success:true, msg:"Status updated", updated });
   } catch (err) {
     return NextResponse.json({ success:false, error:err.message });
->>>>>>> 744bd99 (Update code from new location)
   }
 }

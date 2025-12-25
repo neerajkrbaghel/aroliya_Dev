@@ -153,7 +153,7 @@ export async function POST(request) {
     });
 
     // Fetch the complete project with attachments
-    const completeproject = await prisma.project.findMany({
+    const completeproject = await prisma.project.findUnique({
       where: { id: result.id },
       include: {
         attachments: true,
@@ -218,7 +218,10 @@ export async function GET(request) {
     const [project, total] = await Promise.all([
       prisma.project.findMany({
         include: {
-          attachments: true,
+         conversations: true,
+    client: true,
+    freelancer: true,
+    reviews: true
         },
         orderBy: {
           createdAt: "desc",

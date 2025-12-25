@@ -26,13 +26,13 @@ export async function GET() {
           registrationMethod: user.registrationMethod,
           createdAt: user.createdAt,
           lastLogin: user.lastLogin,
-          userprofile: user.profile
+          userprofile: user.userprofile
             ? {
-              phoneNumber: user.profile.phoneNumber,
-              title: user.profile.title,
-              bio: user.profile.bio,
-              location: user.profile.location,
-              available: user.profile.available,
+              phoneNumber: user.userprofile.phoneNumber,
+              title: user.userprofile.title,
+              bio: user.userprofile.bio,
+              location: user.userprofile.location,
+              available: user.userprofile.available,
             }
             : null,
         })),

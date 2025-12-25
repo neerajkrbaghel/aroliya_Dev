@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Node modules
 node_modules/
 
@@ -78,5 +78,4 @@ yarn-error.log*
 next-env.d.ts
 
 /app/generated/prisma
->>>>>>> 744bd99 (Update code from new location)
-".env" 
+".env"

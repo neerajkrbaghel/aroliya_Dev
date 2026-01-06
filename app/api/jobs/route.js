@@ -106,7 +106,7 @@ export async function GET(request) {
             id: true,
             name: true,
             email: true,
-            profile: {
+            userprofile: {
               select: {
                 avatar: true,
               },

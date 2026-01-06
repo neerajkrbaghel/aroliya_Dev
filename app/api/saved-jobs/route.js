@@ -13,7 +13,7 @@ export async function GET(request) {
       return NextResponse.json({ error: "User ID is required" }, { status: 400 });
     }
 
-    const savedJobs = await prisma.savedJob.findMany({
+    const savedJobs = await prisma.savedjob.findMany({
       where: { userId: parseInt(userId) },
       include: {
         JobPost: {   // Correct relation name in model

@@ -21,7 +21,9 @@ body {
 /* Smooth scrolling for the entire page */
 html {
   scroll-behavior: smooth;
+  font-size: 14px;
 }
+
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {

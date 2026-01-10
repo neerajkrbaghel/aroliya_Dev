@@ -14,7 +14,7 @@ export function useSocket(userId) {
 
     // Use the correct path and configuration
     const newSocket = io({
-      path: "/api/socketio/",
+      path: "/api/socket/",
       transports: ["websocket", "polling"],
       timeout: 10000,
       reconnection: true,

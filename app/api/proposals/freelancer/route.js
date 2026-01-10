@@ -54,7 +54,7 @@ export async function GET(request) {
             id: true,
             name: true,
             email: true,
-            profile: {
+            userprofile: {
               select: {
                 title: true,
                 skills: true,
@@ -230,7 +230,7 @@ export async function POST(request) {
             id: true,
             name: true,
             email: true,
-            profile: {
+            userprofile: {
               select: {
                 title: true,
                 skills: true,

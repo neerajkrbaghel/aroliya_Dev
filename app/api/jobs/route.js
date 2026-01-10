@@ -120,7 +120,7 @@ export async function GET(request) {
         },
         // Include saved jobs if userId is provided
         ...(userId && {
-          savedJobs: {
+         savedjob: {
             where: {
               userId: parseInt(userId),
             },
@@ -173,8 +173,8 @@ export async function GET(request) {
         createdAt: job.createdAt.toISOString(),
         updatedAt: job.updatedAt.toISOString(),
         deadline: job.deadline.toISOString(),
-        // Remove savedJobs from response to avoid duplication
-        savedJobs: undefined,
+        // Removesavedjob from response to avoid duplication
+       savedjob: undefined,
       };
     });
 

@@ -38,7 +38,7 @@ export async function GET(request) {
             name: true,
             email: true,
             avatar: true,
-            profile: {
+            userprofile: {
               select: {
                 title: true,
                 hourlyRate: true,
@@ -63,9 +63,9 @@ export async function GET(request) {
     proposals.forEach((proposal, index) => {
       console.log(`🔍 Proposal ${index + 1}:`, {
         freelancer: proposal.freelancer?.name,
-        hasProfile: !!proposal.freelancer?.profile,
-        resumeUrl: proposal.freelancer?.profile?.resumeUrl || "NO RESUME URL",
-        hasResume: !!proposal.freelancer?.profile?.resumeUrl,
+        hasProfile: !!proposal.freelancer?.userprofile,
+        resumeUrl: proposal.freelancer?.userprofile?.resumeUrl || "NO RESUME URL",
+        hasResume: !!proposal.freelancer?.userprofile?.resumeUrl,
       });
     });
 

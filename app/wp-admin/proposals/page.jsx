@@ -65,6 +65,19 @@ export default function AdminProposalsPage() {
   const router = useRouter();
 
   // Check for mobile
+    // 🔒 Lock body scroll when modal is open
+  useEffect(() => {
+    if (showDetailsModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showDetailsModal]);
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);

@@ -41,7 +41,7 @@ export async function GET(request) {
                 id: true,
                 name: true,
                 email: true,
-                profile: {
+                userprofile: {
                   select: {
                     phoneNumber: true,
                     location: true,
@@ -54,7 +54,7 @@ export async function GET(request) {
         },
         freelancer: {
           include: {
-            profile: {
+            userprofile: {
               select: {
                 skills: true,
                 experience: true,
@@ -134,9 +134,9 @@ export async function GET(request) {
             id: proposal.job.user.id,
             name: proposal.job.user.name,
             email: proposal.job.user.email,
-            phone: proposal.job.user.profile?.phoneNumber,
-            location: proposal.job.user.profile?.location,
-            title: proposal.job.user.profile?.title,
+            phone: proposal.job.user.userprofile?.phoneNumber,
+            location: proposal.job.user.userprofile?.location,
+            title: proposal.job.user.userprofile?.title,
           }
         : null,
       // Calculate total connects used for this proposal
@@ -225,7 +225,7 @@ export async function POST(request) {
                 id: true,
                 name: true,
                 email: true,
-                profile: {
+                userprofile: {
                   select: {
                     phoneNumber: true,
                     location: true,
@@ -238,7 +238,7 @@ export async function POST(request) {
         },
         freelancer: {
           include: {
-            profile: {
+            userprofile: {
               select: {
                 skills: true,
                 experience: true,
@@ -326,7 +326,7 @@ export async function PUT(request) {
                 id: true,
                 name: true,
                 email: true,
-                profile: {
+                userprofile: {
                   select: {
                     phoneNumber: true,
                     location: true,
@@ -339,7 +339,7 @@ export async function PUT(request) {
         },
         freelancer: {
           include: {
-            profile: {
+            userprofile: {
               select: {
                 skills: true,
                 experience: true,

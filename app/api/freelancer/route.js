@@ -19,9 +19,9 @@ export async function GET(request) {
 
     console.log("🔍 Fetching freelancers from database...");
 
-    // Build where clause - get users who have profiles
+    // Build where clause - get users who have userprofiles
     const where = {
-      profile: {
+      userprofile: {
         isNot: null,
       },
     };
@@ -32,7 +32,7 @@ export async function GET(request) {
         { name: { contains: search, mode: "insensitive" } },
         { email: { contains: search, mode: "insensitive" } },
         {
-          profile: {
+          userprofile: {
             OR: [
               { title: { contains: search, mode: "insensitive" } },
               { bio: { contains: search, mode: "insensitive" } },
@@ -45,19 +45,19 @@ export async function GET(request) {
 
     // Skills filter
     if (skills) {
-      where.profile.skills = { contains: skills, mode: "insensitive" };
+      where.userprofile.skills = { contains: skills, mode: "insensitive" };
     }
 
     // Hourly rate filter
     if (minRate || maxRate) {
-      where.profile.hourlyRate = {};
-      if (minRate) where.profile.hourlyRate.gte = parseFloat(minRate);
-      if (maxRate) where.profile.hourlyRate.lte = parseFloat(maxRate);
+      where.userprofile.hourlyRate = {};
+      if (minRate) where.userprofile.hourlyRate.gte = parseFloat(minRate);
+      if (maxRate) where.userprofile.hourlyRate.lte = parseFloat(maxRate);
     }
 
     // Category filter
     if (category !== "all") {
-      where.profile.skills = {
+      where.userprofile.skills = {
         contains: category,
         mode: "insensitive",
       };
@@ -68,7 +68,7 @@ export async function GET(request) {
       prisma.user.findMany({
         where,
         include: {
-          profile: true,
+          userprofile: true,
           reviewsReceived: true,
           freelancerProjects: {
             where: {
@@ -110,34 +110,34 @@ export async function GET(request) {
           : "0.0";
 
       // Process skills
-      const skillsArray = freelancer.profile?.skills
-        ? freelancer.profile.skills
+      const skillsArray = freelancer.userprofile?.skills
+        ? freelancer.userprofile.skills
             .split(",")
             .map((skill) => skill.trim())
             .filter((skill) => skill.length > 0)
         : [];
 
-      // FIXED: Properly handle profile image
+      // FIXED: Properly handle userprofile image
       // Check multiple possible image sources in order of priority
-      let profileImage = null;
+      let userprofileImage = null;
 
       // 1. First check user's main avatar
       if (freelancer.avatar) {
-        profileImage = freelancer.avatar;
+        userprofileImage = freelancer.avatar;
       }
-      // 2. Then check profile avatar
-      else if (freelancer.profile?.avatar) {
-        profileImage = freelancer.profile.avatar;
+      // 2. Then check userprofile avatar
+      else if (freelancer.userprofile?.avatar) {
+        userprofileImage = freelancer.userprofile.avatar;
       }
-      // 3. Check if there's a profileImage field (if you add it to schema)
-      else if (freelancer.profileImage) {
-        profileImage = freelancer.profileImage;
+      // 3. Check if there's a userprofileImage field (if you add it to schema)
+      else if (freelancer.userprofileImage) {
+        userprofileImage = freelancer.userprofileImage;
       }
 
       console.log(`👤 Freelancer ${freelancer.name} image:`, {
         userAvatar: freelancer.avatar,
-        profileAvatar: freelancer.profile?.avatar,
-        finalImage: profileImage,
+        userprofileAvatar: freelancer.userprofile?.avatar,
+        finalImage: userprofileImage,
       });
 
       return {
@@ -145,18 +145,18 @@ export async function GET(request) {
         name: freelancer.name,
         email: freelancer.email,
         // FIXED: Use consistent field name
-        avatar: profileImage,
-        profileImage: profileImage, // Add this for compatibility
-        profile: {
-          ...freelancer.profile,
-          // Ensure profile also has the image
-          avatar: profileImage,
+        avatar: userprofileImage,
+        userprofileImage: userprofileImage, // Add this for compatibility
+        userprofile: {
+          ...freelancer.userprofile,
+          // Ensure userprofile also has the image
+          avatar: userprofileImage,
         },
         avgRating,
         skills: skillsArray,
         reviewCount: freelancer.reviewsReceived.length,
         completedProjects: freelancer._count.freelancerProjects,
-        isAvailable: freelancer.profile?.available ?? true,
+        isAvailable: freelancer.userprofile?.available ?? true,
       };
     });
 

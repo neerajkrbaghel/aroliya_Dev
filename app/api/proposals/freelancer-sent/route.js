@@ -30,7 +30,7 @@ export async function GET(request) {
                 name: true,
                 email: true,
                 avatar: true,
-                profile: {
+                userprofile: {
                   select: {
                     title: true,
                     location: true,

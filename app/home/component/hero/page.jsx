@@ -13,7 +13,7 @@ import namaste from "../../../../public/icons/namaste.png";
 
 export default function Hero() {
   return (
-    <div className={styles.heroContainer}>
+    <section className={styles.heroContainer} aria-label="Hero banner" aria-roledescription="carousel">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         spaceBetween={0}
@@ -24,22 +24,22 @@ export default function Hero() {
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         speed={1000}
         className={styles.swiperContainer}
+        aria-label="Featured services slideshow"
       >
         <SwiperSlide>
           <div className={`${styles.slide} ${styles.slideThree}`}>
             <div className={styles.slideContent}>
               <div className={styles.welcomeSection}>
-                <h2>Welcome to Aroliya – </h2>
+                <h1>Aroliya - Custom Web & Mobile App Development Agency</h1>
                 <p>
-                  Asia’s No. 1 Platform for Smart Online Services – From online
-                  form filling to travel & hotel bookings, web development, Data
-                  & AI, and eCommerce solutions — Aroliya stands as your trusted
-                  partner for fast, reliable, and hassle-free digital services.
+                  Asia's trusted platform for smart digital services — from custom web app development,
+                  Shopify stores, and WordPress websites to mobile apps, form filling,
+                  travel bookings, Data & AI, and eCommerce solutions.
                 </p>
 
                 <div className={styles.heroButtons}>
                   <Link href="#services">
-                    <button className={styles.primaryBtn}>View Services</button>
+                    <button className={styles.primaryBtn} aria-label="View our services">View Services</button>
                   </Link>
                 </div>
               </div>
@@ -55,11 +55,10 @@ export default function Hero() {
             }}
           >
             <div className={styles.slideContent}>
-              <h2>We Do the Work, You Enjoy the Results</h2>
+              <h2>Custom Web Apps, Shopify & WordPress Development</h2>
               <p>
-                Whether it's online form filling, business support, or travel
-                bookings—our team takes care of it quickly, securely, and
-                hassle-free.
+                From custom web applications and Shopify eCommerce stores to WordPress websites and
+                mobile apps — our expert team delivers high-performance digital solutions tailored to your business.
               </p>
 
               <div className={styles.heroButtons}>
@@ -74,9 +73,10 @@ export default function Hero() {
               <div className={styles.trustBadge}>
                 <Image
                   src={shild}
-                  alt="Security shield"
+                  alt=""
                   width={30}
                   height={30}
+                  aria-hidden="true"
                 />
                 <p>
                   Trusted - Easy - Reliable - Affordable - Innovative —
@@ -117,9 +117,10 @@ export default function Hero() {
               <div className={styles.trustBadge}>
                 <Image
                   src={shild}
-                  alt="Security shield"
+                  alt=""
                   width={25}
                   height={25}
+                  aria-hidden="true"
                 />
                 <p>
                   sign in securely—your data is fully encrypted. For assistance,
@@ -130,6 +131,6 @@ export default function Hero() {
           </div>
         </SwiperSlide>
       </Swiper>
-    </div>
+    </section>
   );
 }

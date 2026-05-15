@@ -108,109 +108,121 @@ export default function Nav() {
   };
 
   return (
-    <header className={`${styles.header} ${isFixed ? styles.fixed : ""}`}>
+    <header className={`${styles.header} ${isFixed ? styles.fixed : ""}`} role="banner">
       {/* Top Bar */}
-      <div className={styles.topBar}>
+      <div className={styles.topBar} role="region" aria-label="Contact and social media">
         <div className={styles.topLeft}>
-          <MdMarkEmailRead /> <span>Info@aroliya.com</span>
-          <FaPhoneAlt style={{ marginLeft: "1rem" }} />{" "}
+          <MdMarkEmailRead aria-hidden="true" /> <span>Info@aroliya.com</span>
+          <FaPhoneAlt style={{ marginLeft: "1rem" }} aria-hidden="true" />{" "}
           <span>+91-9870519002</span>
         </div>
-        <div className={styles.topRight}>
-          <Link href="https://www.instagram.com/aroliya5280/">
-            <FaInstagram />
+        <div className={styles.topRight} aria-label="Social media links">
+          <Link href="https://www.instagram.com/aroliya5280/" aria-label="Follow us on Instagram">
+            <FaInstagram aria-hidden="true" />
           </Link>
-          <Link href="https://www.facebook.com/profile.php?id=61571008499035">
-            <FaFacebook />
+          <Link href="https://www.facebook.com/profile.php?id=61571008499035" aria-label="Follow us on Facebook">
+            <FaFacebook aria-hidden="true" />
           </Link>
-          <Link href="https://www.linkedin.com/company/aroliya-group/">
-            <FaLinkedin />
+          <Link href="https://www.linkedin.com/company/aroliya-group/" aria-label="Follow us on LinkedIn">
+            <FaLinkedin aria-hidden="true" />
           </Link>
-          <Link href="https://x.com/Aroliya171825/">
-            <FaXTwitter />
+          <Link href="https://x.com/Aroliya171825/" aria-label="Follow us on Twitter">
+            <FaXTwitter aria-hidden="true" />
           </Link>
         </div>
       </div>
 
       {/* Navbar */}
-      <nav className={styles.nav}>
-        <Link href="/" className={styles.logo}>
-          <Image src={logo} alt="Aroliya Logo" width={150} height={50} />
+      <nav className={styles.nav} aria-label="Main navigation">
+        <Link href="/" className={styles.logo} aria-label="Aroliya Home">
+          <Image src={logo} alt="Aroliya Logo - Custom Web & Mobile App Development Agency" width={150} height={50} />
         </Link>
 
-        <ul className={`${styles.navLinks} ${isOpen ? styles.active : ""}`}>
+        <ul className={`${styles.navLinks} ${isOpen ? styles.active : ""}`} role="menubar" aria-label="Main menu">
           {/* Close button for mobile */}
-          <button className={styles.closeButton} onClick={closeMenu}>
-            <IoClose size={26} />
+          <button className={styles.closeButton} onClick={closeMenu} aria-label="Close menu">
+            <IoClose size={26} aria-hidden="true" />
           </button>
 
-          <li>
-            <Link href="/" onClick={closeMenu}>
+          <li role="none">
+            <Link href="/" onClick={closeMenu} role="menuitem">
               Home
             </Link>
           </li>
-          <li>
-            <Link href="/about" onClick={closeMenu}>
+          <li role="none">
+            <Link href="/about" onClick={closeMenu} role="menuitem">
               About Us
             </Link>
           </li>
-          <li>
-            <Link href="/our-team" onClick={closeMenu}>
+          <li role="none">
+            <Link href="/our-team" onClick={closeMenu} role="menuitem">
               Our Team
             </Link>
           </li>
           
           {/* 💼 Services Dropdown */}
-          <li className={styles.dropdown}>
-            <button onClick={() => toggleDropdown("services")}>
-              Services <IoChevronDown />
+          <li className={styles.dropdown} role="none">
+            <button
+              onClick={() => toggleDropdown("services")}
+              aria-expanded={dropdown.services}
+              aria-haspopup="true"
+              role="menuitem"
+            >
+              Services <IoChevronDown aria-hidden="true" />
             </button>
             {dropdown.services && (
-              <div className={styles.dropdownMenu}>
-                <Link href="/services/virtual-assistance" onClick={closeMenu}>
-                  Virtual Assistance
-                </Link>
-                <Link href="/services/form-filling" onClick={closeMenu}>
-                  Online Form Filling
-                </Link>
-                <Link href="/services/web-development" onClick={closeMenu}>
+              <div className={styles.dropdownMenu} role="menu" aria-label="Services">
+                <Link href="/services/web-development" onClick={closeMenu} role="menuitem">
                   Web Development
                 </Link>
-                <Link href="/services/e-commerce-solutions" onClick={closeMenu}>
-                  E-Commerce Solution
+                <Link href="/services/e-commerce-solutions" onClick={closeMenu} role="menuitem">
+                  E-Commerce & Shopify
                 </Link>
-                <Link href="/services/travel-bookings" onClick={closeMenu}>
+                <Link href="/services/virtual-assistance" onClick={closeMenu} role="menuitem">
+                  Virtual Assistance
+                </Link>
+                <Link href="/services/form-filling" onClick={closeMenu} role="menuitem">
+                  Online Form Filling
+                </Link>
+                <Link href="/services/travel-bookings" onClick={closeMenu} role="menuitem">
                   Travel & Hotel booking
                 </Link>
-                <Link href="/services/data-visualization" onClick={closeMenu}>
+                <Link href="/services/data-visualization" onClick={closeMenu} role="menuitem">
                   Data & AI Solution
                 </Link>
               </div>
             )}
           </li>
           
-          <li>
-            <Link href="/find-work" onClick={closeMenu}>
+          <li role="none">
+            <Link href="/find-work" onClick={closeMenu} role="menuitem">
               Find Work
             </Link>
           </li>
           
           {/* 👥 Freelancer Hub Dropdown */}
-          <li className={styles.dropdown}>
-            <button onClick={() => toggleDropdown("freelancer")}>
-              Freelancer Hub <IoChevronDown />
+          <li className={styles.dropdown} role="none">
+            <button
+              onClick={() => toggleDropdown("freelancer")}
+              aria-expanded={dropdown.freelancer}
+              aria-haspopup="true"
+              role="menuitem"
+            >
+              Freelancer Hub <IoChevronDown aria-hidden="true" />
             </button>
             {dropdown.freelancer && (
-              <div className={styles.dropdownMenu}>
+              <div className={styles.dropdownMenu} role="menu" aria-label="Freelancer">
                 <Link
                   href="/services/freelancer-hub/freelancer-plan"
                   onClick={closeMenu}
+                  role="menuitem"
                 >
                   Join as Freelancer
                 </Link>
                 <Link
                   href="/services/freelancer-hub/hire-freelancer"
                   onClick={closeMenu}
+                  role="menuitem"
                 >
                   Hire Freelancer
                 </Link>
@@ -221,36 +233,37 @@ export default function Nav() {
   
        
 
-          <li>
-            <Link href="/career" onClick={closeMenu}>
+          <li role="none">
+            <Link href="/career" onClick={closeMenu} role="menuitem">
               Career
             </Link>
           </li>
-          <li>
-            <Link href="/contact-us" onClick={closeMenu}>
+          <li role="none">
+            <Link href="/contact-us" onClick={closeMenu} role="menuitem">
               Contact Us
             </Link>
           </li>
 
           {/* Mobile Auth Buttons */}
-          <div className={styles.mobileAuthButtons}>
+          <div className={styles.mobileAuthButtons} role="none">
             {user ? (
               <Link
                 href={getDashboardLink()}
                 className={styles.dashboardBtn}
                 onClick={closeMenu}
+                aria-label={`Dashboard - ${userName}`}
               >
-                <FaUser /> {userName}
+                <FaUser aria-hidden="true" /> {userName}
               </Link>
             ) : (
               <>
                 <Link href="/login">
-                  <button className={styles.loginBtn} onClick={closeMenu}>
+                  <button className={styles.loginBtn} onClick={closeMenu} aria-label="Login to your account">
                     Login
                   </button>
                 </Link>
                 <Link href="/register">
-                  <button className={styles.signUpBtn} onClick={closeMenu}>
+                  <button className={styles.signUpBtn} onClick={closeMenu} aria-label="Create a new account">
                     Register
                   </button>
                 </Link>
@@ -259,18 +272,18 @@ export default function Nav() {
           </div>
         </ul>
 
-        <div className={styles.actions}>
+        <div className={styles.actions} role="none">
           {user ? (
-            <Link href={getDashboardLink()} className={styles.dashboardBtn}>
-              <FaUser /> {userName}
+            <Link href={getDashboardLink()} className={styles.dashboardBtn} aria-label={`Dashboard - ${userName}`}>
+              <FaUser aria-hidden="true" /> {userName}
             </Link>
           ) : (
             <>
               <Link href="/login">
-                <button className={styles.loginBtn}>Login</button>
+                <button className={styles.loginBtn} aria-label="Login to your account">Login</button>
               </Link>
               <Link href="/register">
-                <button className={styles.signUpBtn}>Register</button>
+                <button className={styles.signUpBtn} aria-label="Create a new account">Register</button>
               </Link>
             </>
           )}
@@ -279,8 +292,10 @@ export default function Nav() {
         <button
           className={styles.menuToggle}
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isOpen}
         >
-          {isOpen ? <IoClose size={26} /> : <IoMenu size={26} />}
+          {isOpen ? <IoClose size={26} aria-hidden="true" /> : <IoMenu size={26} aria-hidden="true" />}
         </button>
       </nav>
     </header>

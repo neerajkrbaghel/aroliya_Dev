@@ -5,11 +5,15 @@ import Script from "next/script";
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "";
 
 export const metadata = {
-  title: "Aroliya - India's No. 1 Platform for Smart Online Services",
+  title: {
+    default:
+      "Aroliya - Custom Web Apps, Shopify & WordPress Development Agency",
+    template: "%s | Aroliya - Web & Mobile App Development Agency",
+  },
   description:
-    "Explore Aroliya, India's trusted platform for online services — from Form Filling, Travel & Hotel Bookings, Virtual Assistance, and E-Commerce Development to AI-powered business solutions.",
+    "Aroliya is a leading custom web apps, Shopify, WordPress, and mobile apps development agency. We build high-performance websites, eCommerce stores, and mobile applications for businesses worldwide.",
   keywords:
-    "aroliya, aroliya group, aroliya india, online services india, form filling, travel booking, hotel booking, virtual assistant, ecommerce development, ai solutions",
+    "custom web apps developer, shopify developer, wordpress developer, mobile apps developer, web development agency, ecommerce development, reactjs development, nextjs development, shopify store development, wordpress website development, mobile app development agency, aroliya, aroliya group, aroliya india, custom software development, web application development, hybrid mobile apps, ios app development, android app development",
   authors: [{ name: "Aroliya Group" }],
   creator: "Aroliya Group",
   publisher: "Aroliya Group",
@@ -17,9 +21,9 @@ export const metadata = {
     "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
 
   openGraph: {
-    title: "Aroliya - India's Leading Online Service Platform",
+    title: "Aroliya - Custom Web, Shopify, WordPress & Mobile App Development Agency",
     description:
-      "Smart digital solutions for your business — Form Filling, Travel Bookings, Virtual Assistance, Web & AI Services by Aroliya Group.",
+      "Expert web development agency specializing in custom web apps, Shopify stores, WordPress sites, and mobile applications. Trusted by 500+ businesses worldwide.",
     url: "https://www.aroliya.com",
     siteName: "Aroliya",
     images: [
@@ -27,7 +31,7 @@ export const metadata = {
         url: "/icons/wmremove.gif",
         width: 1200,
         height: 630,
-        alt: "Aroliya - Smart Online Service Platform",
+        alt: "Aroliya - Custom Web & Mobile App Development Agency",
       },
     ],
     locale: "en_IN",
@@ -38,6 +42,16 @@ export const metadata = {
     canonical: "https://www.aroliya.com",
   },
   metadataBase: new URL("https://www.aroliya.com"),
+  twitter: {
+    card: "summary_large_image",
+    title: "Aroliya - Custom Web Apps, Shopify & WordPress Development Agency",
+    description:
+      "Leading web & mobile app development agency. Specializing in custom web apps, Shopify, WordPress, and mobile app development.",
+    images: ["/icons/wmremove.gif"],
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || "",
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -116,7 +130,10 @@ export default function RootLayout({ children }) {
       {/* suppressHydrationWarning put on body to reduce hydration mismatch errors
           caused by browser extensions that mutate the DOM before React hydrates. */}
       <body suppressHydrationWarning>
-        <main>{children}</main>
+        <a href="#main-content" className="skip-to-content">
+          Skip to main content
+        </a>
+        <main id="main-content">{children}</main>
 
         {/* Google Analytics - only load when GA_ID present */}
         {GA_ID && (
@@ -202,14 +219,19 @@ export default function RootLayout({ children }) {
                 "availableLanguage": ["English", "Hindi"]
               }],
               "knowsAbout": [
+                "Custom Web Application Development",
+                "Shopify Store Development",
+                "WordPress Website Development",
+                "Mobile App Development",
+                "E-Commerce Solutions",
+                "React JS Development",
+                "Next JS Development",
                 "Form Filling Services",
                 "Travel Bookings",
                 "Hotel Reservations",
                 "Virtual Assistant Services",
-                "E-Commerce Solutions",
                 "Data Analytics",
                 "AI Solutions",
-                "Web Development",
                 "Digital Marketing"
               ]
             }
@@ -228,7 +250,7 @@ export default function RootLayout({ children }) {
               "@id": "https://www.aroliya.com/#website",
               "url": "https://www.aroliya.com",
               "name": "Aroliya",
-              "description": "India's No. 1 Platform for Smart Online Services",
+              "description": "Custom Web Apps, Shopify & WordPress Development Agency",
               "publisher": {
                 "@id": "https://www.aroliya.com/#organization"
               },
@@ -241,6 +263,54 @@ export default function RootLayout({ children }) {
                 "query-input": "required name=search_term_string"
               },
               "inLanguage": "en-IN"
+            }
+          `}
+        </Script>
+
+        <Script
+          id="service-structured-data"
+          type="application/ld+json"
+          strategy="afterInteractive"
+        >
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "provider": {
+                "@type": "Organization",
+                "name": "Aroliya",
+                "url": "https://www.aroliya.com"
+              },
+              "name": "Custom Web & Mobile App Development Services",
+              "description": "Professional custom web application development, Shopify store development, WordPress website development, and mobile app development services.",
+              "offers": [
+                {
+                  "@type": "Offer",
+                  "name": "Custom Web App Development",
+                  "description": "React, Next.js, Node.js custom web application development"
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Shopify Development",
+                  "description": "Custom Shopify store development and theme customization"
+                },
+                {
+                  "@type": "Offer",
+                  "name": "WordPress Development",
+                  "description": "Custom WordPress website and plugin development"
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Mobile App Development",
+                  "description": "iOS and Android mobile application development"
+                },
+                {
+                  "@type": "Offer",
+                  "name": "E-Commerce Solutions",
+                  "description": "Full-featured eCommerce platform development"
+                }
+              ],
+              "areaServed": "Worldwide"
             }
           `}
         </Script>

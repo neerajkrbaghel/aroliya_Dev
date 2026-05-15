@@ -532,10 +532,14 @@ const EcommerceSolutions = () => {
   return (
     <>
       <Head>
-        <title>Professional E-commerce Solutions | Aroliya</title>
+        <title>Shopify & E-Commerce Development | Aroliya</title>
         <meta
           name="description"
-          content="Complete e-commerce solutions with professional features, secure payments, expert support, and flexible pricing for businesses of all sizes."
+          content="Professional Shopify store development and e-commerce solutions by Aroliya. Custom Shopify themes, WooCommerce, and multi-platform e-commerce development for businesses worldwide."
+        />
+        <meta
+          name="keywords"
+          content="shopify developer, shopify store development, ecommerce development, woocommerce developer, shopify expert, ecommerce agency, online store development, custom shopify theme"
         />
       </Head>
       <Nav />

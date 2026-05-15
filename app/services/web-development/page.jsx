@@ -1,4 +1,5 @@
 "use client";
+import Head from "next/head";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import {
@@ -417,6 +418,17 @@ const Services = () => {
 
   return (
     <>
+      <Head>
+        <title>Custom Web App Development | React, Next.js, Node.js | Aroliya</title>
+        <meta
+          name="description"
+          content="Professional custom web application development by Aroliya. Specializing in React, Next.js, Node.js, PHP, and cloud-native web apps. 50+ successful projects delivered."
+        />
+        <meta
+          name="keywords"
+          content="custom web app development, reactjs development, nextjs development, nodejs development, web application developer, custom web development agency, full stack development"
+        />
+      </Head>
       <Nav />
       <div className={styles.container}>
         <WhatsApp />

@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /wp-admin/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /client-dashboard/
+Disallow: /freelancer-dashboard/
+Disallow: /reset-password/
+Disallow: /unauthorized/
+
+Sitemap: https://www.aroliya.com/sitemap.xml

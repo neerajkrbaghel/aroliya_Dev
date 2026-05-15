@@ -377,12 +377,14 @@ const VirtualAssistance = () => {
   return (
     <>
       <Head>
-        <title>
-          Professional Virtual Assistance Services | Scale Your Business
-        </title>
+        <title>Virtual Assistant Services | Administrative & Technical Support | Aroliya</title>
         <meta
           name="description"
-          content="Expert virtual assistance services for administrative, creative, technical, and marketing support. Scale your business with our professional virtual assistants."
+          content="Professional virtual assistance services including WordPress support, website maintenance, administrative tasks, and technical assistance. Scale your business with Aroliya's expert virtual assistants."
+        />
+        <meta
+          name="keywords"
+          content="virtual assistant, wordpress support, website maintenance, administrative support, virtual assistant services, technical support, business process outsourcing"
         />
       </Head>
       <Nav />

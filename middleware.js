@@ -39,6 +39,7 @@ const PUBLIC_PATHS = [
   "/career",
   "/unauthorized",
   "/how-its-work",
+  "/blogs",
   "/terms-and-conditions",
   "/terms-and-privacy",
   "/api/webdev",

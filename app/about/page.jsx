@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Head from "next/head";
 import styles from "./About.module.css";
 import Nav from "../home/component/Nav/page";
 import Footer from "../home/footer/page";
@@ -168,6 +169,17 @@ export default function About() {
 
   return (
     <div>
+      <Head>
+        <title>About Us | Aroliya - Custom Web & Mobile App Development Agency</title>
+        <meta
+          name="description"
+          content="Learn about Aroliya - a leading custom web app, Shopify, WordPress, and mobile app development agency. Founded in 2023, we've delivered 50+ successful projects worldwide."
+        />
+        <meta
+          name="keywords"
+          content="about aroliya, web development agency, shopify experts, wordpress developers, mobile app developers, custom software company"
+        />
+      </Head>
       <Nav />
       <Whasapp />
       <motion.div

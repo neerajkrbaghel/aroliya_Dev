@@ -130,14 +130,14 @@ export default function Contact() {
   return (
     <>
       <Head>
-        <title>Contact Aroliya | Get Professional Solutions & Support</title>
+        <title>Contact Us | Aroliya - Web & Mobile App Development Agency</title>
         <meta
           name="description"
-          content="Contact Aroliya for expert freelancing, travel booking, AI solutions, virtual assistant services, and professional form filling. Get in touch today!"
+          content="Get in touch with Aroliya for custom web development, Shopify stores, WordPress websites, and mobile app development. Contact our team for a free consultation."
         />
         <meta
           name="keywords"
-          content="contact Aroliya, freelancing services, travel booking, AI solutions, virtual assistant, form filling"
+          content="contact web development agency, hire shopify developer, hire wordpress developer, hire mobile app developer, web development inquiry, aroliya contact"
         />
       </Head>
       <Nav />

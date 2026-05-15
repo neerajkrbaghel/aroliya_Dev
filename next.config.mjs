@@ -1,3 +1,5 @@
+import createMDX from "@next/mdx";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Performance optimizations
@@ -6,6 +8,9 @@ const nextConfig = {
 
   // Socket.io and AWS SDK configuration
   serverExternalPackages: ["socket.io", "@aws-sdk/client-s3"],
+
+  // Allow MDX files in the app directory
+  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
 
   // Compiler optimizations
   compiler: {
@@ -86,4 +91,6 @@ const nextConfig = {
   output: process.env.NODE_ENV === "production" ? "standalone" : undefined,
 };
 
-export default nextConfig;
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);

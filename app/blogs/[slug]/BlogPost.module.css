@@ -1,0 +1,154 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 120px 20px 60px;
+  min-height: 100vh;
+}
+
+.back {
+  display: inline-block;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 40px;
+  font-size: 1rem;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+.article {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.header {
+  padding: 40px 40px 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tag {
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #111827;
+  margin-bottom: 16px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.9rem;
+  color: #9ca3af;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.author {
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.content {
+  padding: 0 40px 40px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #374151;
+}
+
+.content h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 32px 0 16px;
+  color: #111827;
+}
+
+.content h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 28px 0 12px;
+  color: #111827;
+}
+
+.content p {
+  margin-bottom: 1.2rem;
+}
+
+.content ul,
+.content ol {
+  margin-bottom: 1.2rem;
+  padding-left: 1.5rem;
+}
+
+.content li {
+  margin-bottom: 0.5rem;
+}
+
+.content a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.content a:hover {
+  color: #1d4ed8;
+}
+
+.content code {
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #dc2626;
+}
+
+.content pre {
+  background: #1f2937;
+  color: #f3f4f6;
+  padding: 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.content pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+
+.content blockquote {
+  border-left: 4px solid #2563eb;
+  padding-left: 20px;
+  margin: 1.5rem 0;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}

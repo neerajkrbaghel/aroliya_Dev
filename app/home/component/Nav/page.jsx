@@ -159,6 +159,11 @@ export default function Nav() {
               Our Team
             </Link>
           </li>
+          <li>
+            <Link href="/blogs" onClick={closeMenu}>
+              Blog
+            </Link>
+          </li>
           
           {/* 💼 Services Dropdown */}
           <li className={styles.dropdown}>

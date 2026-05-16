@@ -46,16 +46,10 @@ export default function AdminLayout({ children }) {
     return pathname === path ? styles.active : "";
   };
 
-  const handleLogout = async () => {
-    try {
-      localStorage.removeItem("user");
-      sessionStorage.removeItem("user");
-      await fetch("/api/auth/logout", { method: "POST" });
-      router.push("/");
-    } catch (error) {
-      console.error("Logout error:", error);
-      router.push("/");
-    }
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
+    router.push("/");
   };
 
   const toggleSidebar = () => {

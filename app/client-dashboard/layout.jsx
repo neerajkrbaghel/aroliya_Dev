@@ -161,9 +161,8 @@ export default function ClientDashboardLayout({ children }) {
     }
   };
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     localStorage.removeItem("user");
-    await fetch("/api/auth/logout", { method: "POST" });
     router.push("/");
   };
 

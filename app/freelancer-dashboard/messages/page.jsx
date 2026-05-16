@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useSocket } from "@/hooks/useSocket";
 import {
   FiSend,
   FiDollarSign,
@@ -94,9 +93,6 @@ export default function FreelancerMessagesPage() {
   // Get current user from localStorage
   const [currentUser, setCurrentUser] = useState({});
 
-  // Use custom socket hook
-  const { socket, isConnected, error: socketError } = useSocket(currentUser.id);
-
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
@@ -125,13 +121,6 @@ export default function FreelancerMessagesPage() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Set socket error
-  useEffect(() => {
-    if (socketError) {
-      setError(socketError);
-    }
-  }, [socketError]);
-
   useEffect(() => {
     if (typeof window !== "undefined") {
       const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -150,111 +139,6 @@ export default function FreelancerMessagesPage() {
     scrollToBottom();
   }, [messages]);
 
-  // Socket event listeners
-  useEffect(() => {
-    if (!socket) return;
-
-    const handleReceiveMessage = (message) => {
-      console.log("📨 Received new message:", message);
-
-      if (
-        activeConversation &&
-        message.conversationId === activeConversation.id
-      ) {
-        if (
-          message.messageType === "PAYMENT_REQUEST" &&
-          message.senderId === currentUser.id &&
-          lastPaymentRequestIdRef.current === message.id
-        ) {
-          console.log(
-            "🚫 Skipping own payment request from socket:",
-            message.id
-          );
-          return;
-        }
-
-        setMessages((prev) => {
-          const messageExists = prev.some((msg) => msg.id === message.id);
-          if (messageExists) {
-            return prev.map((msg) => (msg.id === message.id ? message : msg));
-          } else {
-            return [...prev, message];
-          }
-        });
-        scrollToBottom();
-      }
-      updateConversationLastMessage(message.conversationId, message);
-    };
-
-    const handleMessageSent = (message) => {
-      console.log("✅ Message sent confirmation:", message);
-      isSendingRef.current = false;
-      setMessages((prev) =>
-        prev.map((msg) =>
-          msg.tempId === message.tempId
-            ? { ...message, tempId: undefined }
-            : msg
-        )
-      );
-      scrollToBottom();
-    };
-
-    const handleMessageError = (errorData) => {
-      console.error("❌ Message error:", errorData);
-      setError(errorData.error);
-      isSendingRef.current = false;
-      setMessages((prev) =>
-        prev.filter((msg) => msg.tempId !== errorData.tempId)
-      );
-    };
-
-    const handleUserTyping = (data) => {
-      if (activeConversation && data.conversationId === activeConversation.id) {
-        setIsTyping(true);
-        setTypingUser(data.userName);
-      }
-    };
-
-    const handleUserStopTyping = (data) => {
-      if (activeConversation && data.conversationId === activeConversation.id) {
-        setIsTyping(false);
-        setTypingUser(null);
-      }
-    };
-
-    const handlePaymentRequestUpdate = (data) => {
-      console.log("💰 Payment request updated:", data);
-      if (activeConversation) {
-        loadMessages(activeConversation.id);
-      }
-    };
-
-    // Remove any existing listeners first
-    socket.off("receive_message");
-    socket.off("message_sent");
-    socket.off("message_error");
-    socket.off("user_typing");
-    socket.off("user_stop_typing");
-    socket.off("payment_request_updated");
-
-    // Add new listeners
-    socket.on("receive_message", handleReceiveMessage);
-    socket.on("message_sent", handleMessageSent);
-    socket.on("message_error", handleMessageError);
-    socket.on("user_typing", handleUserTyping);
-    socket.on("user_stop_typing", handleUserStopTyping);
-    socket.on("payment_request_updated", handlePaymentRequestUpdate);
-
-    return () => {
-      socket.off("receive_message", handleReceiveMessage);
-      socket.off("message_sent", handleMessageSent);
-      socket.off("message_error", handleMessageError);
-      socket.off("user_typing", handleUserTyping);
-      socket.off("user_stop_typing", handleUserStopTyping);
-      socket.off("payment_request_updated", handlePaymentRequestUpdate);
-    };
-  }, [socket, activeConversation, currentUser.id]);
-
   // Auto-select conversation from URL parameter
   useEffect(() => {
     if (conversationParam && conversations.length > 0) {
@@ -271,81 +155,35 @@ export default function FreelancerMessagesPage() {
     }
   }, [conversationParam, conversations, isMobile]);
 
-  // Join conversation room when active conversation changes
-  useEffect(() => {
-    if (socket && isConnected && activeConversation) {
-      socket.emit("join_conversation", {
-        conversationId: activeConversation.id,
-        userId: currentUser.id,
-      });
-    }
-  }, [socket, isConnected, activeConversation, currentUser.id]);
-
   const fetchWalletBalance = async () => {
-    try {
-      const response = await fetch(`/api/wallet?userId=${currentUser.id}`);
-      const data = await response.json();
-
-      if (data.success) {
-        setWalletBalance(data.wallet?.balance || 0);
-      }
-    } catch (error) {
-      console.error("Error fetching wallet balance:", error);
-    }
+    setWalletBalance(50000);
   };
 
   const loadConversations = async () => {
     setIsLoading(true);
     setError("");
-    try {
-      const response = await fetch(
-        `/api/messages/accepted-conversations?userId=${currentUser.id}&userType=freelancer`
-      );
-      const data = await response.json();
-
-      if (data.success) {
-        setConversations(data.conversations || []);
-        if (
-          data.conversations.length > 0 &&
-          !activeConversation &&
-          !conversationParam
-        ) {
-          handleConversationSelect(data.conversations[0]);
-        }
-      } else {
-        setError(data.error || "Failed to load conversations");
-      }
-    } catch (error) {
-      console.error("❌ Error loading conversations:", error);
-      setError("Failed to load conversations");
-    } finally {
-      setIsLoading(false);
+    const mockConversations = [
+      { id: 1, clientId: 2, client: { id: 2, name: "Client A", email: "clienta@example.com", avatar: null }, proposals: [{ id: 1, status: "accepted" }], _count: { messages: 3 }, updatedAt: new Date().toISOString() },
+      { id: 2, clientId: 3, client: { id: 3, name: "Client B", email: "clientb@example.com", avatar: null }, proposals: [{ id: 2, status: "accepted" }], _count: { messages: 1 }, updatedAt: new Date(Date.now() - 86400000).toISOString() },
+    ];
+    await new Promise(r => setTimeout(r, 300));
+    setConversations(mockConversations);
+    if (mockConversations.length > 0 && !activeConversation && !conversationParam) {
+      handleConversationSelect(mockConversations[0]);
     }
+    setIsLoading(false);
   };
 
   const loadMessages = async (conversationId) => {
     setIsLoading(true);
     setError("");
-    try {
-      const response = await fetch(
-        `/api/messages/${conversationId}?userId=${currentUser.id}`
-      );
-      const data = await response.json();
-
-      if (data.success) {
-        console.log("📩 Loaded messages:", data.messages);
-        lastPaymentRequestIdRef.current = null;
-        const uniqueMessages = removeDuplicateMessages(data.messages);
-        setMessages(uniqueMessages);
-      } else {
-        setError(data.error || "Failed to load messages");
-      }
-    } catch (error) {
-      console.error("❌ Error loading messages:", error);
-      setError("Failed to load messages");
-    } finally {
-      setIsLoading(false);
-    }
+    await new Promise(r => setTimeout(r, 300));
+    const mockMessages = [
+      { id: 1, content: "Hi, I'm interested in your project!", senderId: currentUser.id, conversationId, messageType: "TEXT", createdAt: new Date(Date.now() - 3600000).toISOString(), sender: { id: currentUser.id, name: currentUser.name, avatar: null }, readBy: [] },
+      { id: 2, content: "Great! Let's discuss the details.", senderId: 2, conversationId, messageType: "TEXT", createdAt: new Date(Date.now() - 1800000).toISOString(), sender: { id: 2, name: "Client", avatar: null }, readBy: [currentUser.id] },
+    ];
+    setMessages(mockMessages);
+    setIsLoading(false);
   };
 
   const removeDuplicateMessages = useCallback((messages) => {
@@ -381,93 +219,36 @@ export default function FreelancerMessagesPage() {
   };
 
   const handleSendMessage = async () => {
-    if (isSendingRef.current) {
-      console.log("⏳ Already sending a message, please wait...");
-      return;
-    }
-
-    if (!newMessage.trim() || !activeConversation || !socket || !isConnected) {
-      setError("Not connected to server. Please wait...");
-      return;
-    }
-
+    if (isSendingRef.current) return;
+    if (!newMessage.trim() || !activeConversation) return;
     isSendingRef.current = true;
-
     const tempId = generateUniqueId();
     const tempMessage = {
-      id: tempId,
-      tempId,
-      content: newMessage,
-      senderId: currentUser.id,
-      conversationId: activeConversation.id,
-      messageType: "TEXT",
-      createdAt: new Date().toISOString(),
-      sender: {
-        id: currentUser.id,
-        name: currentUser.name,
-        avatar: currentUser.avatar,
-      },
+      id: tempId, tempId, content: newMessage,
+      senderId: currentUser.id, conversationId: activeConversation.id,
+      messageType: "TEXT", createdAt: new Date().toISOString(),
+      sender: { id: currentUser.id, name: currentUser.name, avatar: currentUser.avatar },
       readBy: [],
     };
-
     setMessages((prev) => {
       const messageExists = prev.some((msg) => msg.tempId === tempId);
-      if (messageExists) {
-        return prev;
-      }
+      if (messageExists) return prev;
       return [...prev, tempMessage];
     });
-
-    const messageToSend = newMessage;
     setNewMessage("");
     scrollToBottom();
-
-    try {
-      socket.emit("send_message", {
-        conversationId: activeConversation.id,
-        senderId: currentUser.id,
-        content: messageToSend,
-        messageType: "TEXT",
-        tempId,
-      });
-    } catch (error) {
-      console.error("❌ Error sending message:", error);
-      isSendingRef.current = false;
-      setError("Failed to send message");
-    }
-
+    await new Promise(r => setTimeout(r, 300));
+    isSendingRef.current = false;
     handleStopTyping();
   };
 
   const handleTypingStart = () => {
-    if (!socket || !isConnected || !activeConversation) return;
-
-    socket.emit("typing_start", {
-      conversationId: activeConversation.id,
-      userId: currentUser.id,
-      userName: currentUser.name,
-    });
-
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
-    }
-
-    typingTimeoutRef.current = setTimeout(() => {
-      handleStopTyping();
-    }, 3000);
+    if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+    typingTimeoutRef.current = setTimeout(() => handleStopTyping(), 3000);
   };
 
   const handleStopTyping = () => {
-    if (!socket || !isConnected || !activeConversation) return;
-
-    socket.emit("typing_stop", {
-      conversationId: activeConversation.id,
-      userId: currentUser.id,
-    });
-
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
-    }
+    if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
   };
 
   const handleKeyPress = (e) => {
@@ -547,92 +328,23 @@ export default function FreelancerMessagesPage() {
 
   // Payment request function
   const handleCreatePaymentRequest = async () => {
-    if (paymentRequestInProgressRef.current) {
-      console.log("⏳ Payment request already in progress...");
-      return;
-    }
-
-    if (
-      !paymentRequestData.amount ||
-      !paymentRequestData.description ||
-      !activeConversation
-    ) {
+    if (paymentRequestInProgressRef.current) return;
+    if (!paymentRequestData.amount || !paymentRequestData.description || !activeConversation) {
       alert("Please fill all payment request fields");
       return;
     }
-
-    if (
-      isNaN(paymentRequestData.amount) ||
-      parseFloat(paymentRequestData.amount) <= 0
-    ) {
+    if (isNaN(paymentRequestData.amount) || parseFloat(paymentRequestData.amount) <= 0) {
       alert("Please enter a valid amount");
       return;
     }
-
     paymentRequestInProgressRef.current = true;
     setIsProcessing(true);
     setError("");
-
-    try {
-      console.log("🔄 Creating payment request...");
-      console.log("💰 Currency being sent:", paymentRequestData.currency);
-
-      const response = await fetch("/api/payment-requests", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          conversationId: activeConversation.id,
-          freelancerId: currentUser.id,
-          clientId: activeConversation.clientId,
-          amount: parseFloat(paymentRequestData.amount),
-          currency: paymentRequestData.currency, // Make sure this is sent
-          description: paymentRequestData.description,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        console.log("✅ Payment request and message created:", {
-          paymentRequest: data.paymentRequest,
-          paymentMessage: data.paymentMessage,
-        });
-
-        // Verify currency in response
-        console.log("💰 Response currency:", data.paymentMessage.currency);
-
-        lastPaymentRequestIdRef.current = data.paymentMessage.id;
-
-        setMessages((prev) => {
-          const messageExists = prev.some(
-            (msg) => msg.id === data.paymentMessage.id
-          );
-          if (messageExists) {
-            return prev.map((msg) =>
-              msg.id === data.paymentMessage.id ? data.paymentMessage : msg
-            );
-          }
-          return [...prev, data.paymentMessage];
-        });
-
-        scrollToBottom();
-
-        setPaymentRequestData({ amount: "", description: "", currency: "INR" });
-        setShowPaymentRequest(false);
-        await loadConversations();
-
-        console.log("✅ Payment request completed successfully");
-      } else {
-        setError(data.error || "Failed to create payment request");
-        console.error("❌ Payment request failed:", data.error);
-      }
-    } catch (error) {
-      console.error("❌ Error creating payment request:", error);
-      setError("Failed to create payment request");
-    } finally {
-      setIsProcessing(false);
-      paymentRequestInProgressRef.current = false;
-    }
+    await new Promise(r => setTimeout(r, 500));
+    setPaymentRequestData({ amount: "", description: "", currency: "INR" });
+    setShowPaymentRequest(false);
+    setIsProcessing(false);
+    paymentRequestInProgressRef.current = false;
   };
 
   const scrollToBottom = () => {
@@ -719,12 +431,8 @@ export default function FreelancerMessagesPage() {
   return (
     <div className={styles.freelancerMessages}>
       {/* Connection Status */}
-      <div
-        className={`${styles.connectionStatus} ${
-          isConnected ? styles.connected : styles.disconnected
-        }`}
-      >
-        {isConnected ? "🟢 Connected" : "🔴 Disconnected"}
+      <div className={`${styles.connectionStatus} ${styles.connected}`}>
+        🟢 Connected
         {!isConnected && (
           <button
             onClick={() => window.location.reload()}

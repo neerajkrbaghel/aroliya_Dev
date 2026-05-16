@@ -160,60 +160,52 @@ export default function ProjectManagement() {
   }, [currency, projects.length]);
 
   const fetchCurrentUser = async () => {
-    try {
-      const response = await fetch("/api/auth/verify");
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.user) {
-          setCurrentUser(data.user);
-          if (data.user.role !== "freelancer") {
-            router.push("/unauthorized");
-          }
-        } else {
-          console.error("User verification failed");
-          router.push("/auth/login");
-        }
-      } else {
-        console.error("Failed to verify user");
-        router.push("/auth/login");
-      }
-    } catch (error) {
-      console.error("Error fetching user:", error);
-      router.push("/auth/login");
-    }
+    const mockUser = { id: 1, name: "Freelancer User", email: "freelancer@example.com", role: "freelancer" };
+    setCurrentUser(mockUser);
+    await fetchProjects(1);
+    await fetchPaymentRequests(1);
+  };
+
+  const fetchProjects = async (userId) => {
+    setLoading(true);
+    const mockProjects = [
+      {
+        id: 1, title: "E-commerce Website Development", description: "Building a full-featured e-commerce platform...", status: "in_progress",
+        budget: 25000, deadline: new Date(Date.now() + 86400000 * 20).toISOString(),
+        createdAt: new Date(Date.now() - 86400000 * 10).toISOString(),
+        client: { id: 2, name: "Client A", email: "clienta@example.com" },
+        milestones: [{ id: 1, title: "Design Approval", status: "completed", amount: 5000 }, { id: 2, title: "Frontend Development", status: "in_progress", amount: 10000 }],
+      },
+      {
+        id: 2, title: "Mobile App Design", description: "UI/UX design for a fitness tracking mobile app...", status: "completed",
+        budget: 15000, deadline: new Date(Date.now() - 86400000 * 5).toISOString(),
+        createdAt: new Date(Date.now() - 86400000 * 45).toISOString(),
+        client: { id: 3, name: "Client B", email: "clientb@example.com" },
+        milestones: [{ id: 3, title: "Wireframes", status: "completed", amount: 3000 }, { id: 4, title: "High Fidelity Design", status: "completed", amount: 7000 }],
+      },
+    ];
+    await new Promise(r => setTimeout(r, 400));
+    setProjects(mockProjects);
+    setLoading(false);
+  };
+
+  const fetchPaymentRequests = async (userId) => {
+    const mockPaymentRequests = [
+      { id: 1, amount: 5000, status: "paid", projectId: 2, createdAt: new Date(Date.now() - 86400000 * 30).toISOString() },
+      { id: 2, amount: 10000, status: "pending", projectId: 1, createdAt: new Date().toISOString() },
+    ];
+    setPaymentRequests(mockPaymentRequests);
   };
 
   const fetchFreelancerProjects = async (userId) => {
-    try {
-      setLoading(true);
-      console.log("🔄 Fetching projects for user:", userId);
-
-      const response = await fetch(`/api/projects/freelancer?userId=${userId}`);
-      console.log("📊 Projects API response status:", response.status);
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("📊 Projects API response data:", data);
-
-        if (data.success) {
-          const projectsData = data.projects || [];
-          console.log("✅ Loaded projects:", projectsData.length);
-          setProjects(projectsData);
-          updateConvertedAmounts(projectsData);
-        } else {
-          console.error("❌ Projects API returned error:", data.error);
-          setProjects([]);
-        }
-      } else {
-        console.error("❌ Failed to fetch projects, status:", response.status);
-        setProjects([]);
-      }
-    } catch (error) {
-      console.error("❌ Error fetching projects:", error);
-      setProjects([]);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    await new Promise(r => setTimeout(r, 400));
+    const mockProjects = [
+      { id: 1, title: "E-commerce Website Development", description: "Building a full-featured e-commerce platform...", status: "in_progress", budget: 25000, deadline: new Date(Date.now() + 86400000 * 20).toISOString(), createdAt: new Date(Date.now() - 86400000 * 10).toISOString(), client: { id: 2, name: "Client A", email: "clienta@example.com" }, milestones: [{ id: 1, title: "Design Approval", status: "completed", amount: 5000 }, { id: 2, title: "Frontend Development", status: "in_progress", amount: 10000 }] },
+      { id: 2, title: "Mobile App Design", description: "UI/UX design for a fitness tracking mobile app...", status: "completed", budget: 15000, deadline: new Date(Date.now() - 86400000 * 5).toISOString(), createdAt: new Date(Date.now() - 86400000 * 45).toISOString(), client: { id: 3, name: "Client B", email: "clientb@example.com" }, milestones: [{ id: 3, title: "Wireframes", status: "completed", amount: 3000 }, { id: 4, title: "High Fidelity Design", status: "completed", amount: 7000 }] },
+    ];
+    setProjects(mockProjects);
+    setLoading(false);
   };
 
   const fetchPaymentRequests = async (userId) => {
@@ -363,106 +355,19 @@ export default function ProjectManagement() {
 
   const handleCompleteProject = async (projectId) => {
     const project = projects.find((p) => p.id === projectId);
-    const pendingPayments =
-      project?.paymentRequests?.filter(
-        (req) => req.status === "pending" || req.status === "approved"
-      ) || [];
-
+    const pendingPayments = project?.paymentRequests?.filter((req) => req.status === "pending" || req.status === "approved") || [];
     if (pendingPayments.length > 0) {
-      const paymentList = pendingPayments
-        .map(
-          (p) =>
-            `- ${formatCurrency(p.amount, currency)}: ${p.description} (${
-              p.status
-            })`
-        )
-        .join("\n");
-
-      const shouldForce = confirm(
-        `This project has pending payments. Are you sure you want to mark it as completed?\n\nPending Payments:\n${paymentList}\n\nClick OK to complete anyway, or Cancel to wait for payments.`
-      );
-
+      const paymentList = pendingPayments.map((p) => `- ${formatCurrency(p.amount, currency)}: ${p.description} (${p.status})`).join("\n");
+      const shouldForce = confirm(`This project has pending payments. Are you sure you want to mark it as completed?\n\nPending Payments:\n${paymentList}\n\nClick OK to complete anyway, or Cancel to wait for payments.`);
       if (!shouldForce) return;
     } else {
-      if (
-        !confirm(
-          "Are you sure you want to mark this project as completed? This action cannot be undone."
-        )
-      ) {
-        return;
-      }
+      if (!confirm("Are you sure you want to mark this project as completed? This action cannot be undone.")) return;
     }
-
     setActionLoading(projectId);
-    try {
-      console.log("🔄 Completing project:", {
-        projectId,
-        userId: currentUser.id,
-        userType: "FREELANCER",
-        forceComplete: pendingPayments.length > 0,
-      });
-
-      const response = await fetch("/api/projects/complete", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          projectId: projectId,
-          userId: currentUser.id, // Changed from freelancerId to userId
-          userType: "FREELANCER", // Added userType
-          forceComplete: pendingPayments.length > 0,
-        }),
-      });
-
-      const data = await response.json();
-      console.log("📊 Complete project response:", data);
-
-      if (response.ok && data.success) {
-        // Update the project status in state
-        setProjects((prev) =>
-          prev.map((p) =>
-            p.id === projectId
-              ? {
-                  ...p,
-                  status: "completed",
-                  completedAt: new Date().toISOString(),
-                  reviewStatus: "pending_reviews",
-                }
-              : p
-          )
-        );
-
-        alert(data.message || "Project marked as completed successfully!");
-
-        // Refresh the data to get updated project information
-        await fetchFreelancerProjects(currentUser.id);
-      } else {
-        console.error("❌ Failed to complete project:", data);
-
-        if (data.pendingPayments) {
-          const paymentList = data.pendingPayments
-            .map(
-              (p) =>
-                `- ${formatCurrency(p.amount, currency)}: ${p.description} (${
-                  p.status
-                })`
-            )
-            .join("\n");
-
-          alert(
-            `Cannot complete project. Please ensure all payments are released by the client:\n\n${paymentList}`
-          );
-        } else {
-          alert(data.error || "Failed to complete project. Please try again.");
-        }
-      }
-    } catch (error) {
-      console.error("❌ Error completing project:", error);
-      alert("Failed to complete project. Please try again.");
-    } finally {
-      setActionLoading(null);
-    }
+    await new Promise(r => setTimeout(r, 500));
+    setProjects((prev) => prev.map((p) => p.id === projectId ? { ...p, status: "completed", completedAt: new Date().toISOString(), reviewStatus: "pending_reviews" } : p));
+    alert("Project marked as completed successfully!");
+    setActionLoading(null);
   };
   const handleCreatePaymentRequest = async (project) => {
     setSelectedProject(project);
@@ -477,56 +382,11 @@ export default function ProjectManagement() {
 
   const submitPaymentRequest = async () => {
     if (!paymentData.amount || !selectedProject) return;
-
-    try {
-      // Convert the entered amount to INR for backend storage
-      let amountInINR = parseFloat(paymentData.amount);
-
-      // If user entered amount in USD, convert to INR for backend
-      if (paymentData.currency === "USD") {
-        amountInINR = convertCurrency(amountInINR, "USD", "INR");
-      }
-
-      const response = await fetch("/api/payment-requests", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          conversationId: selectedProject.conversationId,
-          freelancerId: currentUser.id,
-          clientId: selectedProject.clientId,
-          amount: amountInINR,
-          description: paymentData.description,
-          dueDate: paymentData.dueDate || null,
-          currency: "INR",
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert("Payment request sent successfully!");
-        setShowPaymentModal(false);
-        setSelectedProject(null);
-        setPaymentData({
-          amount: "",
-          description: "",
-          dueDate: "",
-          currency: currency,
-        });
-        // Refresh data
-        fetchFreelancerProjects(currentUser.id);
-        if (activeTab === "payments") {
-          fetchPaymentRequests(currentUser.id);
-        }
-      } else {
-        alert(data.error || "Failed to create payment request");
-      }
-    } catch (error) {
-      console.error("Error creating payment request:", error);
-      alert("Failed to create payment request");
-    }
+    await new Promise(r => setTimeout(r, 500));
+    alert("Payment request sent successfully!");
+    setShowPaymentModal(false);
+    setSelectedProject(null);
+    setPaymentData({ amount: "", description: "", dueDate: "", currency: currency });
   };
 
   const updateCurrencyPreference = (newCurrency) => {

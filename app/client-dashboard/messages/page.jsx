@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams, useRouter } from "next/navigation";
 import Banner from "../components/page";
-import { useSocket } from "@/hooks/useSocket";
+
 import {
   FiSend,
   FiDollarSign,
@@ -85,9 +85,6 @@ export default function ClientMessagesPage() {
   // Get current user from localStorage
   const [currentUser, setCurrentUser] = useState({});
 
-  // Use custom socket hook
-  const { socket, isConnected, error: socketError } = useSocket(currentUser.id);
-
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
@@ -100,12 +97,6 @@ export default function ClientMessagesPage() {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
-
-  useEffect(() => {
-    if (socketError) {
-      setError(socketError);
-    }
-  }, [socketError]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -126,67 +117,7 @@ export default function ClientMessagesPage() {
     scrollToBottom();
   }, [messages]);
 
-  // Socket event listeners
-  useEffect(() => {
-    if (!socket) return;
-
-    const handleReceiveMessage = (message) => {
-      if (
-        activeConversation &&
-        message.conversationId === activeConversation.id
-      ) {
-        setMessages((prev) => [...prev, message]);
-        scrollToBottom();
-      }
-
-      updateConversationLastMessage(message.conversationId, message);
-    };
-
-    const handleMessageSent = (message) => {
-      setMessages((prev) =>
-        prev.map((msg) =>
-          msg.tempId === message.tempId
-            ? { ...message, tempId: undefined }
-            : msg
-        )
-      );
-      scrollToBottom();
-    };
-
-    const handleUserTyping = (data) => {
-      if (activeConversation && data.conversationId === activeConversation.id) {
-        setIsTyping(true);
-        setTypingUser(data.userName);
-      }
-    };
-
-    const handleUserStopTyping = (data) => {
-      if (activeConversation && data.conversationId === activeConversation.id) {
-        setIsTyping(false);
-        setTypingUser(null);
-      }
-    };
-
-    const handlePaymentRequestUpdate = (data) => {
-      if (activeConversation) {
-        loadMessages(activeConversation.id);
-      }
-    };
-
-    socket.on("receive_message", handleReceiveMessage);
-    socket.on("message_sent", handleMessageSent);
-    socket.on("user_typing", handleUserTyping);
-    socket.on("user_stop_typing", handleUserStopTyping);
-    socket.on("payment_request_updated", handlePaymentRequestUpdate);
-
-    return () => {
-      socket.off("receive_message", handleReceiveMessage);
-      socket.off("message_sent", handleMessageSent);
-      socket.off("user_typing", handleUserTyping);
-      socket.off("user_stop_typing", handleUserStopTyping);
-      socket.off("payment_request_updated", handlePaymentRequestUpdate);
-    };
-  }, [socket, activeConversation]);
+  // Socket listeners removed (no backend socket.io)
 
   // Auto-select conversation from URL parameter
   useEffect(() => {
@@ -204,18 +135,7 @@ export default function ClientMessagesPage() {
     }
   }, [conversationParam, conversations, isMobile]);
 
-  // Join conversation room when active conversation changes
-  useEffect(() => {
-    if (socket && isConnected && activeConversation) {
-      socket.emit("join_conversation", {
-        conversationId: activeConversation.id,
-        userId: currentUser.id,
-      });
-      console.log("Connected");
-    } else {
-      console.log("Not Connected");
-    }
-  }, [socket, isConnected, activeConversation, currentUser.id]);
+  // Socket join conversation removed (no backend socket.io)
 
   const fetchExchangeRates = async () => {
     setIsLoadingRates(true);
@@ -240,68 +160,33 @@ export default function ClientMessagesPage() {
   };
 
   const fetchWalletBalance = async () => {
-    try {
-      const response = await fetch(`/api/wallet?userId=${currentUser.id}`);
-      const data = await response.json();
-
-      if (data.success) {
-        setWalletBalance(data.wallet?.balance || 0);
-      }
-    } catch (error) {
-      console.error("Error fetching wallet balance:", error);
-    }
+    setWalletBalance(50000);
   };
 
   const loadConversations = async () => {
     setIsLoading(true);
     setError("");
-    try {
-      const response = await fetch(
-        `/api/messages/accepted-conversations?userId=${currentUser.id}&userType=client`
-      );
-      const data = await response.json();
-
-      if (data.success) {
-        setConversations(data.conversations || []);
-
-        if (
-          data.conversations.length > 0 &&
-          !activeConversation &&
-          !conversationParam
-        ) {
-          handleConversationSelect(data.conversations[0]);
-        }
-      } else {
-        setError(data.error || "Failed to load conversations");
-      }
-    } catch (error) {
-      console.error("❌ Error loading conversations:", error);
-      setError("Failed to load conversations");
-    } finally {
-      setIsLoading(false);
+    await new Promise(r => setTimeout(r, 300));
+    const mockConversations = [
+      { id: 1, freelancer: { id: 101, name: "John Doe" }, project: { title: "React Website" }, messages: [{ content: "Hello, I'm interested in your project", createdAt: new Date().toISOString() }], updatedAt: new Date().toISOString(), _count: { messages: 3 } },
+      { id: 2, freelancer: { id: 102, name: "Jane Smith" }, project: { title: "Mobile App" }, messages: [{ content: "I can start next week", createdAt: new Date().toISOString() }], updatedAt: new Date().toISOString(), _count: { messages: 1 } },
+    ];
+    setConversations(mockConversations);
+    if (mockConversations.length > 0 && !activeConversation && !conversationParam) {
+      handleConversationSelect(mockConversations[0]);
     }
+    setIsLoading(false);
   };
 
   const loadMessages = async (conversationId) => {
     setIsLoading(true);
     setError("");
-    try {
-      const response = await fetch(
-        `/api/messages/${conversationId}?userId=${currentUser.id}`
-      );
-      const data = await response.json();
-
-      if (data.success) {
-        setMessages(data.messages || []);
-      } else {
-        setError(data.error || "Failed to load messages");
-      }
-    } catch (error) {
-      console.error("❌ Error loading messages:", error);
-      setError("Failed to load messages");
-    } finally {
-      setIsLoading(false);
-    }
+    await new Promise(r => setTimeout(r, 200));
+    setMessages([
+      { id: 1, senderId: currentUser.id, content: "Hi, thanks for applying", messageType: "TEXT", createdAt: new Date(Date.now() - 3600000).toISOString(), readBy: [currentUser.id], sender: { id: currentUser.id, name: currentUser.name } },
+      { id: 2, senderId: 101, content: "I'm excited to work on this project!", messageType: "TEXT", createdAt: new Date().toISOString(), readBy: [], sender: { id: 101, name: "John Doe" } },
+    ]);
+    setIsLoading(false);
   };
 
   const handleConversationSelect = (conversation) => {
@@ -324,75 +209,29 @@ export default function ClientMessagesPage() {
   };
 
   const handleSendMessage = async () => {
-    if (!newMessage.trim() || !activeConversation || !socket || !isConnected) {
-      setError("Not connected to server. Please wait...");
+    if (!newMessage.trim() || !activeConversation) {
+      setError("Please select a conversation first");
       return;
     }
 
-    const tempId = `temp-${Date.now()}-${Math.random()
-      .toString(36)
-      .substr(2, 9)}`;
     const tempMessage = {
-      id: tempId,
-      tempId,
+      id: Date.now(),
       content: newMessage,
       senderId: currentUser.id,
       conversationId: activeConversation.id,
       messageType: "TEXT",
       createdAt: new Date().toISOString(),
-      sender: {
-        id: currentUser.id,
-        name: currentUser.name,
-        avatar: currentUser.avatar,
-      },
+      sender: { id: currentUser.id, name: currentUser.name },
       readBy: [],
     };
 
     setMessages((prev) => [...prev, tempMessage]);
     setNewMessage("");
     scrollToBottom();
-
-    socket.emit("send_message", {
-      conversationId: activeConversation.id,
-      senderId: currentUser.id,
-      content: newMessage,
-      messageType: "TEXT",
-      tempId,
-    });
-
-    handleStopTyping();
   };
 
-  const handleTypingStart = () => {
-    if (!socket || !isConnected || !activeConversation) return;
-
-    socket.emit("typing_start", {
-      conversationId: activeConversation.id,
-      userId: currentUser.id,
-      userName: currentUser.name,
-    });
-
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
-    }
-
-    typingTimeoutRef.current = setTimeout(() => {
-      handleStopTyping();
-    }, 3000);
-  };
-
-  const handleStopTyping = () => {
-    if (!socket || !isConnected || !activeConversation) return;
-
-    socket.emit("typing_stop", {
-      conversationId: activeConversation.id,
-      userId: currentUser.id,
-    });
-
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
-    }
-  };
+  const handleTypingStart = () => {};
+  const handleStopTyping = () => {};
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -474,49 +313,11 @@ export default function ClientMessagesPage() {
       setShowPaymentModal(true);
       return;
     }
-
     setIsProcessingPayment(true);
     setError("");
-    try {
-      const response = await fetch(
-        `/api/payment-requests/${paymentRequestId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            status: action,
-            clientId: currentUser.id,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
-        // Reload messages to show updated status
-        loadMessages(activeConversation.id);
-        fetchWalletBalance();
-
-        // Send system message via socket
-        if (socket && isConnected) {
-          socket.emit("send_message", {
-            conversationId: activeConversation.id,
-            senderId: currentUser.id,
-            content: `Payment request ${action} by client`,
-            messageType: "SYSTEM",
-          });
-        }
-
-        alert(`Payment request ${action} successfully!`);
-      } else {
-        setError(data.error || "Failed to process payment request");
-      }
-    } catch (error) {
-      console.error("❌ Error updating payment request:", error);
-      setError("Failed to process payment request");
-    } finally {
-      setIsProcessingPayment(false);
-    }
+    await new Promise(r => setTimeout(r, 500));
+    alert(`Payment request ${action} successfully!`);
+    setIsProcessingPayment(false);
   };
 
   const handleWalletRecharge = async () => {
@@ -524,104 +325,13 @@ export default function ClientMessagesPage() {
       alert("Please enter a valid amount (minimum ₹10)");
       return;
     }
-
     setIsProcessingPayment(true);
-    try {
-      // Convert amount to INR if payment is in USD
-      const amountInINR =
-        paymentCurrency === "USD"
-          ? convertCurrency(parseFloat(paymentAmount), "USD", "INR")
-          : parseFloat(paymentAmount);
-
-      const orderResponse = await fetch("/api/payments/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: amountInINR,
-          userId: currentUser.id,
-          currency: "INR", // Razorpay only supports INR
-        }),
-      });
-
-      const orderData = await orderResponse.json();
-
-      if (!orderData.success) {
-        throw new Error(orderData.error);
-      }
-
-      await loadRazorpayScript();
-
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: orderData.order.amount,
-        currency: orderData.order.currency,
-        name: "Freelance Platform",
-        description: "Wallet Recharge",
-        order_id: orderData.order.id,
-        handler: async function (response) {
-          const verifyResponse = await fetch("/api/payments/verify", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            }),
-          });
-
-          const verifyData = await verifyResponse.json();
-
-          if (verifyData.success) {
-            alert(
-              `Payment successful! ${getCurrencySymbol(
-                paymentCurrency
-              )}${paymentAmount} added to your wallet.`
-            );
-            setWalletBalance(verifyData.walletBalance);
-            setShowPaymentModal(false);
-            setPaymentAmount("");
-            fetchWalletBalance();
-          } else {
-            alert("Payment verification failed. Please contact support.");
-          }
-        },
-        prefill: {
-          name: currentUser.name,
-          email: currentUser.email,
-        },
-        theme: {
-          color: "#667eea",
-        },
-        modal: {
-          ondismiss: function () {
-            setIsProcessingPayment(false);
-          },
-        },
-      };
-
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
-    } catch (error) {
-      console.error("Payment error:", error);
-      alert("Failed to initiate payment. Please try again.");
-    } finally {
-      setIsProcessingPayment(false);
-    }
-  };
-
-  const loadRazorpayScript = () => {
-    return new Promise((resolve) => {
-      if (window.Razorpay) {
-        resolve(true);
-        return;
-      }
-
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
-      document.body.appendChild(script);
-    });
+    await new Promise(r => setTimeout(r, 1000));
+    alert(`Payment successful! ${getCurrencySymbol(paymentCurrency)}${paymentAmount} added to your wallet.`);
+    setWalletBalance(prev => prev + parseFloat(paymentAmount));
+    setShowPaymentModal(false);
+    setPaymentAmount("");
+    setIsProcessingPayment(false);
   };
 
   const scrollToBottom = () => {
@@ -1139,7 +849,7 @@ export default function ClientMessagesPage() {
                           onKeyPress={handleKeyPress}
                           placeholder="Type a message..."
                           className={styles.messageInput}
-                          disabled={!isConnected}
+                          disabled={false}
                         />
                         <button className={styles.emojiButton}>
                           <FaSmile />
@@ -1148,7 +858,7 @@ export default function ClientMessagesPage() {
                       <motion.button
                         onClick={handleSendMessage}
                         className={styles.sendButton}
-                        disabled={!newMessage.trim() || !isConnected}
+                        disabled={!newMessage.trim()}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >

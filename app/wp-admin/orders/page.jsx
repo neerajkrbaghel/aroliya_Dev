@@ -34,71 +34,40 @@ export default function OrdersPage() {
   }, []);
 
   const fetchOrders = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("/api/orders");
-      const data = await response.json();
-      setOrders(data);
-      
-      // Initialize status update state
-      const initialStatusUpdate = {};
-      data.forEach(order => {
-        initialStatusUpdate[order.id] = order.status;
-      });
-      setStatusUpdate(initialStatusUpdate);
-    } catch (error) {
-      console.error("Error fetching orders:", error);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    const mockOrders = [
+      { id: 1, name: "John Doe", email: "john@example.com", phone: "+1234567890", service: "Web Development", category: "Full Stack", subcategory: "React", quantity: 1, urgency: "High", duration: "30 days", experienceLevel: "Intermediate", requirements: "Build a modern web application", status: "completed", paymentId: "pay_123", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+      { id: 2, name: "Jane Smith", email: "jane@example.com", phone: "+9876543210", service: "Mobile Development", category: "iOS", status: "pending", paymentId: "pay_456", createdAt: new Date(Date.now() - 86400000).toISOString(), updatedAt: new Date().toISOString() },
+      { id: 3, name: "Bob Wilson", email: "bob@example.com", phone: "+5551234567", service: "UI/UX Design", category: "Design", status: "pending", paymentId: "pay_789", createdAt: new Date(Date.now() - 172800000).toISOString(), updatedAt: new Date().toISOString() },
+    ];
+    setOrders(mockOrders);
+    const initialStatusUpdate = {};
+    mockOrders.forEach(order => {
+      initialStatusUpdate[order.id] = order.status;
+    });
+    setStatusUpdate(initialStatusUpdate);
+    setLoading(false);
   };
 
   const updateOrderStatus = async (id, newStatus) => {
-    try {
-      const response = await fetch(`/api/orders/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
-
-      if (response.ok) {
-        setOrders(
-          orders.map((order) =>
-            order.id === id ? { ...order, status: newStatus } : order
-          )
-        );
-        
-        // Update the status in the statusUpdate state
-        setStatusUpdate(prev => ({
-          ...prev,
-          [id]: newStatus
-        }));
-        
-        alert("Order status updated successfully!");
-      }
-    } catch (error) {
-      console.error("Error updating order status:", error);
-      alert("Error updating order status");
-    }
+    console.log("Updating order status:", id, newStatus);
+    setOrders(
+      orders.map((order) =>
+        order.id === id ? { ...order, status: newStatus } : order
+      )
+    );
+    setStatusUpdate(prev => ({
+      ...prev,
+      [id]: newStatus
+    }));
+    alert("Order status updated successfully!");
   };
 
   const deleteOrder = async (id) => {
     if (window.confirm("Are you sure you want to delete this order?")) {
-      try {
-        const response = await fetch(`/api/orders/${id}`, {
-          method: "DELETE",
-        });
-
-        if (response.ok) {
-          setOrders(orders.filter((order) => order.id !== id));
-          alert("Order deleted successfully!");
-        }
-      } catch (error) {
-        console.error("Error deleting order:", error);
-        alert("Error deleting order");
-      }
+      console.log("Deleting order:", id);
+      setOrders(orders.filter((order) => order.id !== id));
+      alert("Order deleted successfully!");
     }
   };
 

@@ -82,30 +82,16 @@ export default function AdminApplications() {
   }, [applications, searchTerm, statusFilter, jobFilter, sortBy, sortOrder]);
 
   const fetchApplications = async () => {
-    try {
-      setLoading(true);
-      setError("");
-
-      const response = await fetch("/api/admin/applications");
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch applications: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-        setApplications(data.data || []);
-      } else {
-        throw new Error(data.error || "Failed to load applications");
-      }
-    } catch (error) {
-      console.error("Error fetching applications:", error);
-      setError(error.message);
-      setApplications([]);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    setError("");
+    const mockApplications = [
+      { id: 1, name: "John Doe", email: "john@example.com", phone: "+1234567890", jobId: "1", jobTitle: "Senior Frontend Developer (React/Next.js)", experience: 5, coverLetter: "I have 5 years of experience building React applications at scale.", resumeUrl: "#", status: "pending", createdAt: new Date().toISOString() },
+      { id: 2, name: "Jane Smith", email: "jane@example.com", phone: "+9876543210", jobId: "2", jobTitle: "AI/ML Engineer – Data & Predictive Analytics", experience: 3, coverLetter: "Experienced ML engineer with strong background in Python and TensorFlow.", resumeUrl: "#", status: "reviewed", createdAt: new Date(Date.now() - 86400000).toISOString() },
+      { id: 3, name: "Bob Wilson", email: "bob@example.com", phone: "+5551234567", jobId: "3", jobTitle: "Senior Travel Consultant – Global Bookings", experience: 7, coverLetter: "Travel industry expert with 7 years of experience in global booking systems.", resumeUrl: "#", status: "accepted", createdAt: new Date(Date.now() - 172800000).toISOString() },
+      { id: 4, name: "Alice Brown", email: "alice@example.com", phone: "+1112223333", jobId: "1", jobTitle: "Senior Frontend Developer (React/Next.js)", experience: 2, coverLetter: "Junior developer looking for an opportunity to grow.", resumeUrl: "#", status: "rejected", createdAt: new Date(Date.now() - 259200000).toISOString() },
+    ];
+    setApplications(mockApplications);
+    setLoading(false);
   };
 
   const filterAndSortApplications = () => {
@@ -188,53 +174,21 @@ export default function AdminApplications() {
   };
 
   const handleStatusUpdate = async (applicationId, newStatus) => {
-    try {
-      const response = await fetch("/api/admin/applications", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: applicationId, status: newStatus }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        // Update local state
-        setApplications(
-          applications.map((app) =>
-            app.id === applicationId ? { ...app, status: newStatus } : app
-          )
-        );
-
-        alert(`Application status updated to ${newStatus}`);
-      } else {
-        alert(data.error || "Failed to update status");
-      }
-    } catch (error) {
-      console.error("Error updating status:", error);
-      alert("Failed to update status");
-    }
+    console.log("Updating application status:", applicationId, newStatus);
+    setApplications(
+      applications.map((app) =>
+        app.id === applicationId ? { ...app, status: newStatus } : app
+      )
+    );
+    alert(`Application status updated to ${newStatus}`);
   };
 
   const handleDeleteApplication = async (applicationId) => {
     if (!confirm("Are you sure you want to delete this application?")) return;
 
-    try {
-      const response = await fetch(`/api/admin/applications/${applicationId}`, {
-        method: "DELETE",
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setApplications(applications.filter((app) => app.id !== applicationId));
-        alert("Application deleted successfully");
-      } else {
-        alert(data.error || "Failed to delete application");
-      }
-    } catch (error) {
-      console.error("Error deleting application:", error);
-      alert("Failed to delete application");
-    }
+    console.log("Deleting application:", applicationId);
+    setApplications(applications.filter((app) => app.id !== applicationId));
+    alert("Application deleted successfully");
   };
 
   const viewApplicationDetails = (application) => {

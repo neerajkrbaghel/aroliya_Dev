@@ -21,49 +21,28 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const fetchForms = async () => {
-      try {
-        const res = await fetch("/api/VirtualAssistance");
-        const data = await res.json();
-        setForms(Array.isArray(data) ? data : []);
-      } catch (err) {
-        console.error(err);
-        setForms([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchForms();
+    const mockForms = [
+      { id: 1, name: "John Doe", email: "john@example.com", phone: "+1234567890", serviceCategory: "Virtual Assistance", message: "I need help with my daily administrative tasks.", status: "Pending", createdAt: new Date().toISOString() },
+      { id: 2, name: "Jane Smith", email: "jane@example.com", phone: "+9876543210", serviceCategory: "Executive Assistant", message: "Looking for an experienced executive assistant for scheduling and travel planning.", status: "Done", createdAt: new Date(Date.now() - 86400000).toISOString() },
+      { id: 3, name: "Bob Wilson", email: "bob@example.com", phone: "+5551234567", serviceCategory: "Data Entry", message: "Need help with data entry and spreadsheet management.", status: "Pending", createdAt: new Date(Date.now() - 172800000).toISOString() },
+    ];
+    setForms(mockForms);
+    setLoading(false);
   }, []);
 
   // Handle status toggle
   const toggleStatus = async (id, currentStatus) => {
-    try {
-      const res = await fetch(`/api/VirtualAssistance/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          status: currentStatus === "Pending" ? "Done" : "Pending",
-        }),
-      });
-
-      if (res.ok) {
-        // Update local state
-        setForms((prev) =>
-          prev.map((f) =>
-            f.id === id
-              ? {
-                  ...f,
-                  status: currentStatus === "Pending" ? "Done" : "Pending",
-                }
-              : f
-          )
-        );
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    console.log("Toggling status:", id, currentStatus);
+    setForms((prev) =>
+      prev.map((f) =>
+        f.id === id
+          ? {
+              ...f,
+              status: currentStatus === "Pending" ? "Done" : "Pending",
+            }
+          : f
+      )
+    );
   };
 
   // Filter forms by search and date

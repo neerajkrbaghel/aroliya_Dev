@@ -102,153 +102,51 @@ export default function FreelancerAnalyticsPage() {
   }, [currentUser, timeRange]);
 
   const fetchCurrentUser = async () => {
-    try {
-      const response = await fetch("/api/auth/verify");
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.user) {
-          setCurrentUser(data.user);
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    }
+    setCurrentUser({ id: 1, name: "Freelancer User", email: "freelancer@example.com", role: "freelancer" });
   };
 
   const fetchExchangeRate = async () => {
-    try {
-      const response = await fetch(
-        "https://api.exchangerate-api.com/v4/latest/INR"
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setExchangeRate(data.rates.USD || 0.012);
-      }
-    } catch (error) {
-      setExchangeRate(0.012);
-    }
+    setExchangeRate(0.012);
   };
 
   const fetchAllData = async () => {
     if (!currentUser) return;
-
     setLoading(true);
-    try {
-      await Promise.all([
-        fetchFreelancerReviews(currentUser.id),
-        fetchWalletData(currentUser.id),
-        fetchAnalyticsData(currentUser.id),
-      ]);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
+    await Promise.all([
+      fetchFreelancerReviews(currentUser.id),
+      fetchWalletData(currentUser.id),
+      fetchAnalyticsData(currentUser.id),
+    ]);
+    setLoading(false);
   };
 
   const fetchFreelancerReviews = async (freelancerId) => {
-    try {
-      const response = await fetch(
-        `/api/reviews/freelancer?freelancerId=${freelancerId}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setReviews({
-            received: data.data?.receivedReviews || [],
-            given: data.data?.givenReviews || [],
-            reviewable: data.data?.reviewableProjects || [],
-          });
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching reviews:", error);
-    }
+    const mockReviews = {
+      received: [
+        { id: 1, rating: 5, comment: "Excellent work!", createdAt: new Date(Date.now() - 86400000 * 5).toISOString(), reviewer: { id: 2, name: "Client A", avatar: null }, project: { title: "Web Development" } },
+        { id: 2, rating: 4, comment: "Good communication and delivery.", createdAt: new Date(Date.now() - 86400000 * 15).toISOString(), reviewer: { id: 3, name: "Client B", avatar: null }, project: { title: "Mobile App" } },
+      ],
+      given: [],
+      reviewable: [{ id: 3, title: "Ongoing Project", clientId: 4, client: { id: 4, name: "Client C", avatar: null } }],
+    };
+    setReviews(mockReviews);
   };
 
   const fetchWalletData = async (freelancerId) => {
-    try {
-      const response = await fetch(
-        `/api/freelancer/wallet?userId=${freelancerId}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.wallet) {
-          setWallet({
-            balance: data.wallet.balance || 0,
-            pending: data.wallet.pendingBalance || 0,
-            transactions: data.wallet.transactions || [],
-          });
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching wallet:", error);
-    }
+    setWallet({ balance: 45000, pending: 5000, transactions: [{ id: 1, amount: 15000, type: "credit", status: "completed", description: "Payment for Web Development", createdAt: new Date(Date.now() - 86400000 * 10).toISOString() }] });
   };
 
   const fetchAnalyticsData = async (freelancerId) => {
-    try {
-      const response = await fetch(
-        `/api/analytics/freelancer?userId=${freelancerId}&timeRange=${timeRange}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setAnalytics({
-            totalEarnings: data.data?.totalEarnings || 0,
-            completedProjects: data.data?.completedProjects || 0,
-            averageRating: data.data?.averageRating || 0,
-            totalReviews: data.data?.totalReviews || 0,
-            activeClients: data.data?.activeClients || 0,
-            totalPendingReviews: data.data?.totalPendingReviews || 0,
-            ongoingProjects: data.data?.ongoingProjects || 0,
-          });
-
-          if (data.data?.pendingReviewProjects) {
-            setReviews((prev) => ({
-              ...prev,
-              reviewable: data.data.pendingReviewProjects,
-            }));
-          }
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching analytics:", error);
-    }
+    setAnalytics({ totalEarnings: 45000, completedProjects: 8, averageRating: 4.6, totalReviews: 12, activeClients: 5, totalPendingReviews: 1, ongoingProjects: 2 });
   };
 
   const handleSubmitReview = async (e) => {
     e.preventDefault();
     if (!selectedProject) return;
-
-    try {
-      const response = await fetch("/api/reviews", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          rating: reviewForm.rating,
-          comment: reviewForm.comment,
-          clientId: selectedProject.clientId,
-          projectId: selectedProject.id,
-          reviewerId: currentUser.id,
-          type: "FREELANCER_TO_CLIENT",
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setShowReviewModal(false);
-          setReviewForm({ rating: 5, comment: "" });
-          setSelectedProject(null);
-          await fetchAllData();
-        }
-      }
-    } catch (error) {
-      console.error("Error submitting review:", error);
-    }
+    await new Promise(r => setTimeout(r, 300));
+    setShowReviewModal(false);
+    setReviewForm({ rating: 5, comment: "" });
+    setSelectedProject(null);
   };
 
   const openReviewModal = (project) => {

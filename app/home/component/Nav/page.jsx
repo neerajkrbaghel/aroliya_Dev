@@ -50,29 +50,20 @@ export default function Nav() {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await fetch("/api/auth/verify", {
-        method: "GET",
-        credentials: "include",
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setUserName(data.user.name);
-          setUser(data.user);
-          setUserRole(data.user.role);
-          localStorage.setItem("user", JSON.stringify(data.user));
-        }
+      const userData = localStorage.getItem("user");
+      if (userData) {
+        const parsed = JSON.parse(userData);
+        setUserName(parsed.name || "");
+        setUser(parsed);
+        setUserRole(parsed.role || null);
       } else {
         setUser(null);
         setUserRole(null);
-        localStorage.removeItem("user");
       }
     } catch (error) {
       console.error("Auth check failed:", error);
       setUser(null);
       setUserRole(null);
-      localStorage.removeItem("user");
     }
   };
 

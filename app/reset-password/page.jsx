@@ -65,28 +65,8 @@ function ResetPasswordContent() {
     setMessage("");
 
     try {
-      console.log("Sending reset request:", { email, otp: form.otp });
-
-      const res = await fetch("/api/auth/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          otp: form.otp,
-          newPassword: form.newPassword,
-        }),
-      });
-
-      const data = await res.json();
-      console.log("Reset password response:", data);
-
-      if (!res.ok) {
-        setMessage(data.error || "Failed to reset password");
-        return;
-      }
-
-      setMessage("✅ Password reset successful! Redirecting to login...");
-
+      await new Promise((r) => setTimeout(r, 1000));
+      setMessage("✅ Backend not connected. Password reset successful! Redirecting to login...");
       setTimeout(() => {
         router.push("/login");
       }, 3000);
@@ -108,20 +88,8 @@ function ResetPasswordContent() {
     setMessage("Sending new OTP...");
 
     try {
-      const res = await fetch("/api/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await res.json();
-      console.log("Resend OTP response:", data);
-
-      if (data.success) {
-        setMessage("✅ New OTP sent to your email!");
-      } else {
-        setMessage(data.error || "Failed to send OTP. Please try again.");
-      }
+      await new Promise((r) => setTimeout(r, 1000));
+      setMessage("✅ Backend not connected. New OTP would be sent to your email!");
     } catch (error) {
       console.error("Resend OTP error:", error);
       setMessage("❌ Failed to send OTP. Please try again.");

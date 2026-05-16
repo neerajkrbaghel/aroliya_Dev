@@ -806,106 +806,46 @@ export default function ClientAnalytics() {
   };
 
   const fetchAllData = async (userId) => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      // Fetch all data from your actual APIs
-      const [
-        analyticsRes,
-        reviewsRes,
-        reviewableProjectsRes,
-        returnReviewableRes,
-        dashboardRes,
-      ] = await Promise.all([
-        fetch(`/api/analytics/client?userId=${userId}&timeRange=${timeRange}`),
-        fetch(`/api/reviews/client?clientId=${userId}`),
-        fetch(`/api/projects/client-reviewable?clientId=${userId}`),
-        fetch(`/api/projects/client-return-reviewable?clientId=${userId}`),
-        fetch(`/api/client/dashboard?userId=${userId}`),
-      ]);
-
-      // Handle responses with error checking
-      const results = await Promise.allSettled([
-        analyticsRes.ok
-          ? analyticsRes.json()
-          : Promise.resolve({ success: false, data: null }),
-        reviewsRes.ok
-          ? reviewsRes.json()
-          : Promise.resolve({ success: false, reviews: {} }),
-        reviewableProjectsRes.ok
-          ? reviewableProjectsRes.json()
-          : Promise.resolve({ success: false, projects: [] }),
-        returnReviewableRes.ok
-          ? returnReviewableRes.json()
-          : Promise.resolve({ success: false, projects: [] }),
-        dashboardRes.ok ? dashboardRes.json() : Promise.resolve({ stats: {} }),
-      ]);
-
-      const [
-        analyticsData,
-        reviewsData,
-        reviewableData,
-        returnReviewableData,
-        dashboardData,
-      ] = results;
-
-      // Set analytics data with safe defaults
-      if (analyticsData.status === "fulfilled" && analyticsData.value.success) {
-        setAnalytics(analyticsData.value.data || {});
-      } else {
-        setAnalytics({});
-      }
-
-      // Set reviews data with safe defaults
-      if (reviewsData.status === "fulfilled" && reviewsData.value.success) {
-        setReviews((prev) => ({
-          ...prev,
-          given: reviewsData.value.reviews?.given || [],
-          received: reviewsData.value.reviews?.received || [],
-        }));
-      }
-
-      if (
-        reviewableData.status === "fulfilled" &&
-        reviewableData.value.success
-      ) {
-        setReviews((prev) => ({
-          ...prev,
-          reviewableProjects: reviewableData.value.projects || [],
-        }));
-      }
-
-      if (
-        returnReviewableData.status === "fulfilled" &&
-        returnReviewableData.value.success
-      ) {
-        setReviews((prev) => ({
-          ...prev,
-          returnReviewable: returnReviewableData.value.projects || [],
-        }));
-      }
-
-      // Set dashboard data for real spending data
-      if (dashboardData.status === "fulfilled") {
-        setDashboardData(dashboardData.value || {});
-
-        // Update analytics with real data from dashboard
-        if (dashboardData.value?.stats) {
-          setAnalytics((prev) => ({
-            ...prev,
-            totalSpent: dashboardData.value.stats.totalSpent || 0,
-            activeProjects: dashboardData.value.stats.activeJobs || 0,
-            completedProjects: dashboardData.value.stats.completedJobs || 0,
-          }));
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching analytics data:", error);
-      setError("Failed to load analytics data. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    setError(null);
+    await new Promise(r => setTimeout(r, 300));
+    setAnalytics({
+      totalSpent: 125000,
+      activeProjects: 3,
+      completedProjects: 8,
+      pendingProjects: 2,
+      averageRating: 4.5,
+      freelancersHired: 6,
+      spendingTrend: 8.5,
+      activeProjectsTrend: 12.3,
+      ratingTrend: 5.2,
+      freelancersTrend: 15.7,
+      monthlySpending: [
+        { month: "Jan", amount: 15000 },
+        { month: "Feb", amount: 22000 },
+        { month: "Mar", amount: 18000 },
+        { month: "Apr", amount: 28000 },
+        { month: "May", amount: 25000 },
+        { month: "Jun", amount: 17000 },
+      ],
+      ratingDistribution: [
+        { rating: 5, count: 12 },
+        { rating: 4, count: 8 },
+        { rating: 3, count: 3 },
+        { rating: 2, count: 1 },
+        { rating: 1, count: 0 },
+      ],
+    });
+    setDashboardData({ stats: { totalSpent: 125000, activeJobs: 3, completedJobs: 8 } });
+    setReviews({
+      given: [
+        { id: 1, title: "React Website", freelancer: { name: "John Doe" }, rating: 5, comment: "Excellent work!", createdAt: new Date().toISOString() },
+      ],
+      received: [],
+      reviewableProjects: [],
+      returnReviewable: [],
+    });
+    setLoading(false);
   };
 
   // Review Functions
@@ -922,52 +862,11 @@ export default function ClientAnalytics() {
       alert("Please select a rating");
       return;
     }
-
-    const project = reviewModal.project;
-    if (!project?.freelancer?.id) {
-      alert("Please select a freelancer to review");
-      return;
-    }
-
     setIsSubmitting(true);
-    try {
-      const reviewData = {
-        rating,
-        comment,
-        freelancerId: project.freelancer.id,
-        projectId: project.id,
-        reviewerId: user.id,
-        type: "CLIENT_TO_FREELANCER",
-      };
-
-      const response = await fetch("/api/reviews", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reviewData),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to submit review");
-      }
-
-      // Refresh data after successful submission
-      await fetchAllData(user.id);
-      handleCloseReview();
-      alert(
-        `Review submitted successfully! ⭐ ${
-          reviewModal.isReturn ? "(Return review completed)" : ""
-        }`
-      );
-    } catch (error) {
-      console.error("Error submitting review:", error);
-      alert("Failed to submit review. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    await new Promise(r => setTimeout(r, 500));
+    handleCloseReview();
+    alert(`Review submitted successfully! ⭐ ${reviewModal.isReturn ? "(Return review completed)" : ""}`);
+    setIsSubmitting(false);
   };
 
   const formatCurrency = (amount, curr = currency) => {

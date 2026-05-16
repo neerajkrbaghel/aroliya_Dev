@@ -79,40 +79,19 @@ export default function SavedJobs() {
   };
 
   const fetchSavedJobs = async (userId) => {
-    try {
-      setLoading(true);
-      const response = await fetch(`/api/saved-jobs?userId=${userId}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        setSavedJobs(data.savedJobs || []);
-      } else {
-        console.error("Error fetching saved jobs:", data.error);
-      }
-    } catch (error) {
-      console.error("Error fetching saved jobs:", error);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    const mockSavedJobs = [
+      { id: 1, jobId: 1, createdAt: new Date(Date.now() - 86400000 * 2).toISOString(), userId, job: { id: 1, title: "Full Stack Web Developer Needed", description: "Looking for an experienced full stack developer...", budget: 15000, category: "web-development", skills: ["React", "Node.js"], user: { id: 2, name: "TechCorp Inc." }, _count: { proposals: 5 } } },
+      { id: 2, jobId: 2, createdAt: new Date(Date.now() - 86400000 * 5).toISOString(), userId, job: { id: 2, title: "Mobile App UI/UX Designer", description: "Need a talented UI/UX designer...", budget: 12000, category: "graphic-design", skills: ["Figma", "Adobe XD"], user: { id: 3, name: "StartupX" }, _count: { proposals: 3 } } },
+    ];
+    await new Promise(r => setTimeout(r, 300));
+    setSavedJobs(mockSavedJobs);
+    setLoading(false);
   };
 
   const removeSavedJob = async (savedJobId) => {
-    try {
-      const response = await fetch(
-        `/api/saved-jobs/${savedJobId}?userId=${user.id}`,
-        {
-          method: "DELETE",
-        }
-      );
-
-      if (response.ok) {
-        setSavedJobs((prev) => prev.filter((sj) => sj.id !== savedJobId));
-      } else {
-        console.error("Error removing saved job");
-      }
-    } catch (error) {
-      console.error("Error removing saved job:", error);
-    }
+    await new Promise(r => setTimeout(r, 200));
+    setSavedJobs((prev) => prev.filter((sj) => sj.id !== savedJobId));
   };
 
   const formatUSD = (amount) => {

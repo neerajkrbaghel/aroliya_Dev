@@ -94,25 +94,31 @@ export default function DashboardPage() {
   const loadDashboardData = async () => {
     setIsLoading(true);
     try {
-      const userResponse = await fetch("/api/auth/verify");
-      if (userResponse.ok) {
-        const userData = await userResponse.json();
-        console.log("✅ User data loaded:", userData);
-        setUser(userData.user);
+      await new Promise(r => setTimeout(r, 300));
 
-        if (userData.user?.id) {
-          await Promise.all([
-            loadProjects(userData.user.id),
-            loadWalletData(userData.user.id),
-            loadMessages(userData.user.id),
-            loadRecentActivity(userData.user.id),
-            loadAnalyticsData(userData.user.id),
-            loadReviewsData(userData.user.id),
-          ]);
-        }
-      } else {
-        console.error("❌ Failed to verify user");
-      }
+      const mockUser = {
+        id: 1,
+        name: "Freelancer User",
+        email: "freelancer@example.com",
+        role: "freelancer",
+      };
+      setUser(mockUser);
+
+      loadProjects(1);
+      loadWalletData(1);
+      useMockMessages();
+      useMockActivity();
+      setStats({
+        totalEarnings: 48500,
+        completedProjects: 12,
+        activeProjects: 3,
+        clientSatisfaction: 96,
+        responseRate: 95,
+        totalProjects: 15,
+        avgProjectValue: 4000,
+        totalReviews: 24,
+        averageRating: 4.8,
+      });
     } catch (error) {
       console.error("❌ Error loading dashboard data:", error);
     } finally {
@@ -121,225 +127,68 @@ export default function DashboardPage() {
   };
 
   const loadAnalyticsData = async (userId) => {
-    try {
-      console.log("🔄 Loading analytics for user:", userId);
-      const response = await fetch(
-        `/api/analytics/freelancer?userId=${userId}&timeRange=month`
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("✅ Analytics API response:", data);
-
-        if (data.success && data.data) {
-          const analytics = data.data;
-
-          // Update stats with real analytics data
-          setStats((prevStats) => ({
-            ...prevStats,
-            totalEarnings: analytics.totalEarnings || 0,
-            completedProjects: analytics.completedProjects || 0,
-            averageRating: analytics.averageRating || 0,
-            totalReviews: analytics.totalReviews || 0,
-            activeClients: analytics.activeClients || 0,
-            clientSatisfaction: Math.round((analytics.averageRating || 0) * 20), // Convert 5-star to percentage
-          }));
-        }
-      } else {
-        console.error("❌ Analytics API error:", response.status);
-      }
-    } catch (error) {
-      console.error("❌ Error loading analytics data:", error);
-    }
+    console.log("🔄 Loading analytics for user:", userId);
+    setStats((prevStats) => ({
+      ...prevStats,
+      totalEarnings: 48500,
+      completedProjects: 12,
+      averageRating: 4.8,
+      totalReviews: 24,
+      activeClients: 8,
+      clientSatisfaction: 96,
+    }));
   };
 
   const loadReviewsData = async (userId) => {
-    try {
-      console.log("🔄 Loading reviews for freelancer:", userId);
-      const response = await fetch(
-        `/api/reviews/freelancer?freelancerId=${userId}`
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("✅ Reviews API response:", data);
-
-        if (data.success && data.data) {
-          const reviewsData = data.data;
-
-          // Calculate client satisfaction from received reviews
-          if (
-            reviewsData.receivedReviews &&
-            reviewsData.receivedReviews.length > 0
-          ) {
-            const totalRating = reviewsData.receivedReviews.reduce(
-              (sum, review) => sum + review.rating,
-              0
-            );
-            const averageRating =
-              totalRating / reviewsData.receivedReviews.length;
-            const clientSatisfaction = Math.round(averageRating * 20); // Convert 5-star to percentage
-
-            setStats((prevStats) => ({
-              ...prevStats,
-              clientSatisfaction,
-              averageRating,
-              totalReviews: reviewsData.receivedReviews.length,
-            }));
-          }
-        }
-      } else {
-        console.error("❌ Reviews API error:", response.status);
-      }
-    } catch (error) {
-      console.error("❌ Error loading reviews data:", error);
-    }
+    console.log("🔄 Loading reviews for freelancer:", userId);
+    setStats((prevStats) => ({
+      ...prevStats,
+      clientSatisfaction: 96,
+      averageRating: 4.8,
+      totalReviews: 24,
+    }));
   };
 
   const loadProjects = async (userId) => {
-    try {
-      console.log("🔄 Loading projects for user:", userId);
-      const response = await fetch(`/api/projects/freelancer?userId=${userId}`);
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("✅ Projects API response:", data);
-
-        if (data.success && data.projects) {
-          const formattedProjects = data.projects.map((project) => ({
-            id: project.id,
-            title: project.title,
-            status: project.status || "active",
-            client: project.client?.name || "Unknown Client",
-            budget: project.budget || 0,
-            progress: project.progress || 0,
-            totalPaid: project.totalPaid || 0,
-            deadline: project.deadline,
-            type: project.category || project.type || "Development",
-            clientRating: project.clientRating || 0,
-            reviewCount: project.reviewCount || 0,
-            createdAt: project.createdAt,
-            skills: project.skills || [],
-            description: project.description,
-          }));
-
-          setProjects(formattedProjects);
-          calculateStats(formattedProjects);
-          console.log("📊 Loaded real projects:", formattedProjects.length);
-        } else {
-          console.log("ℹ️ No projects found in response");
-          setProjects([]);
-        }
-      } else {
-        console.error("❌ Projects API error:", response.status);
-      }
-    } catch (error) {
-      console.error("❌ Error loading projects:", error);
-    }
+    console.log("🔄 Loading projects for user:", userId);
+    const mockProjects = [
+      {
+        id: 1, title: "E-commerce Dashboard", status: "active", client: "TechCorp Inc.",
+        budget: 15000, progress: 65, totalPaid: 7500, deadline: "2026-07-15",
+        type: "Web Development", clientRating: 4.8, reviewCount: 12,
+        createdAt: "2026-04-01", skills: ["React", "Node.js"], description: "Full dashboard",
+      },
+      {
+        id: 2, title: "Mobile App UI/UX", status: "active", client: "StartupX",
+        budget: 12000, progress: 40, totalPaid: 4000, deadline: "2026-08-20",
+        type: "Design", clientRating: 5.0, reviewCount: 8,
+        createdAt: "2026-05-01", skills: ["Figma", "Adobe XD"], description: "Mobile design",
+      },
+      {
+        id: 3, title: "API Integration", status: "completed", client: "DataFlow Ltd",
+        budget: 8000, progress: 100, totalPaid: 8000, deadline: "2026-05-10",
+        type: "Backend", clientRating: 4.5, reviewCount: 4,
+        createdAt: "2026-03-15", skills: ["Python", "FastAPI"], description: "API work",
+      },
+    ];
+    setProjects(mockProjects);
+    calculateStats(mockProjects);
   };
 
   const loadWalletData = async (userId) => {
-    try {
-      console.log("🔄 Loading freelancer wallet for user:", userId);
-      const response = await fetch(`/api/freelancer/wallet?userId=${userId}`);
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("✅ Freelancer Wallet API response:", data);
-
-        if (data.success && data.wallet) {
-          setWalletBalance(data.wallet.balance || 0);
-          const formattedTransactions =
-            data.wallet.transactions?.map((transaction) => ({
-              id: transaction.id,
-              type: transaction.type,
-              amount: transaction.amount,
-              description: transaction.description,
-              createdAt: transaction.createdAt,
-              status: transaction.status,
-            })) || [];
-
-          setTransactions(formattedTransactions);
-          console.log("💰 Freelancer wallet balance:", data.wallet.balance);
-          console.log(
-            "💰 Freelancer transactions:",
-            formattedTransactions.length
-          );
-        } else {
-          console.log("ℹ️ No freelancer wallet data found");
-          setWalletBalance(0);
-          setTransactions([]);
-        }
-      } else {
-        console.error("❌ Freelancer Wallet API error:", response.status);
-      }
-    } catch (error) {
-      console.error("❌ Error loading freelancer wallet data:", error);
-    }
+    console.log("🔄 Loading freelancer wallet for user:", userId);
+    setWalletBalance(25000);
+    setTransactions([
+      { id: 1, type: "credit", amount: 15000, description: "Payment received - E-commerce Dashboard", createdAt: "2026-05-10", status: "completed" },
+      { id: 2, type: "debit", amount: 5000, description: "Withdrawal to Bank Account", createdAt: "2026-05-08", status: "completed" },
+      { id: 3, type: "credit", amount: 8000, description: "Payment received - API Integration", createdAt: "2026-05-05", status: "completed" },
+      { id: 4, type: "credit", amount: 4000, description: "Payment received - Mobile App UI/UX", createdAt: "2026-05-01", status: "completed" },
+    ]);
   };
 
   const loadMessages = async (userId) => {
-    try {
-      console.log("🔄 Loading messages for user:", userId);
-
-      // Try to load conversations without query parameters first
-      const conversationsResponse = await fetch(`/api/conversations`);
-
-      console.log("💬 Conversations API status:", conversationsResponse.status);
-
-      if (conversationsResponse.ok) {
-        const conversationsData = await conversationsResponse.json();
-        console.log("💬 Conversations API response:", conversationsData);
-
-        if (
-          conversationsData.success &&
-          conversationsData.conversations?.length > 0
-        ) {
-          const firstConversation = conversationsData.conversations[0];
-          console.log("💬 First conversation:", firstConversation);
-
-          // Load messages for the first conversation
-          const messagesResponse = await fetch(
-            `/api/conversations/${firstConversation.id}/messages`
-          );
-
-          if (messagesResponse.ok) {
-            const messagesData = await messagesResponse.json();
-            console.log("💬 Messages API response:", messagesData);
-
-            if (messagesData.success && messagesData.messages) {
-              const formattedMessages = messagesData.messages
-                .slice(0, 5)
-                .map((msg) => ({
-                  id: msg.id,
-                  sender: msg.sender?.name || "Unknown",
-                  content: msg.content,
-                  time: formatTimeAgo(msg.createdAt),
-                  unread: !msg.readBy || msg.readBy.length === 0,
-                }));
-              setMessages(formattedMessages);
-              console.log("💬 Loaded messages:", formattedMessages.length);
-            } else {
-              console.log("ℹ️ No messages found in conversation");
-              setMessages([]);
-            }
-          } else {
-            console.error("❌ Messages API error:", messagesResponse.status);
-            setMessages([]);
-          }
-        } else {
-          console.log("ℹ️ No conversations found");
-          setMessages([]);
-        }
-      } else {
-        console.log("💬 Conversations API not available, using mock messages");
-        // Use mock data as fallback
-        useMockMessages();
-      }
-    } catch (error) {
-      console.log("💬 Messages load failed, using mock data:", error);
-      useMockMessages();
-    }
+    console.log("🔄 Loading messages for user:", userId);
+    useMockMessages();
   };
 
   const useMockMessages = () => {
@@ -372,46 +221,8 @@ export default function DashboardPage() {
   };
 
   const loadRecentActivity = async (userId) => {
-    try {
-      console.log("🔄 Loading activity for user:", userId);
-      const response = await fetch(`/api/freelancer/wallet?userId=${userId}`);
-
-      if (response.ok) {
-        const data = await response.json();
-
-        if (data.success && data.wallet && data.wallet.transactions) {
-          const recentTransactions = data.wallet.transactions
-            .slice(0, 4)
-            .map((transaction) => ({
-              id: transaction.id,
-              type: "payment_received",
-              title:
-                transaction.type === "credit"
-                  ? "Payment Received"
-                  : "Withdrawal",
-              description: transaction.description,
-              time: formatTimeAgo(transaction.createdAt),
-              icon: transaction.type === "credit" ? <GiMoneyStack /> : "📤",
-            }));
-
-          setRecentActivity(recentTransactions);
-          console.log(
-            "📈 Loaded activity from freelancer transactions:",
-            recentTransactions.length
-          );
-        } else {
-          console.log("ℹ️ No transaction activity found");
-          setRecentActivity([]);
-        }
-      } else {
-        console.error("❌ Activity API error:", response.status);
-        // Use mock activity as fallback
-        useMockActivity();
-      }
-    } catch (error) {
-      console.error("❌ Error loading activity, using mock data:", error);
-      useMockActivity();
-    }
+    console.log("🔄 Loading activity for user:", userId);
+    useMockActivity();
   };
 
   const useMockActivity = () => {
@@ -488,118 +299,50 @@ export default function DashboardPage() {
       };
       setMessages([message, ...messages]);
       setNewMessage("");
-
-      try {
-        await fetch("/api/messages", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            content: newMessage,
-            recipientId: "client",
-          }),
-        });
-      } catch (error) {
-        console.error("Error sending message:", error);
-      }
+      console.log("📨 Mock message sent:", newMessage);
     }
   };
 
   const handlePayment = async () => {
     if (paymentAmount && !isNaN(paymentAmount) && paymentAmount > 0) {
       setIsLoading(true);
-      try {
-        const response = await fetch("/api/freelancer/wallet/add-funds", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userId: user?.id,
-            amount: parseFloat(paymentAmount),
-            description: "Wallet Top-up",
-          }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            const newBalance = walletBalance + parseFloat(paymentAmount);
-            setWalletBalance(newBalance);
-
-            const transaction = {
-              id: Date.now(),
-              type: "credit",
-              amount: parseFloat(paymentAmount),
-              description: "Wallet Top-up",
-              createdAt: new Date().toISOString(),
-              status: "completed",
-            };
-
-            setTransactions([transaction, ...transactions]);
-            setPaymentAmount("");
-            alert(
-              `Successfully added ${formatCurrency(
-                parseFloat(paymentAmount)
-              )} to your wallet!`
-            );
-
-            await loadWalletData(user?.id);
-          }
-        } else {
-          throw new Error("Payment failed");
-        }
-      } catch (error) {
-        console.error("Payment error:", error);
-        alert("Payment failed. Please try again.");
-      } finally {
-        setIsLoading(false);
-      }
+      await new Promise(r => setTimeout(r, 500));
+      const newBalance = walletBalance + parseFloat(paymentAmount);
+      setWalletBalance(newBalance);
+      const transaction = {
+        id: Date.now(),
+        type: "credit",
+        amount: parseFloat(paymentAmount),
+        description: "Wallet Top-up",
+        createdAt: new Date().toISOString(),
+        status: "completed",
+      };
+      setTransactions([transaction, ...transactions]);
+      setPaymentAmount("");
+      alert(
+        `Successfully added ${formatCurrency(parseFloat(paymentAmount))} to your wallet!`
+      );
+      setIsLoading(false);
     }
   };
 
   const handleWithdraw = async (amount) => {
     if (amount <= walletBalance) {
       setIsLoading(true);
-      try {
-        const response = await fetch("/api/freelancer/wallet/withdraw", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userId: user?.id,
-            amount: amount,
-            description: "Withdrawal to Bank Account",
-          }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            const newBalance = walletBalance - amount;
-            setWalletBalance(newBalance);
-
-            const transaction = {
-              id: Date.now(),
-              type: "debit",
-              amount: amount,
-              description: "Withdrawal to Bank Account",
-              createdAt: new Date().toISOString(),
-              status: "completed",
-            };
-
-            setTransactions([transaction, ...transactions]);
-            alert(
-              `Withdrawal request for ${formatCurrency(amount)} submitted!`
-            );
-
-            await loadWalletData(user?.id);
-          }
-        } else {
-          throw new Error("Withdrawal failed");
-        }
-      } catch (error) {
-        console.error("Withdrawal error:", error);
-        alert("Withdrawal failed. Please try again.");
-      } finally {
-        setIsLoading(false);
-      }
+      await new Promise(r => setTimeout(r, 500));
+      const newBalance = walletBalance - amount;
+      setWalletBalance(newBalance);
+      const transaction = {
+        id: Date.now(),
+        type: "debit",
+        amount: amount,
+        description: "Withdrawal to Bank Account",
+        createdAt: new Date().toISOString(),
+        status: "completed",
+      };
+      setTransactions([transaction, ...transactions]);
+      alert(`Withdrawal request for ${formatCurrency(amount)} submitted!`);
+      setIsLoading(false);
     } else {
       alert("Insufficient balance for withdrawal");
     }

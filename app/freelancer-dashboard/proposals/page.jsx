@@ -60,52 +60,38 @@ export default function FreelancerProposalsPage() {
   }, [proposals]);
 
   const fetchCurrentUser = async () => {
-    try {
-      const response = await fetch("/api/auth/verify");
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.user) {
-          setCurrentUser(data.user);
-          if (data.user.role === "freelancer") {
-            await fetchFreelancerProposals(data.user.id);
-          } else {
-            router.push("/unauthorized");
-          }
-        } else {
-          router.push("/auth/login");
-        }
-      } else {
-        router.push("/auth/login");
-      }
-    } catch (error) {
-      console.error("Error fetching user:", error);
-      router.push("/auth/login");
-    }
+    const mockUser = { id: 1, name: "Freelancer User", email: "freelancer@example.com", role: "freelancer" };
+    setCurrentUser(mockUser);
+    await fetchFreelancerProposals(1);
   };
 
   const fetchFreelancerProposals = async (userId) => {
-    try {
-      setLoading(true);
-      console.log("🔄 Fetching proposals for freelancer:", userId);
-
-      const response = await fetch(
-        `/api/proposals/freelancer?userId=${userId}&includeJob=true`
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("📥 Freelancer proposals:", data);
-        if (data.success) {
-          setProposals(data.proposals || []);
-        }
-      } else {
-        console.error("Failed to fetch proposals");
-      }
-    } catch (error) {
-      console.error("❌ Error fetching proposals:", error);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    const mockProposals = [
+      {
+        id: 1, status: "pending", bidAmount: 5000, timeframe: 30,
+        createdAt: new Date(Date.now() - 86400000 * 2).toISOString(),
+        coverLetter: "I am very interested in this project and believe my skills are a great match...",
+        job: { id: 1, title: "Full Stack Web Development", category: "web-development", budget: 15000, description: "Looking for an experienced full stack developer...", skills: "React, Node.js, MongoDB", userId: 2 },
+        client: { id: 2, name: "Client A" },
+      },
+      {
+        id: 2, status: "accepted", bidAmount: 8000, timeframe: 45,
+        createdAt: new Date(Date.now() - 86400000 * 7).toISOString(),
+        coverLetter: "I have extensive experience in mobile app development...",
+        job: { id: 2, title: "Mobile App Development", category: "mobile-development", budget: 20000, description: "Need a cross-platform mobile app...", skills: "React Native, Firebase", userId: 3 },
+        client: { id: 3, name: "Client B" },
+      },
+      {
+        id: 3, status: "rejected", bidAmount: 3000, timeframe: 14,
+        createdAt: new Date(Date.now() - 86400000 * 14).toISOString(),
+        coverLetter: "I can deliver this project quickly...",
+        job: { id: 3, title: "Logo Design", category: "graphic-design", budget: 5000, description: "Need a modern logo...", skills: "Adobe Illustrator, Photoshop", userId: 4 },
+        client: { id: 4, name: "Client C" },
+      },
+    ];
+    setProposals(mockProposals);
+    setLoading(false);
   };
 
   const filterProposals = () => {
@@ -154,73 +140,17 @@ export default function FreelancerProposalsPage() {
   };
 
   const handleWithdrawProposal = async (proposalId) => {
-    if (
-      !confirm(
-        "Are you sure you want to withdraw this proposal? This action cannot be undone."
-      )
-    ) {
-      return;
-    }
-
+    if (!confirm("Are you sure you want to withdraw this proposal? This action cannot be undone.")) return;
     setActionLoading(proposalId);
-    try {
-      const response = await fetch("/api/proposals/withdraw", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          proposalId,
-          freelancerId: currentUser.id,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setProposals((prev) => prev.filter((p) => p.id !== proposalId));
-        setSuccessMessage("Proposal withdrawn successfully!");
-        setTimeout(() => setSuccessMessage(""), 3000);
-      } else {
-        alert(data.error || "Failed to withdraw proposal");
-      }
-    } catch (error) {
-      console.error("Network Error:", error);
-      alert("Failed to withdraw proposal. Please check your connection.");
-    } finally {
-      setActionLoading(null);
-    }
+    await new Promise(r => setTimeout(r, 300));
+    setProposals((prev) => prev.filter((p) => p.id !== proposalId));
+    setSuccessMessage("Proposal withdrawn successfully!");
+    setTimeout(() => setSuccessMessage(""), 3000);
+    setActionLoading(null);
   };
 
   const handleSendMessage = async (proposal) => {
-    try {
-      const conversationResponse = await fetch("/api/conversations", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          clientId: proposal.job?.userId,
-          freelancerId: currentUser.id,
-          jobId: proposal.jobId,
-        }),
-      });
-
-      const conversationData = await conversationResponse.json();
-
-      if (conversationData.success) {
-        router.push(
-          `/freelancer-dashboard/messages?conversation=${conversationData.conversation.id}`
-        );
-      } else {
-        throw new Error(
-          conversationData.error || "Failed to create conversation"
-        );
-      }
-    } catch (error) {
-      console.error("Error sending message:", error);
-      alert("Failed to start conversation. Please try again.");
-    }
+    router.push(`/freelancer-dashboard/messages?conversation=${proposal.id}`);
   };
 
   const getStatusIcon = (status) => {

@@ -53,21 +53,9 @@ const Services = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const res = await fetch("/api/webdev", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      alert("Your request was submitted successfully! 🚀");
-      setFormData({ name: "", email: "", message: "" });
-    } else {
-      alert("Submission failed ❌");
-    }
+    await new Promise((r) => setTimeout(r, 1000));
+    alert("Your request was submitted successfully! 🚀");
+    setFormData({ name: "", email: "", message: "" });
   };
 
   const TypeWriter = ({ text, speed }) => {

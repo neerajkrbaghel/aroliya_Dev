@@ -162,43 +162,35 @@ export default function FreelancerHub() {
   };
 
   const fetchJobs = async () => {
-    try {
-      setLoading(true);
-      const queryParams = new URLSearchParams({
-        page: pagination.currentPage.toString(),
-        limit: "12",
-        ...filters,
-        ...(user && { userId: user.id.toString() }),
-      });
-
-      const response = await fetch(`/api/jobs?${queryParams}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        setJobs(data.jobs || []);
-        setPagination((prev) => ({
-          ...prev,
-          ...data.pagination,
-        }));
-      }
-    } catch (error) {
-      console.error("Error fetching jobs:", error);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    const mockJobs = [
+      {
+        id: 1, title: "Full Stack Web Developer Needed", description: "Looking for an experienced full stack developer to build a modern web application using React and Node.js.", budget: 15000, category: "web-development", experienceLevel: "expert", deadline: new Date(Date.now() + 86400000 * 15).toISOString(), createdAt: new Date(Date.now() - 86400000 * 2).toISOString(),
+        skills: ["React", "Node.js", "TypeScript", "PostgreSQL"],
+        user: { id: 2, name: "TechCorp Inc.", avgRating: 4.8, reviewCount: 24, profile: { avatar: null } },
+        _count: { proposals: 5 },
+      },
+      {
+        id: 2, title: "Mobile App UI/UX Designer", description: "Need a talented UI/UX designer for a cross-platform mobile application.", budget: 12000, category: "graphic-design", experienceLevel: "intermediate", deadline: new Date(Date.now() + 86400000 * 30).toISOString(), createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
+        skills: ["Figma", "Adobe XD", "UI Design"],
+        user: { id: 3, name: "StartupX", avgRating: 5.0, reviewCount: 8, profile: { avatar: null } },
+        _count: { proposals: 3 },
+      },
+      {
+        id: 3, title: "Python API Development", description: "Build RESTful APIs using Python FastAPI with PostgreSQL backend.", budget: 8000, category: "web-development", experienceLevel: "intermediate", deadline: new Date(Date.now() + 86400000 * 7).toISOString(), createdAt: new Date(Date.now() - 86400000 * 1).toISOString(),
+        skills: ["Python", "FastAPI", "PostgreSQL"],
+        user: { id: 4, name: "DataFlow Ltd", avgRating: 4.5, reviewCount: 12, profile: { avatar: null } },
+        _count: { proposals: 8 },
+      },
+    ];
+    await new Promise(r => setTimeout(r, 400));
+    setJobs(mockJobs);
+    setPagination({ currentPage: 1, totalPages: 1, totalCount: mockJobs.length });
+    setLoading(false);
   };
 
   const fetchSavedJobs = async (userId) => {
-    try {
-      const response = await fetch(`/api/saved-jobs?userId=${userId}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        setSavedJobs(data.savedJobs || []);
-      }
-    } catch (error) {
-      console.error("Error fetching saved jobs:", error);
-    }
+    setSavedJobs([]);
   };
 
   const handleFilterChange = (key, value) => {
@@ -215,55 +207,14 @@ export default function FreelancerHub() {
       alert("Please login to save jobs");
       return;
     }
-
-    try {
-      const isCurrentlySaved = savedJobs.some((sj) => sj.jobId === jobId);
-
-      if (isCurrentlySaved) {
-        // Remove from saved
-        const savedJobToRemove = savedJobs.find((sj) => sj.jobId === jobId);
-        const response = await fetch(
-          `/api/saved-jobs/${savedJobToRemove.id}?userId=${user.id}`,
-          {
-            method: "DELETE",
-          }
-        );
-
-        if (response.ok) {
-          setSavedJobs((prev) => prev.filter((sj) => sj.jobId !== jobId));
-          // Update jobs list
-          setJobs((prev) =>
-            prev.map((job) =>
-              job.id === jobId ? { ...job, isSaved: false } : job
-            )
-          );
-        }
-      } else {
-        // Add to saved
-        const response = await fetch("/api/saved-jobs", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: user.id,
-            jobId: jobId,
-          }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setSavedJobs((prev) => [...prev, data.savedJob]);
-          // Update jobs list
-          setJobs((prev) =>
-            prev.map((job) =>
-              job.id === jobId ? { ...job, isSaved: true } : job
-            )
-          );
-        }
-      }
-    } catch (error) {
-      console.error("Error toggling save job:", error);
+    const isCurrentlySaved = savedJobs.some((sj) => sj.jobId === jobId);
+    if (isCurrentlySaved) {
+      setSavedJobs((prev) => prev.filter((sj) => sj.jobId !== jobId));
+      setJobs((prev) => prev.map((job) => job.id === jobId ? { ...job, isSaved: false } : job));
+    } else {
+      const mockSavedJob = { id: Date.now(), jobId, userId: user.id, createdAt: new Date().toISOString() };
+      setSavedJobs((prev) => [...prev, mockSavedJob]);
+      setJobs((prev) => prev.map((job) => job.id === jobId ? { ...job, isSaved: true } : job));
     }
   };
 

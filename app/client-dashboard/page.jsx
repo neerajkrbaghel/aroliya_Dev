@@ -45,26 +45,22 @@ export default function ClientDashboard() {
   }, []);
 
   const fetchDashboardData = async (userId) => {
-    try {
-      setIsRefreshing(true);
-      const response = await fetch(`/api/client/dashboard?userId=${userId}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        setStats({
-          activeJobs: data.stats?.activeJobs || 0,
-          totalProposals: data.stats?.totalProposals || 0,
-          completedJobs: data.stats?.completedJobs || 0,
-          totalSpent: data.stats?.totalSpent || 0,
-          currency: "INR",
-        });
-        setRecentActivity(data.recentActivity || []);
-      }
-    } catch (error) {
-      console.error("Error fetching dashboard data:", error);
-    } finally {
-      setIsRefreshing(false);
-    }
+    setIsRefreshing(true);
+    await new Promise(r => setTimeout(r, 300));
+    setStats({
+      activeJobs: 3,
+      totalProposals: 12,
+      completedJobs: 8,
+      totalSpent: 125000,
+      currency: "INR",
+    });
+    setRecentActivity([
+      { type: "proposal", message: "New proposal received for React project", time: "2 hours ago", amount: 15000 },
+      { type: "job", message: "Job posting 'Full Stack Developer' is now active", time: "5 hours ago" },
+      { type: "payment", message: "Payment released for completed project", time: "1 day ago", amount: 45000 },
+      { type: "completion", message: "Project 'E-commerce Website' marked complete", time: "2 days ago" },
+    ]);
+    setIsRefreshing(false);
   };
 
   const fetchExchangeRates = async () => {

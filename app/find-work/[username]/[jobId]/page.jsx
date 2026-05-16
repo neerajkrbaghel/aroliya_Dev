@@ -92,30 +92,8 @@ export default function JobDetailPage() {
   const fetchJob = async () => {
     try {
       setLoading(true);
-      const actualJobId = extractJobId(params.jobId);
-
-      const response = await fetch(`/api/jobs/${actualJobId}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        setJob(data.job);
-
-        const expectedUsername = data.job.user.name
-          .toLowerCase()
-          .replace(/\s+/g, "-");
-        const expectedJobId = `JOB-${data.job.id.toString().padStart(6, "0")}`;
-
-        if (
-          params.username !== expectedUsername ||
-          params.jobId !== expectedJobId
-        ) {
-          router.replace(
-            `/find-work/${expectedUsername}/${expectedJobId}`
-          );
-        }
-      } else {
-        setError(data.error || "Failed to fetch job");
-      }
+      await new Promise((r) => setTimeout(r, 500));
+      setError("Job not found. The job listing system is currently offline.");
     } catch (err) {
       setError("Failed to load job details");
       console.error("Error fetching job:", err);

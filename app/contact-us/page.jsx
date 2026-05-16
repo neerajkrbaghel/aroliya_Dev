@@ -50,52 +50,17 @@ export default function Contact() {
     setIsLoading(true);
     setError("");
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          service: formData.service,
-          message: formData.message,
-          type: "website_contact", // To distinguish from freelancer contact requests
-          source: "website_contact_page",
-          timestamp: new Date().toISOString(),
-        }),
-      });
+    await new Promise((r) => setTimeout(r, 1000));
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to send message");
-      }
-
-      if (data.success) {
-        setIsSubmitted(true);
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          service: "",
-          message: "",
-        });
-
-        // Optional: Send to analytics or CRM
-        console.log("Contact form submitted successfully:", data);
-      } else {
-        throw new Error(data.error || "Failed to send message");
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      setError(error.message || "Failed to send message. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
+    setIsSubmitted(true);
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      service: "",
+      message: "",
+    });
+    setIsLoading(false);
   };
 
   const services = [

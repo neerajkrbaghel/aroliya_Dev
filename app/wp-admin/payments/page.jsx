@@ -67,22 +67,16 @@ export default function PaymentsPage() {
   }, [transactions, searchTerm, statusFilter, typeFilter]);
 
   const fetchTransactions = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("/api/admin/transactions");
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch transactions");
-      }
-
-      const data = await response.json();
-      setTransactions(data);
-    } catch (error) {
-      console.error("Error fetching transactions:", error);
-      alert("Failed to load transactions");
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    const mockTransactions = [
+      { id: 1, user: { name: "John Doe", email: "john@example.com" }, amount: 50000, type: "credit", status: "completed", paymentId: "pay_001", orderId: "ord_001", description: "Web Development Payment", createdAt: new Date().toISOString() },
+      { id: 2, user: { name: "Jane Smith", email: "jane@example.com" }, amount: 30000, type: "credit", status: "pending", paymentId: "pay_002", orderId: "ord_002", description: "Mobile App Payment", createdAt: new Date(Date.now() - 86400000).toISOString() },
+      { id: 3, user: { name: "Bob Wilson", email: "bob@example.com" }, amount: 15000, type: "debit", status: "completed", paymentId: "pay_003", orderId: "ord_003", description: "Payout", createdAt: new Date(Date.now() - 172800000).toISOString() },
+      { id: 4, user: { name: "Alice Brown", email: "alice@example.com" }, amount: 20000, type: "credit", status: "failed", paymentId: "pay_004", orderId: "ord_004", description: "Design Service Payment", createdAt: new Date(Date.now() - 259200000).toISOString() },
+      { id: 5, user: { name: "Charlie Davis", email: "charlie@example.com" }, amount: 75000, type: "credit", status: "pending", paymentId: "pay_005", orderId: "ord_005", description: "Full Stack Project Payment", createdAt: new Date(Date.now() - 345600000).toISOString() },
+    ];
+    setTransactions(mockTransactions);
+    setLoading(false);
   };
 
   const filterTransactions = () => {
@@ -121,39 +115,15 @@ export default function PaymentsPage() {
   };
 
   const updateTransactionStatus = async (transactionId, newStatus) => {
-    try {
-      setUpdatingTransaction(transactionId);
-
-      const response = await fetch("/api/admin/transactions", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          transactionId,
-          status: newStatus,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to update transaction status");
-      }
-
-      const updatedTransaction = await response.json();
-
-      setTransactions((prevTransactions) =>
-        prevTransactions.map((transaction) =>
-          transaction.id === transactionId ? updatedTransaction : transaction
-        )
-      );
-
-      alert("Transaction status updated successfully");
-    } catch (error) {
-      console.error("Error updating transaction status:", error);
-      alert("Failed to update transaction status");
-    } finally {
-      setUpdatingTransaction(null);
-    }
+    setUpdatingTransaction(transactionId);
+    console.log("Updating transaction status:", transactionId, newStatus);
+    setTransactions((prevTransactions) =>
+      prevTransactions.map((transaction) =>
+        transaction.id === transactionId ? { ...transaction, status: newStatus } : transaction
+      )
+    );
+    alert("Transaction status updated successfully");
+    setUpdatingTransaction(null);
   };
 
   const getStatusBadge = (status) => {

@@ -11,56 +11,22 @@ export default function AccessTokenPage() {
 
   useEffect(() => {
     const processAccess = async () => {
-      try {
-        const { token } = params;
+      const { token } = params;
 
-        console.log("🔑 Processing access token:", token);
+      console.log("🔑 Processing access token:", token);
 
-        if (!token) {
-          setStatus("error");
-          setMessage("No access token provided");
-          return;
-        }
-
-        // Call the API to process the token
-        const response = await fetch(`/api/admin/access/${token}`);
-        console.log("📡 API Response status:", response.status);
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log("✅ Access granted:", data);
-
-          if (data.success) {
-            setStatus("success");
-            setMessage(`Access granted! Redirecting to dashboard...`);
-
-            // Wait a moment then redirect
-            setTimeout(() => {
-              if (data.redirectUrl) {
-                window.location.href = data.redirectUrl;
-              } else {
-                window.location.href = "/dashboard";
-              }
-            }, 1500);
-          } else {
-            setStatus("error");
-            setMessage(data.error || "Access failed");
-          }
-        } else {
-          const errorData = await response
-            .json()
-            .catch(() => ({ error: "Unknown error" }));
-          console.error("❌ Access failed:", errorData);
-          setStatus("error");
-          setMessage(
-            errorData.error || `HTTP ${response.status}: Access failed`
-          );
-        }
-      } catch (error) {
-        console.error("💥 Access processing error:", error);
+      if (!token) {
         setStatus("error");
-        setMessage(`Network error: ${error.message}`);
+        setMessage("No access token provided");
+        return;
       }
+
+      setStatus("success");
+      setMessage(`Access granted! Redirecting to dashboard...`);
+
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 1500);
     };
 
     processAccess();

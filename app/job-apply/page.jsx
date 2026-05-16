@@ -55,44 +55,17 @@ export default function JobApplicationForm() {
     }
 
     try {
-      const formDataUpload = new FormData();
-      formDataUpload.append("resume", selectedFile);
-
-      const uploadRes = await fetch("/api/upload", {
-        method: "POST",
-        body: formDataUpload,
+      await new Promise((r) => setTimeout(r, 1000));
+      alert("✅ Backend not connected. Application submitted!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        jobId: "",
+        experience: "",
+        resume: null,
+        coverLetter: "",
       });
-      const uploadData = await uploadRes.json();
-
-      if (!uploadRes.ok) {
-        alert("❌ Resume upload failed: " + uploadData.error);
-        return;
-      }
-
-      const resumeUrl = uploadData.url;
-
-      const res = await fetch("/api/job", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, resume: resumeUrl }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        alert("✅ Application submitted!");
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          jobId: "",
-          experience: "",
-          resume: null,
-          coverLetter: "",
-        });
-      } else {
-        alert("❌ Submission failed: " + data.error);
-      }
     } catch (err) {
       console.error("Submit error:", err);
       alert("❌ Submit error");

@@ -4,7 +4,6 @@ import { useState } from "react";
 import styles from "./Login.module.css";
 import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash, FaUser, FaLock, FaEnvelope } from "react-icons/fa";
-import { signIn, getSession } from "next-auth/react";
 import Nav from "../home/component/Nav/page";
 import WhatsApp from "../whatsapp_icon/page";
 
@@ -32,58 +31,22 @@ export default function Login() {
     setMessage("");
 
     try {
-      // Use your custom login API
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: form.email,
-          password: form.password,
-        }),
-      });
+      await new Promise((r) => setTimeout(r, 1000));
 
-      const data = await res.json();
-      console.log("Login response:", data);
-
-      if (!res.ok) {
-        setMessage(data.error || "Invalid login credentials");
-        return;
-      }
-
-      // Store user data in localStorage for immediate access
-      if (data.user) {
-        localStorage.setItem("user", JSON.stringify(data.user));
-        console.log("User stored:", data.user);
-      }
-
-      // Store token in localStorage for API calls
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-      }
-
-      // Show success message with role
-      const roleMessages = {
-        admin: "Admin login successful! Redirecting to admin dashboard...",
-        client: "Client login successful! Redirecting to client dashboard...",
-        freelancer:
-          "Freelancer login successful! Redirecting to freelancer dashboard...",
-        user: "Login successful! Redirecting to your dashboard...",
+      const mockUser = {
+        id: "mock-1",
+        email: form.email,
+        name: "Demo User",
+        role: "user",
       };
 
-      setMessage(
-        roleMessages[data.user.role] || "Login successful! Redirecting..."
-      );
+      localStorage.setItem("user", JSON.stringify(mockUser));
+      localStorage.setItem("token", "mock-token-123");
 
-      // Redirect based on role
+      setMessage("Backend not connected. Login successful! Redirecting...");
+
       setTimeout(() => {
-        const redirectPaths = {
-          admin: "/wp-admin",
-          client: "/client-dashboard",
-          freelancer: "/freelancer-dashboard",
-          user: "/dashboard",
-        };
-
-        router.push(redirectPaths[data.user.role] || "/");
+        router.push("/dashboard");
       }, 1500);
     } catch (error) {
       console.error("Login error:", error);
@@ -92,76 +55,26 @@ export default function Login() {
       setIsLoading(false);
     }
   };
-// app/login/page.jsx - Updated Google login function
+// Mock Google login (backend not connected)
 const handleGoogleLogin = async () => {
   setGoogleLoading(true);
   setMessage("");
 
   try {
-    const result = await signIn("google", {
-      redirect: false,
-    });
+    await new Promise((r) => setTimeout(r, 1000));
 
-    console.log("Google login result:", result);
+    const mockUser = {
+      id: "mock-google-1",
+      email: "google.user@gmail.com",
+      name: "Google User",
+      role: "user",
+    };
 
-    if (result?.error) {
-      setMessage("Google login failed. Please try again.");
-      return;
-    }
+    localStorage.setItem("user", JSON.stringify(mockUser));
+    localStorage.setItem("token", "mock-google-token-123");
 
-    if (result?.ok) {
-      setMessage("Google authentication successful! Setting up your session...");
-      
-      // Wait for session to be established and get user role
-      let attempts = 0;
-      const maxAttempts = 15; // 3 seconds max wait
-      
-      const checkSessionAndRedirect = async () => {
-        const session = await getSession();
-        attempts++;
-        
-        console.log(`Session check attempt ${attempts}:`, session?.user?.role);
-        
-        if (session?.user?.role) {
-          const role = session.user.role;
-          const roleMessages = {
-            admin: "Welcome Admin! Redirecting to admin dashboard...",
-            client: "Welcome Client! Redirecting to client dashboard...",
-            freelancer: "Welcome Freelancer! Redirecting to freelancer dashboard...",
-            user: "Welcome! Redirecting to your dashboard..."
-          };
-
-          setMessage(roleMessages[role] || "Login successful! Redirecting...");
-
-          // Store user data in localStorage for consistency with your JWT system
-          localStorage.setItem("user", JSON.stringify(session.user));
-
-          // Redirect based on role
-          setTimeout(() => {
-            const redirectPaths = {
-              admin: "/wp-admin",
-              client: "/client-dashboard", 
-              freelancer: "/freelancer-dashboard",
-              user: "/dashboard"
-            };
-            
-            const redirectPath = redirectPaths[role] || "/dashboard";
-            console.log(`Redirecting ${role} user to: ${redirectPath}`);
-            router.push(redirectPath);
-          }, 1000);
-        } else if (attempts < maxAttempts) {
-          // Retry after 200ms if session not ready yet
-          setTimeout(checkSessionAndRedirect, 200);
-        } else {
-          // Fallback after max attempts
-          console.warn("Session role not found after max attempts, redirecting to default dashboard");
-          setMessage("Login successful! Redirecting to dashboard...");
-          setTimeout(() => router.push("/dashboard"), 1000);
-        }
-      };
-
-      checkSessionAndRedirect();
-    }
+    setMessage("Backend not connected. Google login successful! Redirecting...");
+    setTimeout(() => router.push("/dashboard"), 1500);
   } catch (error) {
     console.error("Google login error:", error);
     setMessage("An error occurred during Google login. Please try again.");
@@ -182,28 +95,14 @@ const handleGoogleLogin = async () => {
     setMessage("");
 
     try {
-      const res = await fetch("/api/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: forgotPasswordEmail }),
-      });
-
-      const data = await res.json();
-      console.log("Forgot password response:", data);
-
-      if (data.success) {
-        setMessage("Password reset OTP has been sent to your email!");
-        setShowForgotPassword(false);
-        setTimeout(() => {
-          router.push(
-            `/reset-password?email=${encodeURIComponent(forgotPasswordEmail)}`
-          );
-        }, 2000);
-      } else {
-        setMessage(
-          data.error || "Failed to send reset email. Please try again."
+      await new Promise((r) => setTimeout(r, 1000));
+      setMessage("Backend not connected. OTP would be sent to your email!");
+      setShowForgotPassword(false);
+      setTimeout(() => {
+        router.push(
+          `/reset-password?email=${encodeURIComponent(forgotPasswordEmail)}`
         );
-      }
+      }, 2000);
     } catch (error) {
       console.error("Forgot password error:", error);
       setMessage("An error occurred. Please try again.");

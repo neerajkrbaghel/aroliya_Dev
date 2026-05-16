@@ -64,45 +64,20 @@ export default function ContactManagementPage() {
 
   // Fetch contact requests
   const fetchContactRequests = async () => {
-    try {
-      setLoading(true);
-      const userId = 1; // Replace with actual user ID
-
-      let apiUrl = "";
-
-      if (requestType === "website") {
-        // Fetch website contact form submissions
-        apiUrl = `/api/contact?userId=${userId}&type=website`;
-      } else {
-        // Fetch platform contact requests (received by freelancer)
-        apiUrl = `/api/contact?userId=${userId}&type=received`;
-      }
-
-      const response = await fetch(apiUrl);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-        setContactRequests(data.contactRequests || []);
-      } else {
-        throw new Error(data.error || "Failed to fetch contact requests");
-      }
-    } catch (error) {
-      console.error("Error fetching contact requests:", error);
-      showNotification(
-        error.message === "Failed to fetch"
-          ? "Unable to connect to server. Please check your connection."
-          : "Failed to load contact requests",
-        "error"
-      );
-      setContactRequests([]);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    const mocks = {
+      website: [
+        { id: 1, client: { name: "John Doe", email: "john@example.com", profile: { phone: "+1234567890" } }, subject: "Website Inquiry", message: "I'm interested in your web development services. Can you provide more information?", isWebsiteSubmission: true, projectDetails: "Service: Web Development\nBudget: $5000", status: "pending", createdAt: new Date().toISOString() },
+        { id: 2, client: { name: "Jane Smith", email: "jane@example.com" }, subject: "Design Request", message: "Looking for UI/UX design for our mobile app.", isWebsiteSubmission: true, projectDetails: "Service: UI/UX Design\nBudget: $3000", status: "accepted", createdAt: new Date(Date.now() - 86400000).toISOString() },
+        { id: 3, client: { name: "Bob Wilson", email: "bob@example.com" }, subject: "Partnership", message: "We would like to discuss a potential partnership opportunity.", isWebsiteSubmission: true, projectDetails: "Service: Consulting\nBudget: Negotiable", status: "completed", createdAt: new Date(Date.now() - 172800000).toISOString() },
+      ],
+      platform: [
+        { id: 4, client: { name: "Alice Brown", email: "alice@example.com", profile: { phone: "+9876543210" } }, subject: "Project Collaboration", message: "I have received your profile and would like to discuss a project.", isWebsiteSubmission: false, status: "pending", createdAt: new Date(Date.now() - 259200000).toISOString() },
+        { id: 5, client: { name: "Charlie Davis", email: "charlie@example.com" }, subject: "Freelance Opportunity", message: "We have a long-term project that matches your skills.", isWebsiteSubmission: false, status: "rejected", createdAt: new Date(Date.now() - 345600000).toISOString() },
+      ],
+    };
+    setContactRequests(mocks[requestType] || []);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -141,33 +116,15 @@ export default function ContactManagementPage() {
 
   // Handle status update
   const updateRequestStatus = async (requestId, newStatus) => {
-    try {
-      const response = await fetch(`/api/contact/${requestId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setContactRequests((prev) =>
-          prev.map((request) =>
-            request.id === requestId
-              ? { ...request, status: newStatus }
-              : request
-          )
-        );
-        showNotification(`Request ${newStatus} successfully`, "success");
-      } else {
-        throw new Error(data.error || "Failed to update request");
-      }
-    } catch (error) {
-      console.error("Error updating request:", error);
-      showNotification("Failed to update request", "error");
-    }
+    console.log("Updating request status:", requestId, newStatus);
+    setContactRequests((prev) =>
+      prev.map((request) =>
+        request.id === requestId
+          ? { ...request, status: newStatus }
+          : request
+      )
+    );
+    showNotification(`Request ${newStatus} successfully`, "success");
   };
 
   // View request details

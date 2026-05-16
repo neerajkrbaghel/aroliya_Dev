@@ -8,9 +8,12 @@ export default function WebDevDashboard() {
   const [viewData, setViewData] = useState(null); // 🔥 modal state
 
   useEffect(() => {
-    fetch("/api/webdev")
-      .then((res) => res.json())
-      .then((res) => res.success && setData(res.leads));
+    const mockLeads = [
+      { id: 1, name: "John Doe", email: "john@example.com", phone: "+1234567890", serviceCategory: "Web Development", message: "I need a complete website for my business. Looking for a professional team.", status: "Pending", createdAt: new Date().toISOString() },
+      { id: 2, name: "Jane Smith", email: "jane@example.com", phone: "+9876543210", serviceCategory: "Mobile App", message: "Looking to build a cross-platform mobile application with React Native.", status: "InProgress", createdAt: new Date(Date.now() - 86400000).toISOString() },
+      { id: 3, name: "Bob Wilson", email: "bob@example.com", phone: "+5551234567", serviceCategory: "UI/UX Design", message: "Need redesign of our company website. Modern and clean design.", status: "Completed", createdAt: new Date(Date.now() - 172800000).toISOString() },
+    ];
+    setData(mockLeads);
   }, []);
 
   const updateStatus = async (id, currentStatus) => {
@@ -21,18 +24,10 @@ export default function WebDevDashboard() {
         ? "Completed"
         : "Pending";
 
-    const res = await fetch("/api/webdev", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, status: next }),
-    });
-
-    const result = await res.json();
-    if (result.success) {
-      setData((prev) =>
-        prev.map((item) => (item.id === id ? { ...item, status: next } : item))
-      );
-    }
+    console.log("Updating lead status:", id, next);
+    setData((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, status: next } : item))
+    );
   };
 
   return (

@@ -63,23 +63,15 @@ export default function AcceptJobPage() {
   };
 
   const fetchFreelancerProposals = async (userId) => {
-    try {
-      setLoading(true);
-      const response = await fetch(`/api/proposals/freelancer?userId=${userId}`);
-
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setProposals(data.proposals || []);
-        }
-      } else {
-        console.error("Failed to fetch proposals");
-      }
-    } catch (error) {
-      console.error("Error fetching proposals:", error);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    const mockProposals = [
+      { id: 1, status: "pending", bidAmount: 5000, timeframe: 30, createdAt: new Date(Date.now() - 86400000 * 2).toISOString(), coverLetter: "I am very interested in this project and believe my skills are a great match...", job: { id: 1, title: "Full Stack Web Development", category: "web-development", budget: 15000, description: "Looking for an experienced full stack developer...", skills: "React, Node.js, MongoDB", user: { id: 2, name: "TechCorp Inc.", avatar: null } }, client: { id: 2, name: "TechCorp Inc." } },
+      { id: 2, status: "pending", bidAmount: 8000, timeframe: 45, createdAt: new Date(Date.now() - 86400000 * 5).toISOString(), coverLetter: "I have extensive experience in mobile app development...", job: { id: 2, title: "Mobile App Development", category: "mobile-development", budget: 20000, description: "Need a cross-platform mobile app...", skills: "React Native, Firebase", user: { id: 3, name: "StartupX", avatar: null } }, client: { id: 3, name: "StartupX" } },
+      { id: 3, status: "accepted", bidAmount: 3000, timeframe: 14, createdAt: new Date(Date.now() - 86400000 * 14).toISOString(), coverLetter: "I can deliver this project quickly...", job: { id: 3, title: "Logo Design", category: "graphic-design", budget: 5000, description: "Need a modern logo...", skills: "Adobe Illustrator, Photoshop", user: { id: 4, name: "Client C", avatar: null } }, client: { id: 4, name: "Client C" } },
+    ];
+    await new Promise(r => setTimeout(r, 300));
+    setProposals(mockProposals);
+    setLoading(false);
   };
 
   const filterProposals = () => {
@@ -119,43 +111,13 @@ export default function AcceptJobPage() {
 
   const handleProposalAction = async (proposalId, action) => {
     setActionLoading(proposalId);
-
-    try {
-      const response = await fetch("/api/proposals/action", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          proposalId,
-          action,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        // Update local state
-        setProposals((prev) =>
-          prev.map((p) => (p.id === proposalId ? { ...p, status: action } : p))
-        );
-
-        // Update selected proposal if it's the one being viewed
-        if (selectedProposal && selectedProposal.id === proposalId) {
-          setSelectedProposal((prev) => ({ ...prev, status: action }));
-        }
-
-        // Show success message
-        alert(`Proposal ${action} successfully!`);
-      } else {
-        alert(data.error || "Failed to update proposal");
-      }
-    } catch (error) {
-      console.error("Error updating proposal:", error);
-      alert("Failed to update proposal");
-    } finally {
-      setActionLoading(null);
+    await new Promise(r => setTimeout(r, 300));
+    setProposals((prev) => prev.map((p) => (p.id === proposalId ? { ...p, status: action } : p)));
+    if (selectedProposal && selectedProposal.id === proposalId) {
+      setSelectedProposal((prev) => ({ ...prev, status: action }));
     }
+    alert(`Proposal ${action} successfully!`);
+    setActionLoading(null);
   };
 
   const getStatusIcon = (status) => {

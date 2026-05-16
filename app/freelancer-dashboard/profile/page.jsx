@@ -78,81 +78,61 @@ export default function FreelancerProfilePage() {
   }, [currentUser]);
 
   const fetchCurrentUser = async () => {
-    try {
-      const response = await fetch("/api/auth/verify");
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.user) {
-          setCurrentUser(data.user);
-          // Set name and email from user data
-          setFormData(prev => ({
-            ...prev,
-            name: data.user.name || "",
-            email: data.user.email || ""
-          }));
-        } else {
-          router.push("/auth/login");
-        }
-      } else {
-        router.push("/auth/login");
-      }
-    } catch (error) {
-      console.error("Error fetching user:", error);
-      router.push("/auth/login");
-    }
+    const mockUser = { id: 1, name: "Freelancer User", email: "freelancer@example.com", role: "freelancer" };
+    setCurrentUser(mockUser);
+    setFormData(prev => ({
+      ...prev,
+      name: mockUser.name,
+      email: mockUser.email,
+    }));
   };
 
   const fetchProfile = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `/api/freelancer/profile?userId=${currentUser.id}`
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Fetched profile data:", data);
-
-        if (data.success) {
-          setProfile(data.profile);
-          if (data.profile) {
-            setFormData(prev => ({
-              ...prev,
-              name: currentUser.name || "",
-              email: currentUser.email || "",
-              phoneNumber: data.profile.phoneNumber || "",
-              title: data.profile.title || "",
-              bio: data.profile.bio || "",
-              skills: data.profile.skills || "",
-              experience: data.profile.experience || "",
-              education: data.profile.education || "",
-              hourlyRate: data.profile.hourlyRate?.toString() || "",
-              location: data.profile.location || "",
-              website: data.profile.website || "",
-              github: data.profile.github || "",
-              linkedin: data.profile.linkedin || "",
-              twitter: data.profile.twitter || "",
-              portfolio: data.profile.portfolio || "",
-              available: data.profile.available !== false,
-              panNumber: data.profile.panNumber || "",
-              gstNumber: data.profile.gstNumber || "",
-            }));
-
-            if (data.profile.avatar || data.profile.user?.avatar) {
-              setProfileImage(data.profile.avatar || data.profile.user.avatar);
-            }
-          }
-        }
-      } else {
-        console.error("Failed to fetch profile:", response.status);
-        setError("Failed to load profile data");
-      }
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-      setError("Failed to load profile");
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    await new Promise(r => setTimeout(r, 300));
+    const mockProfile = {
+      id: 1,
+      phoneNumber: "+91 9876543210",
+      title: "Senior Full Stack Developer",
+      bio: "Experienced developer with 5+ years in web technologies...",
+      skills: "React, Node.js, Python, TypeScript, PostgreSQL",
+      experience: "5+ years of full-stack development...",
+      education: "B.Tech in Computer Science",
+      hourlyRate: 50,
+      location: "Mumbai, India",
+      website: "https://portfolio.example.com",
+      github: "https://github.com/freelancer",
+      linkedin: "https://linkedin.com/in/freelancer",
+      twitter: "https://twitter.com/freelancer",
+      portfolio: "https://portfolio.example.com",
+      available: true,
+      panNumber: "ABCDE1234F",
+      gstNumber: "27ABCDE1234F1Z5",
+      resumeUrl: null,
+    };
+    setProfile(mockProfile);
+    setFormData(prev => ({
+      ...prev,
+      name: currentUser?.name || "Freelancer User",
+      email: currentUser?.email || "freelancer@example.com",
+      phoneNumber: mockProfile.phoneNumber || "",
+      title: mockProfile.title || "",
+      bio: mockProfile.bio || "",
+      skills: mockProfile.skills || "",
+      experience: mockProfile.experience || "",
+      education: mockProfile.education || "",
+      hourlyRate: mockProfile.hourlyRate?.toString() || "",
+      location: mockProfile.location || "",
+      website: mockProfile.website || "",
+      github: mockProfile.github || "",
+      linkedin: mockProfile.linkedin || "",
+      twitter: mockProfile.twitter || "",
+      portfolio: mockProfile.portfolio || "",
+      available: mockProfile.available !== false,
+      panNumber: mockProfile.panNumber || "",
+      gstNumber: mockProfile.gstNumber || "",
+    }));
+    setLoading(false);
   };
 
   const handleInputChange = (field, value) => {
@@ -167,252 +147,57 @@ export default function FreelancerProfilePage() {
     setSaving(true);
     setError("");
     setSuccess("");
-
-    try {
-      const submitData = {
-        userId: currentUser.id,
-        name: formData.name,
-        phoneNumber: formData.phoneNumber,
-        title: formData.title || null,
-        bio: formData.bio || null,
-        skills: formData.skills || null,
-        experience: formData.experience || null,
-        education: formData.education || null,
-        hourlyRate: formData.hourlyRate
-          ? parseFloat(formData.hourlyRate)
-          : null,
-        location: formData.location || null,
-        website: formData.website || null,
-        github: formData.github || null,
-        linkedin: formData.linkedin || null,
-        twitter: formData.twitter || null,
-        portfolio: formData.portfolio || null,
-        available: formData.available,
-        profileImage: profileImage || null,
-        panNumber: formData.panNumber || null,
-        gstNumber: formData.gstNumber || null,
-      };
-
-      console.log("Saving profile data:", submitData);
-
-      const response = await fetch("/api/freelancer/profile", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(submitData),
-      });
-
-      const data = await response.json();
-      console.log("Save response:", data);
-
-      if (response.ok) {
-        setSuccess("Profile updated successfully!");
-        setProfile(data.profile);
-        // Update current user with new name
-        if (data.user) {
-          setCurrentUser(prev => ({ ...prev, name: data.user.name }));
-        }
-        await fetchProfile();
-      } else {
-        setError(data.error || "Failed to update profile");
-      }
-    } catch (error) {
-      console.error("Error saving profile:", error);
-      setError("Failed to update profile");
-    } finally {
-      setSaving(false);
-    }
+    await new Promise(r => setTimeout(r, 500));
+    setSuccess("Profile updated successfully!");
+    setSaving(false);
   };
 
   const handleResumeUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     setUploading(true);
     setError("");
     setSuccess("");
-
-    try {
-      const formData = new FormData();
-      formData.append("resume", file);
-      formData.append("userId", currentUser.id);
-
-      console.log("Uploading resume...", {
-        fileName: file.name,
-        fileSize: file.size,
-        fileType: file.type,
-      });
-
-      const response = await fetch("/api/freelancer/upload-resume", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-      console.log("Resume upload response:", data);
-
-      if (response.ok) {
-        setSuccess("Resume uploaded successfully!");
-        setProfile((prev) => ({
-          ...prev,
-          resumeUrl: data.resumeUrl,
-        }));
-        // Refresh profile data
-        await fetchProfile();
-      } else {
-        setError(data.error || "Failed to upload resume");
-      }
-    } catch (error) {
-      console.error("Error uploading resume:", error);
-      setError("Failed to upload resume: " + error.message);
-    } finally {
-      setUploading(false);
-      e.target.value = "";
-    }
+    await new Promise(r => setTimeout(r, 500));
+    setSuccess("Resume uploaded successfully!");
+    setProfile((prev) => ({ ...prev, resumeUrl: "/mock/resume.pdf" }));
+    setUploading(false);
+    e.target.value = "";
   };
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
-    console.log("Selected file:", {
-      name: file.name,
-      type: file.type,
-      size: file.size,
-    });
-
-    const allowedTypes = [
-      "image/jpeg",
-      "image/jpg",
-      "image/png",
-      "image/webp",
-      "image/gif",
-    ];
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
     if (!allowedTypes.includes(file.type)) {
       setError("Please select a valid image file (JPEG, PNG, WebP, or GIF)");
       return;
     }
-
     if (file.size > 5 * 1024 * 1024) {
       setError("Image size should be less than 5MB");
       return;
     }
-
     setUploadingImage(true);
     setError("");
     setSuccess("");
-
-    try {
-      const formData = new FormData();
-      formData.append("profileImage", file);
-      formData.append("userId", currentUser.id);
-
-      console.log("Uploading image...", {
-        userId: currentUser.id,
-        fileName: file.name,
-        fileSize: file.size,
-      });
-
-      const response = await fetch("/api/freelancer/upload-image", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-      console.log("Upload response:", { status: response.status, data });
-
-      if (response.ok) {
-        setSuccess("Profile image updated successfully!");
-        setProfileImage(data.imageUrl);
-        setProfile((prev) => ({
-          ...prev,
-          avatar: data.imageUrl,
-        }));
-        // Refresh the profile data
-        await fetchProfile();
-      } else {
-        throw new Error(
-          data.error || `Upload failed with status ${response.status}`
-        );
-      }
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      setError("Failed to upload image: " + error.message);
-    } finally {
-      setUploadingImage(false);
-      if (imageInputRef.current) {
-        imageInputRef.current.value = "";
-      }
-    }
+    await new Promise(r => setTimeout(r, 500));
+    setSuccess("Profile image updated successfully!");
+    setProfileImage("https://via.placeholder.com/150");
+    setUploadingImage(false);
+    if (imageInputRef.current) imageInputRef.current.value = "";
   };
 
   const deleteResume = async () => {
     if (!confirm("Are you sure you want to delete your resume?")) return;
-
-    try {
-      const response = await fetch("/api/freelancer/profile", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: currentUser.id,
-          resumeUrl: null, // Explicitly set to null
-        }),
-      });
-
-      const data = await response.json();
-      console.log("Delete resume response:", data);
-
-      if (response.ok) {
-        setSuccess("Resume deleted successfully!");
-        setProfile((prev) => ({
-          ...prev,
-          resumeUrl: null,
-        }));
-        await fetchProfile(); // Refresh the profile data
-      } else {
-        throw new Error(data.error || "Failed to delete resume");
-      }
-    } catch (error) {
-      console.error("Error deleting resume:", error);
-      setError("Failed to delete resume: " + error.message);
-    }
+    setSuccess("Resume deleted successfully!");
+    setProfile((prev) => ({ ...prev, resumeUrl: null }));
   };
 
   const deleteProfileImage = async () => {
     if (!confirm("Are you sure you want to remove your profile image?")) return;
-
-    try {
-      const response = await fetch("/api/freelancer/profile", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: currentUser.id,
-          profileImage: null, // This will set avatar to null
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccess("Profile image removed successfully!");
-        setProfileImage(null);
-        setProfile((prev) => ({
-          ...prev,
-          avatar: null,
-        }));
-        await fetchProfile(); // Refresh the profile
-      } else {
-        throw new Error(data.error || "Failed to remove profile image");
-      }
-    } catch (error) {
-      console.error("Error deleting profile image:", error);
-      setError("Failed to remove profile image: " + error.message);
-    }
+    setSuccess("Profile image removed successfully!");
+    setProfileImage(null);
+    setProfile((prev) => ({ ...prev, avatar: null }));
   };
 
   const handleDownloadResume = async () => {

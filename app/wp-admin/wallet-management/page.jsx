@@ -41,61 +41,34 @@ export default function AdminWalletManagement() {
 
   const fetchData = async () => {
     setLoading(true);
-    try {
-      let url = "";
-      let responseData = null;
+    const mockTransactions = [
+      { id: 1, wallet: { user: { name: "John Doe", email: "john@example.com" } }, amount: 50000, type: "credit", description: "Project Payment", status: "completed", createdAt: new Date().toISOString() },
+      { id: 2, wallet: { user: { name: "Jane Smith", email: "jane@example.com" } }, amount: 30000, type: "debit", description: "Withdrawal", status: "pending", createdAt: new Date(Date.now() - 86400000).toISOString() },
+    ];
+    const mockPayouts = [
+      { id: 1, wallet: { user: { name: "Freelancer One", email: "freelancer1@example.com" } }, amount: 25000, bankDetail: { bankName: "HDFC Bank", accountNumber: "****1234" }, status: "pending", createdAt: new Date().toISOString() },
+      { id: 2, wallet: { user: { name: "Freelancer Two", email: "freelancer2@example.com" } }, amount: 15000, bankDetail: { bankName: "ICICI Bank", accountNumber: "****5678" }, status: "approved", createdAt: new Date(Date.now() - 86400000).toISOString() },
+    ];
+    const mockBankAccounts = [
+      { id: 1, wallet: { user: { name: "John Doe", email: "john@example.com" } }, bankName: "HDFC Bank", accountNumber: "XXXXXXXX1234", accountHolder: "John Doe", ifscCode: "HDFC0001234", branch: "Main Branch", isVerified: true, createdAt: new Date().toISOString() },
+      { id: 2, wallet: { user: { name: "Jane Smith", email: "jane@example.com" } }, bankName: "SBI Bank", accountNumber: "XXXXXXXX5678", accountHolder: "Jane Smith", ifscCode: "SBIN0005678", branch: "Downtown", isVerified: false, createdAt: new Date(Date.now() - 86400000).toISOString() },
+    ];
 
-      switch (activeTab) {
-        case "transactions":
-          url = `/api/admin/wallet?status=${filters.status}&page=${filters.page}&limit=${filters.limit}`;
-          const transactionsRes = await fetch(url);
-          responseData = await transactionsRes.json();
-          if (responseData.success) {
-            setTransactions(responseData.transactions);
-            setPagination(responseData.pagination || {
-              page: filters.page,
-              limit: filters.limit,
-              total: responseData.transactions.length,
-              pages: 1
-            });
-          }
-          break;
-
-        case "payouts":
-          url = `/api/admin/payout-requests?status=${filters.status}&page=${filters.page}&limit=${filters.limit}`;
-          const payoutsRes = await fetch(url);
-          responseData = await payoutsRes.json();
-          if (responseData.success) {
-            setPayoutRequests(responseData.payoutRequests);
-            setPagination(responseData.pagination || {
-              page: filters.page,
-              limit: filters.limit,
-              total: responseData.payoutRequests.length,
-              pages: 1
-            });
-          }
-          break;
-
-        case "bank-accounts":
-          url = `/api/admin/bank-accounts?status=${filters.status}&page=${filters.page}&limit=${filters.limit}`;
-          const banksRes = await fetch(url);
-          responseData = await banksRes.json();
-          if (responseData.success) {
-            setBankAccounts(responseData.bankAccounts);
-            setPagination(responseData.pagination || {
-              page: filters.page,
-              limit: filters.limit,
-              total: responseData.bankAccounts.length,
-              pages: 1
-            });
-          }
-          break;
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
+    switch (activeTab) {
+      case "transactions":
+        setTransactions(mockTransactions);
+        setPagination({ page: 1, limit: 10, total: mockTransactions.length, pages: 1 });
+        break;
+      case "payouts":
+        setPayoutRequests(mockPayouts);
+        setPagination({ page: 1, limit: 10, total: mockPayouts.length, pages: 1 });
+        break;
+      case "bank-accounts":
+        setBankAccounts(mockBankAccounts);
+        setPagination({ page: 1, limit: 10, total: mockBankAccounts.length, pages: 1 });
+        break;
     }
+    setLoading(false);
   };
 
   const setRejectionReason = (payoutId, reason) => {
@@ -107,63 +80,17 @@ export default function AdminWalletManagement() {
 
   const updateStatus = async (type, id, status) => {
     setUpdatingId(id);
-    try {
-      let url = "";
-      let body = {};
-      const adminNotes = rejectionReasons[id] || "";
-
-      switch (type) {
-        case "transaction":
-          url = "/api/admin/wallet";
-          body = { transactionId: id, status, adminNotes };
-          break;
-        case "payout":
-          url = "/api/admin/payout-requests";
-          body = {
-            payoutRequestId: id,
-            status,
-            adminNotes,
-          };
-          break;
-        case "bank":
-          url = "/api/admin/bank-accounts";
-          body = {
-            bankAccountId: id,
-            isVerified: status === "verified",
-            adminNotes,
-          };
-          break;
-      }
-
-      console.log(`🔄 Updating ${type} ${id} to ${status}`, body);
-
-      const response = await fetch(url, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+    console.log(`Updating ${type} ${id} to ${status}`);
+    if (type === "payout") {
+      setRejectionReasons((prev) => {
+        const newReasons = { ...prev };
+        delete newReasons[id];
+        return newReasons;
       });
-
-      const data = await response.json();
-      if (data.success) {
-        alert(data.message);
-        // Clear rejection reason for this payout
-        if (type === "payout") {
-          setRejectionReasons((prev) => {
-            const newReasons = { ...prev };
-            delete newReasons[id];
-            return newReasons;
-          });
-        }
-        await fetchData(); // Refresh data
-      } else {
-        alert(data.error || "Failed to update status");
-      }
-    } catch (error) {
-      console.error("Error updating status:", error);
-      alert("Failed to update status: " + error.message);
-    } finally {
-      setUpdatingId(null);
     }
+    alert("Status updated successfully");
+    await fetchData();
+    setUpdatingId(null);
   };
 
   const getStatusBadge = (status) => {

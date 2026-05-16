@@ -63,20 +63,10 @@ export default function ProfilePage() {
     }
   };
 
-  // Fetch user data from API to ensure we have createdAt
+  // Fetch user data mock
   const fetchUserData = async (userId) => {
-    try {
-      const response = await fetch(`/api/client/profile?userId=${userId}`);
-      const result = await response.json();
-      
-      if (result.success) {
-        return result.user;
-      }
-      return null;
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      return null;
-    }
+    await new Promise(r => setTimeout(r, 200));
+    return { createdAt: new Date().toISOString(), name: "Test User", email: "test@example.com", businessName: "Test Business", avatar: "" };
   };
 
   useEffect(() => {
@@ -175,45 +165,15 @@ export default function ProfilePage() {
     setMessage({ type: "", text: "" });
 
     try {
-      const submitData = new FormData();
-      submitData.append("userId", user.id.toString());
-      submitData.append("name", formData.name);
-      submitData.append("businessName", formData.businessName);
-      if (formData.avatar) {
-        submitData.append("avatar", formData.avatar);
-      }
-
-      const response = await fetch("/api/client/profile", {
-        method: "PUT",
-        body: submitData,
+      await new Promise(r => setTimeout(r, 500));
+      const updatedUser = { ...user, name: formData.name, businessName: formData.businessName };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      setUser(updatedUser);
+      setMessage({
+        type: "success",
+        text: "Profile updated successfully!",
       });
-
-      const result = await response.json();
-
-      if (result.success) {
-        // Update local storage with complete user data including createdAt
-        const updatedUser = { 
-          ...user, 
-          ...result.user,
-          createdAt: user.createdAt || result.user.createdAt 
-        };
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-        setUser(updatedUser);
-
-        setMessage({
-          type: "success",
-          text: "Profile updated successfully!",
-        });
-
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      } else {
-        setMessage({
-          type: "error",
-          text: result.error || "Failed to update profile",
-        });
-      }
+      setTimeout(() => window.location.reload(), 1500);
     } catch (error) {
       console.error("Update error:", error);
       setMessage({

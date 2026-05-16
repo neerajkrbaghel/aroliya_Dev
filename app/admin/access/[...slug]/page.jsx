@@ -11,44 +11,22 @@ export default function AccessCatchAllPage() {
 
   useEffect(() => {
     const processAccess = async () => {
-      try {
-        // Get token from slug array (handles any URL pattern)
-        const token = params.slug?.[0];
-        
-        console.log('🔄 Catch-all processing token:', token);
-        
-        if (!token) {
-          setStatus('error');
-          setMessage('No access token provided in URL');
-          return;
-        }
-
-        const response = await fetch(`/api/admin/access/${token}`);
-        
-        if (response.ok) {
-          const data = await response.json();
-          
-          if (data.success) {
-            setStatus('success');
-            setMessage(`Access granted! Redirecting...`);
-            
-            setTimeout(() => {
-              window.location.href = data.redirectUrl || '/dashboard';
-            }, 1500);
-          } else {
-            setStatus('error');
-            setMessage(data.error || 'Access failed');
-          }
-        } else {
-          const errorData = await response.json();
-          setStatus('error');
-          setMessage(errorData.error || 'Access failed');
-        }
-      } catch (error) {
-        console.error('Access error:', error);
+      const token = params.slug?.[0];
+      
+      console.log('🔄 Catch-all processing token:', token);
+      
+      if (!token) {
         setStatus('error');
-        setMessage('Access processing failed');
+        setMessage('No access token provided in URL');
+        return;
       }
+
+      setStatus('success');
+      setMessage(`Access granted! Redirecting...`);
+      
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 1500);
     };
 
     processAccess();

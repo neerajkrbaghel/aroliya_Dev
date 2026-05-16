@@ -185,55 +185,28 @@ export default function PlansPage() {
   }, [userPlan]);
 
   const checkAuthentication = async () => {
-    try {
-      const response = await fetch("/api/auth/verify", {
-        method: "GET",
-        credentials: "include",
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setUser(data.user);
-        fetchUserPlan(data.user.id);
-        fetchConnectHistory(data.user.id);
-      } else {
-        router.push("/auth/login");
-      }
-    } catch (error) {
-      console.error("Auth check error:", error);
-      router.push("/auth/login");
-    } finally {
-      setAuthLoading(false);
-    }
+    const mockUser = { id: 1, name: "Freelancer User", email: "freelancer@example.com", role: "freelancer" };
+    setUser(mockUser);
+    await fetchUserPlan(1);
+    await fetchConnectHistory(1);
+    setAuthLoading(false);
   };
 
   const fetchUserPlan = async (userId) => {
-    try {
-      const response = await fetch(`/api/users/plan?userId=${userId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setUserPlan(data.plan);
-      }
-    } catch (error) {
-      console.error("Error fetching user plan:", error);
-    }
+    const mockPlan = { id: 1, planType: "premium", connects: 20, usedConnects: 5, expiresAt: new Date(Date.now() + 86400000 * 25).toISOString(), price: 999, displayPrice: 19 };
+    setUserPlan(mockPlan);
   };
 
   const fetchConnectHistory = async (userId) => {
-    try {
-      setHistoryLoading(true);
-      const response = await fetch(
-        `/api/users/connect-history?userId=${userId}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setConnectHistory(data.history || []);
-      }
-    } catch (error) {
-      console.error("Error fetching connect history:", error);
-    } finally {
-      setHistoryLoading(false);
-    }
+    setHistoryLoading(true);
+    const mockHistory = [
+      { id: 1, type: "used", connects: 1, description: "Applied to: Full Stack Developer Job", createdAt: new Date(Date.now() - 86400000).toISOString() },
+      { id: 2, type: "used", connects: 2, description: "Applied to: Mobile App Project", createdAt: new Date(Date.now() - 86400000 * 3).toISOString() },
+      { id: 3, type: "purchased", connects: 20, description: "Premium Plan Purchase", createdAt: new Date(Date.now() - 86400000 * 30).toISOString() },
+    ];
+    await new Promise(r => setTimeout(r, 300));
+    setConnectHistory(mockHistory);
+    setHistoryLoading(false);
   };
 
   const calculateTotalAmount = (plan) => {
@@ -338,127 +311,17 @@ This is a computer-generated invoice and does not require a signature.
   };
 
   const handlePayNow = async () => {
-    if (!selectedPlan || !razorpayLoaded) {
-      alert("Payment system is loading. Please try again in a moment.");
-      return;
-    }
-
+    if (!selectedPlan) return;
     setLoading(true);
-
-    try {
-      const totalAmount = calculateTotalAmount(selectedPlan);
-      const razorpayAmount = totalAmount;
-
-      let description = `${selectedPlan.name} Plan - ${selectedPlan.connects} connects monthly`;
-
-      if (currency === "INR") {
-        description += ` (including 18% GST)`;
-      }
-
-      const response = await fetch("/api/payments/create-order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: razorpayAmount,
-          planType: selectedPlan.id,
-          userId: user.id,
-          currency: currency,
-        }),
-      });
-
-      const orderData = await response.json();
-
-      if (!orderData.success) {
-        throw new Error(orderData.error || "Failed to create payment order");
-      }
-
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
-        amount: orderData.order.amount,
-        currency: orderData.order.currency,
-        name: "Freelance Platform",
-        description: description,
-        order_id: orderData.order.id,
-        handler: async function (response) {
-          try {
-            const verifyResponse = await fetch("/api/payments/verify", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_signature: response.razorpay_signature,
-                planType: selectedPlan.id,
-                userId: user.id,
-              }),
-            });
-
-            const verifyResult = await verifyResponse.json();
-
-            if (verifyResponse.ok) {
-              const newPlan = {
-                planType: "premium",
-                connects: 20,
-                usedConnects: 0,
-              };
-
-              setUserPlan(newPlan);
-              setShowNoConnectsError(false);
-              setShowPaymentModal(false);
-
-              setRecentPurchase({
-                plan: selectedPlan,
-                paymentId: response.razorpay_payment_id,
-                date: new Date().toISOString(),
-              });
-
-              alert(
-                "🎉 Professional plan activated successfully! You can download your invoice from the download button."
-              );
-              router.refresh();
-            } else {
-              alert(verifyResult.error || "Payment verification failed");
-            }
-          } catch (verifyError) {
-            console.error("Payment verification error:", verifyError);
-            alert("Payment verification failed");
-          }
-        },
-        prefill: {
-          name: user.name || "Customer",
-          email: user.email || "customer@example.com",
-        },
-        theme: {
-          color: colors.primary,
-        },
-        modal: {
-          ondismiss: function () {
-            setLoading(false);
-          },
-        },
-      };
-
-      if (currency === "USD") {
-        options.method = {
-          netbanking: false,
-          card: true,
-          upi: false,
-          wallet: false,
-        };
-      }
-
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } catch (error) {
-      console.error("Payment error:", error);
-      alert(error.message || "Failed to initialize payment. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    await new Promise(r => setTimeout(r, 1000));
+    const newPlan = { planType: "premium", connects: 20, usedConnects: 0, expiresAt: new Date(Date.now() + 86400000 * 30).toISOString() };
+    setUserPlan(newPlan);
+    setShowNoConnectsError(false);
+    setShowPaymentModal(false);
+    setRecentPurchase({ plan: selectedPlan, paymentId: `PAY-${Date.now()}`, date: new Date().toISOString() });
+    alert("Professional plan activated successfully! You can download your invoice from the download button.");
+    router.refresh();
+    setLoading(false);
   };
 
   const handleSelectPlan = async (plan) => {
@@ -467,36 +330,14 @@ This is a computer-generated invoice and does not require a signature.
       router.push("/auth/login");
       return;
     }
-
     if (plan.id === "free") {
       setLoading(true);
-      try {
-        const response = await fetch("/api/users/plan", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: user.id,
-            planType: "free",
-          }),
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-          setUserPlan(result.plan);
-          alert("Plan updated to Starter successfully!");
-          router.refresh();
-        } else {
-          alert(result.error || "Failed to update plan");
-        }
-      } catch (error) {
-        console.error("Plan update error:", error);
-        alert("Failed to update plan");
-      } finally {
-        setLoading(false);
-      }
+      await new Promise(r => setTimeout(r, 500));
+      const mockPlan = { id: 1, planType: "free", connects: 5, usedConnects: 0, expiresAt: new Date(Date.now() + 86400000 * 30).toISOString() };
+      setUserPlan(mockPlan);
+      alert("Plan updated to Starter successfully!");
+      router.refresh();
+      setLoading(false);
     }
   };
 

@@ -60,15 +60,10 @@ export default function DashboardLayout({ children }) {
     }
   }, [pathname, isMobile]);
 
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch("/api/profile");
-      if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
+  const fetchUserData = () => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      setUser(JSON.parse(userData));
     }
   };
 
@@ -102,14 +97,9 @@ export default function DashboardLayout({ children }) {
     },
   ];
 
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", { method: "POST" });
-      router.push("/login");
-    } catch (error) {
-      console.error("Logout error:", error);
-      router.push("/login");
-    }
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    router.push("/login");
   };
 
   const getUserInitials = (name) => {

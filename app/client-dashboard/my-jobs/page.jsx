@@ -73,109 +73,23 @@ export default function MyJobs() {
   };
 
   const fetchMyJobs = async (userId) => {
-    try {
-      setLoading(true);
-      setError(null);
-      console.log("🔄 Fetching jobs for user:", userId);
-
-      // Try the client-specific route first
-      let response = await fetch(`/api/client/my-jobs?userId=${userId}`);
-
-      // If 404, try the general jobs route and filter client-side
-      if (response.status === 404) {
-        console.log("⚠️ Client route not found, trying general jobs route...");
-        response = await fetch(`/api/jobs?userId=${userId}`);
-
-        if (response.ok) {
-          const data = await response.json();
-          // Filter jobs for this user only
-          const userJobs =
-            data.jobs?.filter((job) => job.userId === parseInt(userId)) || [];
-          setJobs(userJobs);
-          console.log(`✅ Loaded ${userJobs.length} jobs from general route`);
-          return;
-        }
-      }
-
-      console.log("📡 Response status:", response.status);
-
-      // Check if response is HTML (404 page)
-      const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        const text = await response.text();
-        console.error("❌ Received non-JSON response:", text.substring(0, 200));
-        throw new Error(`API route not found. Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("📦 API Response data:", data);
-
-      if (!response.ok) {
-        throw new Error(data.error || `HTTP error! status: ${response.status}`);
-      }
-
-      if (data.success) {
-        setJobs(data.jobs || []);
-        console.log(`✅ Loaded ${data.jobs?.length || 0} jobs`);
-      } else {
-        throw new Error(data.error || "Failed to fetch jobs");
-      }
-    } catch (error) {
-      console.error("❌ Error fetching jobs:", error);
-      setError(error.message);
-      setJobs([]);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    setError(null);
+    await new Promise(r => setTimeout(r, 300));
+    setJobs([
+      { id: 1, title: "React Website Development", description: "Build a modern React-based website with responsive design", status: "active", budget: 5000, deadline: "2025-06-30", skills: ["React", "Node.js", "CSS"], _count: { proposals: 3 }, userId: 1 },
+      { id: 2, title: "Mobile App UI Design", description: "Design beautiful UI for a cross-platform mobile application", status: "in progress", budget: 3000, deadline: "2025-05-15", skills: ["Figma", "UI/UX", "React Native"], _count: { proposals: 5 }, userId: 1 },
+      { id: 3, title: "SEO Optimization", description: "Improve search engine rankings for existing website", status: "completed", budget: 1500, deadline: "2025-04-01", skills: ["SEO", "Content Writing", "Analytics"], _count: { proposals: 2 }, userId: 1 },
+    ]);
+    setLoading(false);
   };
 
-  // Test API connection
-  const testAPI = async () => {
-    try {
-      console.log("🧪 Testing API connection...");
-
-      // Test multiple endpoints
-      const endpoints = ["/api/test", "/api/jobs", "/api/client/my-jobs"];
-
-      for (const endpoint of endpoints) {
-        try {
-          const response = await fetch(endpoint);
-          console.log(`🧪 ${endpoint}: ${response.status}`);
-        } catch (err) {
-          console.log(`🧪 ${endpoint}: ERROR - ${err.message}`);
-        }
-      }
-    } catch (error) {
-      console.error("❌ Test API failed:", error);
-    }
-  };
+  // Test API removed (no backend)
 
   const deleteJob = async (jobId) => {
     if (!confirm("Are you sure you want to delete this job?")) return;
-
-    try {
-      // Try client-specific delete route first
-      let response = await fetch(`/api/client/jobs/${jobId}`, {
-        method: "DELETE",
-      });
-
-      // If client route not found, try general route
-      if (response.status === 404) {
-        response = await fetch(`/api/jobs/${jobId}`, {
-          method: "DELETE",
-        });
-      }
-
-      if (response.ok) {
-        setJobs(jobs.filter((job) => job.id !== jobId));
-      } else {
-        const errorData = await response.json();
-        alert(errorData.error || "Failed to delete job");
-      }
-    } catch (error) {
-      console.error("Error deleting job:", error);
-      alert("Failed to delete job");
-    }
+    await new Promise(r => setTimeout(r, 200));
+    setJobs(jobs.filter((job) => job.id !== jobId));
   };
 
   // FIXED: View job function with correct routing
@@ -279,10 +193,7 @@ export default function MyJobs() {
     return convertCurrency(totalUSD);
   };
 
-  // Debug: Test API on component mount
-  useEffect(() => {
-    testAPI();
-  }, []);
+  // Debug removed (no backend)
 
   if (loading) {
     return (
@@ -311,19 +222,6 @@ export default function MyJobs() {
             >
               Try Again
             </button>
-            <button className={styles.debugBtn} onClick={testAPI}>
-              Test API Routes
-            </button>
-          </div>
-          <div className={styles.debugInfo}>
-            <p>
-              <strong>Troubleshooting:</strong>
-            </p>
-            <ul>
-              <li>Check if API route files exist</li>
-              <li>Restart the development server</li>
-              <li>Check browser console for errors</li>
-            </ul>
           </div>
         </div>
       </div>

@@ -90,38 +90,33 @@ export default function JobDetailPage() {
   };
 
   const fetchJob = async () => {
-    try {
-      setLoading(true);
-      const actualJobId = extractJobId(params.jobId);
-
-      const response = await fetch(`/api/jobs/${actualJobId}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        setJob(data.job);
-
-        const expectedUsername = data.job.user.name
-          .toLowerCase()
-          .replace(/\s+/g, "-");
-        const expectedJobId = `JOB-${data.job.id.toString().padStart(6, "0")}`;
-
-        if (
-          params.username !== expectedUsername ||
-          params.jobId !== expectedJobId
-        ) {
-          router.replace(
-            `/freelancer-hub/${expectedUsername}/${expectedJobId}`
-          );
-        }
-      } else {
-        setError(data.error || "Failed to fetch job");
-      }
-    } catch (err) {
-      setError("Failed to load job details");
-      console.error("Error fetching job:", err);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    const actualJobId = extractJobId(params.jobId);
+    const mockJob = {
+      id: actualJobId || 1,
+      title: "Full Stack Web Developer Needed",
+      description: "We are looking for an experienced full stack web developer to join our team and build a modern web application using React, Node.js, and PostgreSQL.\n\n## Requirements\n- 3+ years of experience with React and Node.js\n- Strong understanding of PostgreSQL\n- Experience with RESTful APIs\n- Good communication skills\n\n## What We Offer\n- Competitive pay\n- Flexible working hours\n- Remote work opportunity\n- Long-term collaboration",
+      budget: 15000,
+      category: "web-development",
+      experienceLevel: "expert",
+      skills: ["React", "Node.js", "TypeScript", "PostgreSQL", "AWS"],
+      deadline: new Date(Date.now() + 86400000 * 30).toISOString(),
+      createdAt: new Date(Date.now() - 86400000 * 3).toISOString(),
+      user: {
+        id: 2,
+        name: "TechCorp Inc.",
+        email: "hr@techcorp.com",
+        avatar: null,
+        avgRating: 4.8,
+        reviewCount: 24,
+        createdAt: new Date(Date.now() - 86400000 * 365).toISOString(),
+        profile: { location: "San Francisco, USA", website: "https://techcorp.com" },
+      },
+      _count: { proposals: 5 },
+    };
+    await new Promise(r => setTimeout(r, 400));
+    setJob(mockJob);
+    setLoading(false);
   };
 
   const checkSavedStatus = () => {

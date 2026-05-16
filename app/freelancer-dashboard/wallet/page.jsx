@@ -164,11 +164,7 @@ export default function FreelancerWallet() {
     try {
       setLoading(true);
       clearMessages();
-
-      // First, fetch the wallet data
       await fetchWalletData(userId);
-
-      // Then auto-sync payments (but only once per session)
       if (!hasSyncedRef.current) {
         await autoSyncPayments(userId);
         hasSyncedRef.current = true;
@@ -183,90 +179,19 @@ export default function FreelancerWallet() {
 
   // Auto-sync payments without user interaction
   const autoSyncPayments = async (userId) => {
-    try {
-      setSyncing(true);
-      const response = await fetch("/api/freelancer/sync-payments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: userId,
-          autoSync: true,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to sync payments: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.success && data.syncedCount > 0) {
-        await fetchWalletData(userId);
-        setLastSync(new Date());
-        setSuccess(`Auto-synced ${data.syncedCount} new payments`);
-        setTimeout(() => {
-          setSuccess("");
-        }, 3000);
-      }
-    } catch (error) {
-      console.error("Error auto-syncing payments:", error);
-    } finally {
-      setSyncing(false);
-    }
+    console.log("Auto-sync payments (mock)");
+    setLastSync(new Date());
   };
 
   // Manual sync function
   const manualSyncPayments = async () => {
     if (!user?.id) return;
-
-    try {
-      setSyncing(true);
-      clearMessages();
-      const response = await fetch("/api/freelancer/sync-payments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          autoSync: false,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to sync payments: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-        if (data.syncedCount > 0) {
-          const convertedAmount = await convertCurrency(
-            data.totalAmount,
-            "INR",
-            currency
-          );
-          setSuccess(
-            `Successfully synced ${
-              data.syncedCount
-            } payments worth ${formatCurrency(convertedAmount, currency)}!`
-          );
-          await fetchWalletData(user.id);
-        } else {
-          setSuccess("No new payments found to sync.");
-        }
-        setLastSync(new Date());
-      } else {
-        throw new Error(data.error || "Failed to sync payments");
-      }
-    } catch (error) {
-      console.error("Error syncing payments:", error);
-      setError("Failed to sync payments. Please try again.");
-    } finally {
-      setSyncing(false);
-    }
+    setSyncing(true);
+    clearMessages();
+    await new Promise(r => setTimeout(r, 500));
+    setSuccess("No new payments found to sync.");
+    setLastSync(new Date());
+    setSyncing(false);
   };
 
   const clearMessages = () => {
@@ -275,74 +200,36 @@ export default function FreelancerWallet() {
   };
 
   const fetchWalletData = async (userId) => {
-    try {
-      const response = await fetch(`/api/freelancer/wallet?userId=${userId}`);
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch wallet data: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-        setWallet(data.wallet);
-        // Initialize converted balance
-        const converted = await convertCurrency(
-          data.wallet.balance,
-          "INR",
-          currency
-        );
-        setConvertedBalance(converted);
-      } else {
-        throw new Error(data.error || "Failed to fetch wallet data");
-      }
-    } catch (error) {
-      console.error("Error fetching wallet data:", error);
-      throw error;
-    }
+    const mockWallet = {
+      balance: 25000,
+      transactions: [
+        { id: 1, type: "credit", amount: 15000, description: "Payment received - E-commerce Dashboard", createdAt: new Date().toISOString(), status: "completed" },
+        { id: 2, type: "debit", amount: 5000, description: "Withdrawal to Bank Account", createdAt: new Date(Date.now() - 86400000 * 2).toISOString(), status: "completed" },
+        { id: 3, type: "credit", amount: 8000, description: "Payment received - API Integration", createdAt: new Date(Date.now() - 86400000 * 5).toISOString(), status: "completed" },
+        { id: 4, type: "credit", amount: 4000, description: "Payment received - Mobile App UI/UX", createdAt: new Date(Date.now() - 86400000 * 15).toISOString(), status: "completed" },
+      ],
+      bankDetails: [
+        { id: 1, bankName: "HDFC Bank", accountNumber: "XXXX1234", accountHolder: "Freelancer Name", ifscCode: "HDFC0001234", branch: "Main Branch", isVerified: true, isActive: true },
+      ],
+      payoutRequests: [],
+    };
+    setWallet(mockWallet);
+    setConvertedBalance(mockWallet.balance);
   };
 
   const handleAddBank = async (e) => {
     e.preventDefault();
-    try {
-      clearMessages();
-      const response = await fetch("/api/freelancer/bank-details", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...bankForm,
-          userId: user.id,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to add bank details: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-        setSuccess(
-          "Bank details added successfully! Waiting for verification."
-        );
-        setShowAddBank(false);
-        setBankForm({
-          bankName: "",
-          accountNumber: "",
-          accountHolder: "",
-          ifscCode: "",
-          branch: "",
-        });
-        await fetchWalletData(user.id);
-      } else {
-        throw new Error(data.error || "Failed to add bank details");
-      }
-    } catch (error) {
-      console.error("Error adding bank details:", error);
-      setError("Failed to add bank details. Please try again.");
-    }
+    clearMessages();
+    await new Promise(r => setTimeout(r, 500));
+    setSuccess("Bank details added successfully! Waiting for verification.");
+    setShowAddBank(false);
+    setBankForm({
+      bankName: "",
+      accountNumber: "",
+      accountHolder: "",
+      ifscCode: "",
+      branch: "",
+    });
   };
 
   const handlePayoutRequest = async (e) => {
@@ -364,49 +251,15 @@ export default function FreelancerWallet() {
       return;
     }
 
-    try {
-      clearMessages();
-
-      // Convert amount back to INR for backend processing
-      let amountInINR = parseFloat(payoutForm.amount);
-      if (currency === "USD") {
-        amountInINR = await convertCurrency(amountInINR, "USD", "INR");
-      }
-
-      const response = await fetch("/api/freelancer/payout-requests", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...payoutForm,
-          amount: amountInINR,
-          userId: user.id,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to submit payout request: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-        setSuccess("Payout request submitted successfully!");
-        setShowPayout(false);
-        setPayoutForm({
-          amount: "",
-          bankDetailId: "",
-          description: "",
-        });
-        await fetchWalletData(user.id);
-      } else {
-        throw new Error(data.error || "Failed to submit payout request");
-      }
-    } catch (error) {
-      console.error("Error submitting payout request:", error);
-      setError("Failed to submit payout request. Please try again.");
-    }
+    clearMessages();
+    await new Promise(r => setTimeout(r, 500));
+    setSuccess("Payout request submitted successfully!");
+    setShowPayout(false);
+    setPayoutForm({
+      amount: "",
+      bankDetailId: "",
+      description: "",
+    });
   };
 
   const getCurrentBalance = () => {

@@ -117,143 +117,107 @@ export default function AdminProposalsPage() {
   };
 
   const fetchAllProposals = async () => {
-    try {
-      setLoading(true);
-      // Add mock data for testing if API fails
-      if (process.env.NODE_ENV === "development") {
-        // Mock data for development
-        const mockProposals = [
-          {
-            id: "1",
-            job: {
-              title: "Website Development",
-              category: "Web Development",
-              budget: 5000,
-              user: {
-                name: "Acme Corp",
-                email: "contact@acmecorp.com",
-              },
-            },
-            freelancer: {
-              name: "John Smith",
-              email: "john@example.com",
-              profile: {
-                skills: ["React", "Node.js", "MongoDB"],
-              },
-            },
-            client: {
-              name: "Acme Corp",
-              email: "contact@acmecorp.com",
-            },
-            bidAmount: 4500,
-            timeframe: 30,
-            totalConnectsUsed: 2,
-            status: "accepted",
-            hasProject: true,
-            projectStatus: "active",
-            coverLetter:
-              "I have extensive experience in building modern web applications with React and Node.js. I've completed similar projects for various clients and I'm confident I can deliver a high-quality website within the specified timeline.",
-            createdAt: new Date().toISOString(),
+    setLoading(true);
+    const mockProposals = [
+      {
+        id: "1",
+        job: {
+          title: "Website Development",
+          category: "Web Development",
+          budget: 5000,
+          user: {
+            name: "Acme Corp",
+            email: "contact@acmecorp.com",
           },
-          {
-            id: "2",
-            job: {
-              title: "Mobile App Design",
-              category: "UI/UX Design",
-              budget: 3000,
-              user: {
-                name: "Tech Startup",
-                email: "hello@techstartup.com",
-              },
-            },
-            freelancer: {
-              name: "Sarah Johnson",
-              email: "sarah@example.com",
-              profile: {
-                skills: ["Figma", "Adobe XD", "Prototyping"],
-              },
-            },
-            client: {
-              name: "Tech Startup",
-              email: "hello@techstartup.com",
-            },
-            bidAmount: 2800,
-            timeframe: 21,
-            totalConnectsUsed: 1,
-            status: "pending",
-            hasProject: false,
-            coverLetter:
-              "As a UI/UX designer with 5 years of experience, I specialize in creating intuitive and beautiful mobile interfaces. I've worked on various mobile apps in the fintech and e-commerce sectors.",
-            createdAt: new Date(Date.now() - 86400000).toISOString(),
+        },
+        freelancer: {
+          name: "John Smith",
+          email: "john@example.com",
+          profile: {
+            skills: ["React", "Node.js", "MongoDB"],
           },
-          {
-            id: "3",
-            job: {
-              title: "E-commerce Platform",
-              category: "Full Stack",
-              budget: 8000,
-              user: {
-                name: "Fashion Store",
-                email: "info@fashionstore.com",
-              },
-            },
-            freelancer: {
-              name: "Michael Chen",
-              email: "michael@example.com",
-              profile: {
-                skills: ["PHP", "Laravel", "MySQL", "Vue.js"],
-              },
-            },
-            client: {
-              name: "Fashion Store",
-              email: "info@fashionstore.com",
-            },
-            bidAmount: 7500,
-            timeframe: 45,
-            totalConnectsUsed: 3,
-            status: "completed",
-            hasProject: true,
-            projectStatus: "completed",
-            coverLetter:
-              "I've built several e-commerce platforms from scratch using Laravel and Vue.js. I understand the complexities of payment integration, inventory management, and user experience that are crucial for e-commerce success.",
-            createdAt: new Date(Date.now() - 172800000).toISOString(),
+        },
+        client: {
+          name: "Acme Corp",
+          email: "contact@acmecorp.com",
+        },
+        bidAmount: 4500,
+        timeframe: 30,
+        totalConnectsUsed: 2,
+        status: "accepted",
+        hasProject: true,
+        projectStatus: "active",
+        coverLetter:
+          "I have extensive experience in building modern web applications with React and Node.js. I've completed similar projects for various clients and I'm confident I can deliver a high-quality website within the specified timeline.",
+        createdAt: new Date().toISOString(),
+      },
+      {
+        id: "2",
+        job: {
+          title: "Mobile App Design",
+          category: "UI/UX Design",
+          budget: 3000,
+          user: {
+            name: "Tech Startup",
+            email: "hello@techstartup.com",
           },
-        ];
+        },
+        freelancer: {
+          name: "Sarah Johnson",
+          email: "sarah@example.com",
+          profile: {
+            skills: ["Figma", "Adobe XD", "Prototyping"],
+          },
+        },
+        client: {
+          name: "Tech Startup",
+          email: "hello@techstartup.com",
+        },
+        bidAmount: 2800,
+        timeframe: 21,
+        totalConnectsUsed: 1,
+        status: "pending",
+        hasProject: false,
+        coverLetter:
+          "As a UI/UX designer with 5 years of experience, I specialize in creating intuitive and beautiful mobile interfaces. I've worked on various mobile apps in the fintech and e-commerce sectors.",
+        createdAt: new Date(Date.now() - 86400000).toISOString(),
+      },
+      {
+        id: "3",
+        job: {
+          title: "E-commerce Platform",
+          category: "Full Stack",
+          budget: 8000,
+          user: {
+            name: "Fashion Store",
+            email: "info@fashionstore.com",
+          },
+        },
+        freelancer: {
+          name: "Michael Chen",
+          email: "michael@example.com",
+          profile: {
+            skills: ["PHP", "Laravel", "MySQL", "Vue.js"],
+          },
+        },
+        client: {
+          name: "Fashion Store",
+          email: "info@fashionstore.com",
+        },
+        bidAmount: 7500,
+        timeframe: 45,
+        totalConnectsUsed: 3,
+        status: "completed",
+        hasProject: true,
+        projectStatus: "completed",
+        coverLetter:
+          "I've built several e-commerce platforms from scratch using Laravel and Vue.js. I understand the complexities of payment integration, inventory management, and user experience that are crucial for e-commerce success.",
+        createdAt: new Date(Date.now() - 172800000).toISOString(),
+      },
+    ];
 
-        setProposals(mockProposals);
-        setLoading(false);
-        return;
-      }
-
-      const response = await fetch(
-        "/api/proposals?limit=100&includeStats=true"
-      );
-
-      if (!response.ok) {
-        throw new Error(`API responded with status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.success && data.proposals) {
-        setProposals(data.proposals);
-        if (data.stats) {
-          setStats((prev) => ({
-            ...prev,
-            totalProjects: data.stats.totalProjects || 0,
-            totalPlatformConnects: data.stats.totalConnectsUsed || 0,
-          }));
-        }
-      } else {
-        throw new Error("Invalid response format from API");
-      }
-    } catch (error) {
-      console.error("Error fetching proposals:", error);
-      setError(`Failed to load proposals: ${error.message}`);
-      setProposals([]);
-    } finally {
-      setLoading(false);
-    }
+    setProposals(mockProposals);
+    setLoading(false);
   };
 
   const fetchConnectHistory = async () => {

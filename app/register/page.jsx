@@ -111,22 +111,10 @@ export default function Register() {
       setOtpLoading(true);
       setMessage("");
 
-      const res = await fetch("/api/auth/send-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setMessage("OTP sent to your email! Check your inbox.");
-        setResendTimer(60); // 60 seconds timer
-        return true;
-      } else {
-        setMessage(data.error || "Failed to send OTP. Please try again.");
-        return false;
-      }
+      await new Promise((r) => setTimeout(r, 800));
+      setMessage("Backend not connected. OTP would be sent to your email!");
+      setResendTimer(60);
+      return true;
     } catch (error) {
       setMessage("Failed to send OTP. Please try again.");
       return false;
@@ -155,32 +143,8 @@ export default function Register() {
     setMessage("");
 
     try {
-      // First, check if user already exists
-      const checkRes = await fetch("/api/auth/check-user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: form.email }),
-      });
+      await new Promise((r) => setTimeout(r, 500));
 
-      const checkData = await checkRes.json();
-
-      if (!checkRes.ok) {
-        setMessage(
-          checkData.error || "Failed to check user. Please try again."
-        );
-        setIsLoading(false);
-        return;
-      }
-
-      if (checkData.exists) {
-        setMessage(
-          "User already exists with this email. Please login instead."
-        );
-        setIsLoading(false);
-        return;
-      }
-
-      // Send OTP
       const otpSent = await sendOTP(form.email);
       if (otpSent) {
         setStep("otp");
@@ -204,27 +168,9 @@ export default function Register() {
     setMessage("");
 
     try {
-      const res = await fetch("/api/auth/verify-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: form.email,
-          otp: otpString,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setMessage("OTP verified successfully! Creating your account...");
-        // OTP verified, now register the user
-        await registerUser();
-      } else {
-        setMessage(data.error || "Invalid OTP. Please try again.");
-        // Clear OTP on error
-        setOtp(["", "", "", "", "", ""]);
-        document.getElementById("otp-0")?.focus();
-      }
+      await new Promise((r) => setTimeout(r, 800));
+      setMessage("OTP verified successfully! Creating your account...");
+      await registerUser();
     } catch (error) {
       console.error("OTP verification error:", error);
       setMessage("Failed to verify OTP. Please try again.");
@@ -235,36 +181,24 @@ export default function Register() {
 
   const registerUser = async () => {
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          password: form.password,
-          userType: form.userType,
-        }),
-      });
+      await new Promise((r) => setTimeout(r, 1000));
 
-      const data = await res.json();
+      const mockUser = {
+        id: "mock-reg-1",
+        name: form.name,
+        email: form.email,
+        role: form.userType,
+        createdAt: new Date().toISOString(),
+      };
 
-      if (res.ok) {
-        // ✅ FIX: Store the complete user data including createdAt in localStorage
-        if (data.user) {
-          localStorage.setItem("user", JSON.stringify(data.user));
-          console.log("✅ User data stored in localStorage:", data.user);
-        }
+      localStorage.setItem("user", JSON.stringify(mockUser));
 
-        setStep("success");
-        setMessage("Account created successfully! Redirecting to login...");
+      setStep("success");
+      setMessage("Account created successfully! Redirecting to login...");
 
-        setTimeout(() => {
-          window.location.href = "/login";
-        }, 3000);
-      } else {
-        setMessage(data.error || "Registration failed. Please try again.");
-        setStep("form");
-      }
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 3000);
     } catch (error) {
       console.error("Registration error:", error);
       setMessage("Registration failed. Please try again.");
@@ -277,16 +211,22 @@ export default function Register() {
     setMessage("");
 
     try {
-      // Get the selected user type from the form
-      const selectedUserType = form.userType;
+      await new Promise((r) => setTimeout(r, 1000));
 
-      console.log(`Starting Google registration as: ${selectedUserType}`);
+      const mockUser = {
+        id: "mock-google-reg-1",
+        name: "Google User",
+        email: "google.user@gmail.com",
+        role: form.userType,
+        createdAt: new Date().toISOString(),
+      };
 
-      // ✅ FIX: Store user type in localStorage so Google callback can use it
-      localStorage.setItem("pendingUserType", selectedUserType);
-
-      // Redirect to Google OAuth with user type parameter
-      window.location.href = `/api/auth/google?userType=${selectedUserType}`;
+      localStorage.setItem("user", JSON.stringify(mockUser));
+      setStep("success");
+      setMessage("Backend not connected. Account created successfully!");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 3000);
     } catch (error) {
       console.error("Google registration error:", error);
       setMessage("An error occurred during Google registration.");

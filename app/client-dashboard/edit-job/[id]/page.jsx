@@ -76,40 +76,32 @@ export default function EditJob() {
   }, [jobId]);
 
   const fetchJob = async (id) => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      const response = await fetch(`/api/jobs/${id}`);
-      
-      if (!response.ok) {
-        throw new Error("Failed to fetch job");
-      }
-
-      const data = await response.json();
-      
-      if (data.job) {
-        setJob(data.job);
-        // Format date for input field
-        const deadlineDate = new Date(data.job.deadline).toISOString().split('T')[0];
-        
-        setFormData({
-          title: data.job.title || "",
-          description: data.job.description || "",
-          category: data.job.category || "",
-          skills: data.job.skills || [],
-          budget: data.job.budget?.toString() || "",
-          deadline: deadlineDate,
-          experienceLevel: data.job.experienceLevel || "intermediate",
-          status: data.job.status || "active"
-        });
-      }
-    } catch (error) {
-      console.error("Error fetching job:", error);
-      setError("Failed to load job details");
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    setError(null);
+    await new Promise(r => setTimeout(r, 200));
+    const mockJob = {
+      id: parseInt(id),
+      title: "React Website Development",
+      description: "Build a modern React-based website",
+      category: "Web Development",
+      skills: ["React", "Node.js", "CSS"],
+      budget: 5000,
+      deadline: new Date("2025-06-30").toISOString(),
+      experienceLevel: "intermediate",
+      status: "active",
+    };
+    setJob(mockJob);
+    setFormData({
+      title: mockJob.title,
+      description: mockJob.description,
+      category: mockJob.category,
+      skills: mockJob.skills,
+      budget: mockJob.budget.toString(),
+      deadline: new Date(mockJob.deadline).toISOString().split('T')[0],
+      experienceLevel: mockJob.experienceLevel,
+      status: mockJob.status,
+    });
+    setLoading(false);
   };
 
   const handleInputChange = (e) => {
@@ -155,26 +147,8 @@ export default function EditJob() {
     try {
       setSaving(true);
       setError(null);
-
-      const response = await fetch(`/api/jobs/${jobId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          userId: user.id,
-          budget: parseFloat(formData.budget)
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        router.push("/client-dashboard/my-jobs");
-      } else {
-        throw new Error(data.error || "Failed to update job");
-      }
+      await new Promise(r => setTimeout(r, 500));
+      router.push("/client-dashboard/my-jobs");
     } catch (error) {
       console.error("Error updating job:", error);
       setError(error.message);

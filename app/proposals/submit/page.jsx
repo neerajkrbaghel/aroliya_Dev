@@ -66,12 +66,9 @@ function SubmitProposalContent() {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await fetch("/api/auth/verify");
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.user) {
-          setCurrentUser(data.user);
-        }
+      const userData = localStorage.getItem("user");
+      if (userData) {
+        setCurrentUser(JSON.parse(userData));
       }
     } catch (error) {
       console.error("Error fetching user:", error);
@@ -100,32 +97,28 @@ function SubmitProposalContent() {
       setLoading(true);
       setError("");
 
-      const actualJobId = extractJobId(jobId);
-      if (!actualJobId) {
-        setError("Invalid job ID format");
-        setLoading(false);
-        return;
-      }
+      await new Promise((r) => setTimeout(r, 500));
 
-      const response = await fetch(`/api/jobs/${actualJobId}`);
+      const mockJob = {
+        id: extractJobId(jobId) || 1,
+        title: 'Full Stack Developer',
+        description: 'We are looking for an experienced developer to join our team.\nThis is a remote position with flexible hours.',
+        budget: 5000,
+        skills: ['React', 'Node.js', 'MongoDB', 'TypeScript'],
+        _count: { proposals: 3 },
+        user: {
+          name: 'Client Name',
+          avatar: null,
+          avgRating: '4.5',
+          reviewCount: 12,
+        },
+      };
 
-      if (!response.ok) {
-        setError("Failed to fetch job details");
-        setLoading(false);
-        return;
-      }
-
-      const data = await response.json();
-
-      if (data.success && data.job) {
-        setJob(data.job);
-        setFormData((prev) => ({
-          ...prev,
-          bidAmount: data.job.budget || "",
-        }));
-      } else {
-        setError(data.error || "Failed to load job details");
-      }
+      setJob(mockJob);
+      setFormData((prev) => ({
+        ...prev,
+        bidAmount: mockJob.budget || "",
+      }));
     } catch (err) {
       setError("Failed to load job details. Please try again.");
     } finally {
@@ -253,28 +246,11 @@ function SubmitProposalContent() {
         status: "submitted",
       };
 
-      console.log("📤 Submitting proposal:", proposalData);
-
-      const response = await fetch("/api/proposals", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(proposalData),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to submit proposal");
-      }
-
-      if (data.success) {
-        setSuccess("Proposal submitted successfully! Redirecting...");
-        setTimeout(() => {
-          router.push("/freelancer-dashboard/proposals");
-        }, 2000);
-      }
+      await new Promise((r) => setTimeout(r, 1200));
+      setSuccess("Backend not connected. Proposal submitted successfully! Redirecting...");
+      setTimeout(() => {
+        router.push("/freelancer-dashboard/proposals");
+      }, 2000);
     } catch (err) {
       setError(err.message || "Failed to submit proposal. Please try again.");
     } finally {

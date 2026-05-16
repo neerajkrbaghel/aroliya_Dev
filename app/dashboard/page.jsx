@@ -34,33 +34,19 @@ console.log(user);
   }, [user, userRole]);
 
   const fetchData = async () => {
-    try {
-      setLoading(true);
-      console.log("Fetching data for user:", user);
-
-      if (userRole === "admin") {
-        const ordersRes = await fetch("/api/orders");
-        const ordersData = await ordersRes.json();
-        console.log("Admin orders:", ordersData);
-        setOrders(ordersData);
-      } else {
-        const ordersRes = await fetch(`/api/orders?email=${user.email}`);
-        const ordersData = await ordersRes.json();
-        console.log("User orders:", ordersData);
-        setOrders(ordersData);
-      }
-
-      if (userRole === "admin") {
-        const usersRes = await fetch("/api/admin/users");
-        const usersData = await usersRes.json();
-        console.log("Users data:", usersData);
-        setUsers(usersData);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
+    setLoading(true);
+    await new Promise(r => setTimeout(r, 200));
+    setOrders([
+      { id: 1, name: "John Doe", email: "john@example.com", service: "Web Development", status: "pending", createdAt: new Date().toISOString() },
+      { id: 2, name: "Jane Smith", email: "jane@example.com", service: "Mobile App", status: "completed", createdAt: new Date().toISOString() },
+    ]);
+    if (userRole === "admin") {
+      setUsers([
+        { id: 1, name: "Admin", email: "admin@example.com", role: "admin" },
+        { id: 2, name: "User", email: "user@example.com", role: "user" },
+      ]);
     }
+    setLoading(false);
   };
 
   const stats = {

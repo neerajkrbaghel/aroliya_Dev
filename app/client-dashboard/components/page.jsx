@@ -12,20 +12,9 @@ const FreelancerDashboard = () => {
 
   const loadDashboardData = async () => {
     setIsLoading(true);
-    try {
-      const userResponse = await fetch("/api/auth/verify");
-      if (userResponse.ok) {
-        const userData = await userResponse.json();
-        console.log("✅ User data loaded:", userData);
-        setUser(userData.user);
-      } else {
-        console.log("bhai problem hai");
-      }
-    } catch (error) {
-      console.error("❌ Error loading dashboard data:", error);
-    } finally {
-      setIsLoading(false);
-    }
+    await new Promise((r) => setTimeout(r, 500));
+    setUser({ name: "User", email: "user@example.com" });
+    setIsLoading(false);
   };
   useEffect(() => {
     loadDashboardData();

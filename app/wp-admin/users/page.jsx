@@ -210,36 +210,16 @@ export default function UsersPage() {
   }, []);
 
   const fetchUsers = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("/api/users");
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.success && data.users) {
-        setUsers(data.users);
-      } else {
-        console.error("Error fetching users:", data.error);
-        setNotification({
-          message: data.error || "Failed to fetch users",
-          type: "error",
-        });
-        setUsers([]);
-      }
-    } catch (error) {
-      console.error("Error fetching users:", error);
-      setNotification({
-        message: "Failed to load users. Please try again.",
-        type: "error",
-      });
-      setUsers([]);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    const mockUsers = [
+      { id: 1, name: "John Doe", email: "john@example.com", role: "user", status: "active", registrationMethod: "email", createdAt: new Date().toISOString(), profile: { phoneNumber: "+1234567890", title: "Developer" } },
+      { id: 2, name: "Jane Smith", email: "jane@example.com", role: "admin", status: "active", registrationMethod: "google", createdAt: new Date().toISOString(), profile: { phoneNumber: "+9876543210", title: "Manager" } },
+      { id: 3, name: "Bob Wilson", email: "bob@example.com", role: "freelancer", status: "active", registrationMethod: "email", createdAt: new Date().toISOString(), profile: { phoneNumber: "+5551234567", title: "Designer" } },
+      { id: 4, name: "Alice Brown", email: "alice@example.com", role: "client", status: "inactive", registrationMethod: "google", createdAt: new Date().toISOString(), profile: { phoneNumber: "+1112223333", title: "CEO" } },
+      { id: 5, name: "Charlie Davis", email: "charlie@example.com", role: "user", status: "active", registrationMethod: "email", createdAt: new Date().toISOString(), profile: { phoneNumber: "+4445556666", title: "Developer" } },
+    ];
+    setUsers(mockUsers);
+    setLoading(false);
   };
 
   // Filter users based on search and filters
@@ -321,59 +301,17 @@ export default function UsersPage() {
 
   // Generate Access URL for Super Admin
   const generateAccessUrl = async (user) => {
-    try {
-      setNotification({
-        message: `Generating access URL for ${user.name}...`,
-        type: "info",
-      });
-
-      const response = await fetch("/api/admin/generate-access-url", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          expiresIn: "1h",
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        let finalUrl = data.accessUrl;
-
-        if (finalUrl.includes("http://localhost:3000https://")) {
-          const token = finalUrl.split("/admin/access/")[1];
-          finalUrl = `http://localhost:3000/admin/access/${token}`;
-        }
-
-        try {
-          new URL(finalUrl);
-          setAccessUrl(finalUrl);
-        } catch (urlError) {
-          const token = data.token || finalUrl.split("/admin/access/")[1];
-          finalUrl = `${window.location.origin}/admin/access/${token}`;
-          setAccessUrl(finalUrl);
-        }
-
-        setSelectedUser(user);
-        setShowAccessUrl(true);
-        setNotification({
-          message: "Access URL generated successfully!",
-          type: "success",
-        });
-      } else {
-        throw new Error(data.error || "Failed to generate access URL");
-      }
-    } catch (error) {
-      console.error("Error generating access URL:", error);
-      setNotification({
-        message: error.message || "Error generating access URL",
-        type: "error",
-      });
-      setTimeout(() => setNotification(null), 5000);
-    }
+    console.log("Generating access URL for user:", user.id);
+    const token = "mock-access-token-" + Date.now();
+    const finalUrl = `${window.location.origin}/admin/access/${token}`;
+    setAccessUrl(finalUrl);
+    setSelectedUser(user);
+    setShowAccessUrl(true);
+    setNotification({
+      message: "Access URL generated successfully!",
+      type: "success",
+    });
+    setTimeout(() => setNotification(null), 5000);
   };
 
   // Direct Access
@@ -386,57 +324,27 @@ export default function UsersPage() {
       return;
     }
 
-    try {
-      setNotification({
-        message: `Generating access for ${user.name}...`,
-        type: "info",
-      });
+    console.log("Admin accessing user account:", user.id);
+    document.cookie = `user_token=mock_token_${user.id}; path=/; max-age=3600`;
+    document.cookie = `is_admin_access=true; path=/; max-age=3600`;
+    document.cookie = `original_user_id=${user.id}; path=/; max-age=3600`;
 
-      const response = await fetch("/api/admin/access-user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          action: "login",
-        }),
-      });
+    localStorage.setItem("is_admin_access", "true");
+    localStorage.setItem(
+      "admin_original_user",
+      JSON.stringify({
+        id: "current-admin-id",
+        name: "Administrator",
+        role: "super_admin",
+      })
+    );
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        document.cookie = `user_token=${data.userToken}; path=/; max-age=3600`;
-        document.cookie = `is_admin_access=true; path=/; max-age=3600`;
-        document.cookie = `original_user_id=${user.id}; path=/; max-age=3600`;
-
-        localStorage.setItem("is_admin_access", "true");
-        localStorage.setItem(
-          "admin_original_user",
-          JSON.stringify({
-            id: "current-admin-id",
-            name: "Administrator",
-            role: "super_admin",
-          })
-        );
-
-        if (user.role === "freelancer") {
-          window.location.href = "/freelancer-dashboard";
-        } else if (user.role === "client") {
-          window.location.href = "/client-dashboard";
-        } else {
-          window.location.href = "/dashboard";
-        }
-      } else {
-        throw new Error(data.error || "Failed to access user account");
-      }
-    } catch (error) {
-      console.error("Error accessing user account:", error);
-      setNotification({
-        message: error.message || "Error accessing user account",
-        type: "error",
-      });
-      setTimeout(() => setNotification(null), 5000);
+    if (user.role === "freelancer") {
+      window.location.href = "/freelancer-dashboard";
+    } else if (user.role === "client") {
+      window.location.href = "/client-dashboard";
+    } else {
+      window.location.href = "/dashboard";
     }
   };
 
@@ -453,48 +361,19 @@ export default function UsersPage() {
 
   // View User Credentials
   const handleViewCredentials = async (user) => {
-    try {
-      setNotification({
-        message: `Generating credentials for ${user.name}...`,
-        type: "info",
-      });
-
-      const response = await fetch("/api/admin/access-user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          action: "credentials",
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setSelectedUser(user);
-        setUserCredentials({
-          email: user.email,
-          password: data.temporaryPassword,
-          temporaryToken: data.temporaryToken,
-        });
-        setShowUserCredentials(true);
-        setNotification({
-          message: `Credentials generated for ${user.name}`,
-          type: "success",
-        });
-      } else {
-        throw new Error(data.error || "Failed to generate credentials");
-      }
-    } catch (error) {
-      console.error("Error generating credentials:", error);
-      setNotification({
-        message: error.message || "Error generating credentials",
-        type: "error",
-      });
-      setTimeout(() => setNotification(null), 5000);
-    }
+    console.log("Generating credentials for user:", user.id);
+    setSelectedUser(user);
+    setUserCredentials({
+      email: user.email,
+      password: "TempPass@" + Math.random().toString(36).slice(2, 10),
+      temporaryToken: "tok_" + Math.random().toString(36).slice(2, 15),
+    });
+    setShowUserCredentials(true);
+    setNotification({
+      message: `Credentials generated for ${user.name}`,
+      type: "success",
+    });
+    setTimeout(() => setNotification(null), 5000);
   };
 
   // Create user function
@@ -517,56 +396,33 @@ export default function UsersPage() {
       return;
     }
 
-    try {
-      const response = await fetch("/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: newUser.name,
-          email: newUser.email,
-          password: newUser.password,
-          role: newUser.role,
-          phoneNumber: newUser.phoneNumber,
-          title: newUser.title,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setUsers([...users, data.user]);
-        setNewUser({
-          name: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-          role: "user",
-          phoneNumber: "",
-          title: "",
-        });
-        setShowCreateUser(false);
-        setNotification({
-          message: "User created successfully!",
-          type: "success",
-        });
-        setTimeout(() => setNotification(null), 3000);
-      } else {
-        setNotification({
-          message: `Error creating user: ${data.error}`,
-          type: "error",
-        });
-        setTimeout(() => setNotification(null), 3000);
-      }
-    } catch (error) {
-      console.error("Error creating user:", error);
-      setNotification({
-        message: "Error creating user. Please try again.",
-        type: "error",
-      });
-      setTimeout(() => setNotification(null), 3000);
-    }
+    console.log("Creating user:", newUser);
+    const mockNewUser = {
+      id: Date.now(),
+      name: newUser.name,
+      email: newUser.email,
+      role: newUser.role,
+      status: "active",
+      registrationMethod: "email",
+      createdAt: new Date().toISOString(),
+      profile: { phoneNumber: newUser.phoneNumber, title: newUser.title },
+    };
+    setUsers([...users, mockNewUser]);
+    setNewUser({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      role: "user",
+      phoneNumber: "",
+      title: "",
+    });
+    setShowCreateUser(false);
+    setNotification({
+      message: "User created successfully!",
+      type: "success",
+    });
+    setTimeout(() => setNotification(null), 3000);
   };
 
   // Edit user functions
@@ -604,55 +460,25 @@ export default function UsersPage() {
       return;
     }
 
-    try {
-      const response = await fetch(`/api/users/${editingUser.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: editUser.name,
-          email: editUser.email,
-          role: editUser.role,
-          status: editUser.status,
-          phoneNumber: editUser.phoneNumber,
-          title: editUser.title,
-          ...(editUser.password && { password: editUser.password }),
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        await fetchUsers();
-        setShowEditUser(false);
-        setEditingUser(null);
-        setEditUser({
-          name: "",
-          email: "",
-          phoneNumber: "",
-          title: "",
-          role: "user",
-          status: "active",
-          password: "",
-          confirmPassword: "",
-        });
-        setNotification({
-          message: "User updated successfully!",
-          type: "success",
-        });
-        setTimeout(() => setNotification(null), 3000);
-      } else {
-        throw new Error(data.error || "Failed to update user");
-      }
-    } catch (error) {
-      console.error("Error updating user:", error);
-      setNotification({
-        message: error.message || "Error updating user",
-        type: "error",
-      });
-      setTimeout(() => setNotification(null), 3000);
-    }
+    console.log("Updating user:", editingUser.id, editUser);
+    setUsers(users.map((u) => (u.id === editingUser.id ? { ...u, ...editUser } : u)));
+    setShowEditUser(false);
+    setEditingUser(null);
+    setEditUser({
+      name: "",
+      email: "",
+      phoneNumber: "",
+      title: "",
+      role: "user",
+      status: "active",
+      password: "",
+      confirmPassword: "",
+    });
+    setNotification({
+      message: "User updated successfully!",
+      type: "success",
+    });
+    setTimeout(() => setNotification(null), 3000);
   };
 
   // Delete user function
@@ -665,72 +491,30 @@ export default function UsersPage() {
       return;
     }
 
-    try {
-      const response = await fetch(`/api/users/${id}`, {
-        method: "DELETE",
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setUsers(users.filter((user) => user.id !== id));
-        setNotification({
-          message: "User deleted successfully!",
-          type: "success",
-        });
-        setTimeout(() => setNotification(null), 3000);
-      } else {
-        throw new Error(data.error || "Failed to delete user");
-      }
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      setNotification({
-        message: error.message || "Error deleting user",
-        type: "error",
-      });
-      setTimeout(() => setNotification(null), 3000);
-    }
+    console.log("Deleting user:", id);
+    setUsers(users.filter((user) => user.id !== id));
+    setNotification({
+      message: "User deleted successfully!",
+      type: "success",
+    });
+    setTimeout(() => setNotification(null), 3000);
   };
 
   // Status toggle function
   const toggleUserStatus = async (userId, currentStatus) => {
-    try {
-      const newStatus = currentStatus === "active" ? "inactive" : "active";
-
-      const response = await fetch(`/api/users/${userId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          status: newStatus,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setUsers(
-          users.map((user) =>
-            user.id === userId ? { ...user, status: newStatus } : user
-          )
-        );
-        setNotification({
-          message: `User ${
-            newStatus === "active" ? "activated" : "deactivated"
-          } successfully!`,
-          type: "success",
-        });
-      } else {
-        throw new Error(data.error || "Failed to update user status");
-      }
-    } catch (error) {
-      console.error("Error toggling user status:", error);
-      setNotification({
-        message: error.message || "Error updating user status",
-        type: "error",
-      });
-    }
+    const newStatus = currentStatus === "active" ? "inactive" : "active";
+    console.log("Toggling user status:", userId, newStatus);
+    setUsers(
+      users.map((user) =>
+        user.id === userId ? { ...user, status: newStatus } : user
+      )
+    );
+    setNotification({
+      message: `User ${
+        newStatus === "active" ? "activated" : "deactivated"
+      } successfully!`,
+      type: "success",
+    });
     setTimeout(() => setNotification(null), 3000);
   };
 

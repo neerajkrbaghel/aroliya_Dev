@@ -56,16 +56,14 @@ export default function FormSubmissions() {
 
   const fetchForms = async () => {
     setLoading(true);
-    try {
-      const res = await fetch("/api/formSubmit");
-      const data = await res.json();
-      setForms(Array.isArray(data) ? data : []);
-    } catch (err) {
-      console.error(err);
-      setForms([]);
-    } finally {
-      setLoading(false);
-    }
+    const mockForms = [
+      { id: 1, name: "John Doe", email: "john@example.com", phone: "+1234567890", serviceCategory: "Web Development", message: "I need a complete website built for my business. Looking for a team that can handle everything.", status: "pending", createdAt: new Date().toISOString() },
+      { id: 2, name: "Jane Smith", email: "jane@example.com", phone: "+9876543210", serviceCategory: "Mobile App", message: "Looking to build an iOS and Android app for my startup.", status: "done", createdAt: new Date(Date.now() - 86400000).toISOString() },
+      { id: 3, name: "Bob Wilson", email: "bob@example.com", phone: "+5551234567", serviceCategory: "UI/UX Design", message: "Need a complete redesign of our SaaS platform with modern UI.", status: "pending", createdAt: new Date(Date.now() - 172800000).toISOString() },
+      { id: 4, name: "Alice Brown", email: "alice@example.com", phone: "+1112223333", serviceCategory: "Digital Marketing", message: "Looking for SEO and social media marketing services.", status: "done", createdAt: new Date(Date.now() - 259200000).toISOString() },
+    ];
+    setForms(mockForms);
+    setLoading(false);
   };
 
   // Handle View Message
@@ -79,45 +77,22 @@ export default function FormSubmissions() {
   const handleDelete = async (id, name) => {
     if (!confirm(`Delete submission from ${name}?`)) return;
 
-    try {
-      const res = await fetch(`/api/formSubmit?id=${id}`, {
-        method: "DELETE",
-      });
-
-      if (res.ok) {
-        setForms(forms.filter((form) => form.id !== id));
-        // Reset to first page if current page becomes empty
-        const totalPages = Math.ceil((forms.length - 1) / itemsPerPage);
-        if (currentPage > totalPages) {
-          setCurrentPage(totalPages || 1);
-        }
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Error deleting submission");
+    console.log("Deleting form submission:", id);
+    setForms(forms.filter((form) => form.id !== id));
+    const totalPages = Math.ceil((forms.length - 1) / itemsPerPage);
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages || 1);
     }
   };
 
   // Toggle status
   const toggleStatus = async (id, currentStatus) => {
-    try {
-      const newStatus = currentStatus === "pending" ? "done" : "pending";
-      const res = await fetch(`/api/formSubmit/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus }),
-      });
-
-      if (res.ok) {
-        setForms((prev) =>
-          prev.map((f) => (f.id === id ? { ...f, status: newStatus } : f))
-        );
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    const newStatus = currentStatus === "pending" ? "done" : "pending";
+    console.log("Toggling form status:", id, newStatus);
+    setForms((prev) =>
+      prev.map((f) => (f.id === id ? { ...f, status: newStatus } : f))
+    );
   };
-
   // Export CSV
   const exportToCSV = () => {
     const headers = [

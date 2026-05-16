@@ -53,19 +53,55 @@ export default function UserProfile() {
   const fetchUserData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/users/${params.id}`);
+      await new Promise((r) => setTimeout(r, 500));
 
-      if (!response.ok) {
-        throw new Error(`Failed to load user: ${response.status}`);
-      }
+      const mockUser = {
+        id: params.id || "mock-freelancer-1",
+        name: "John Doe",
+        email: "john.doe@example.com",
+        role: "freelancer",
+        avatar: null,
+        avgRating: "4.8",
+        reviewCount: 24,
+        completedProjects: 15,
+        memberSince: "2023-06-15T00:00:00.000Z",
+        hasPremiumPlan: true,
+        profile: {
+          title: "Full Stack Web Developer",
+          bio: "Experienced full stack developer with 5+ years of expertise in React, Node.js, and cloud technologies. Passionate about building scalable web applications.",
+          location: "San Francisco, CA",
+          hourlyRate: 50,
+          responseTime: "Within 1 hour",
+          experience: "5+ years of professional web development experience building production-ready applications for startups and enterprises.",
+          education: "B.S. Computer Science, Stanford University",
+          website: "https://johndoe.dev",
+          github: "https://github.com/johndoe",
+          linkedin: "https://linkedin.com/in/johndoe",
+          twitter: "https://twitter.com/johndoe",
+          portfolio: "https://johndoe.dev/portfolio",
+        },
+        skills: ["React", "Next.js", "Node.js", "TypeScript", "MongoDB", "PostgreSQL", "AWS", "Docker"],
+        reviews: [
+          {
+            id: "review-1",
+            rating: 5,
+            comment: "Excellent work! John delivered the project on time and exceeded our expectations.",
+            createdAt: "2024-03-15T10:30:00.000Z",
+            reviewer: { name: "Alice Smith", avatar: null },
+            project: { title: "E-commerce Platform" },
+          },
+          {
+            id: "review-2",
+            rating: 4,
+            comment: "Great communication and technical skills. Would definitely work with again.",
+            createdAt: "2024-01-20T14:00:00.000Z",
+            reviewer: { name: "Bob Johnson", avatar: null },
+            project: { title: "Dashboard Redesign" },
+          },
+        ],
+      };
 
-      const data = await response.json();
-
-      if (!data.success) {
-        throw new Error(data.error || "Failed to load user data");
-      }
-
-      setUser(data.user);
+      setUser(mockUser);
     } catch (error) {
       console.error("Error fetching user data:", error);
     } finally {
@@ -92,33 +128,12 @@ export default function UserProfile() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("/api/proposals/client-to-freelancer", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          clientId: currentUser.id,
-          freelancerId: user.id,
-          projectTitle: proposalData.projectTitle,
-          projectDescription: proposalData.projectDescription,
-          coverLetter: proposalData.coverLetter,
-          bidAmount: parseFloat(proposalData.bidAmount),
-          timeframe: parseInt(proposalData.timeframe),
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setProposalSuccess(true);
-        setTimeout(() => {
-          setShowProposalModal(false);
-          setProposalSuccess(false);
-        }, 3000);
-      } else {
-        throw new Error(data.error || "Failed to send proposal");
-      }
+      await new Promise((r) => setTimeout(r, 1000));
+      setProposalSuccess(true);
+      setTimeout(() => {
+        setShowProposalModal(false);
+        setProposalSuccess(false);
+      }, 3000);
     } catch (error) {
       console.error("Error sending proposal:", error);
       alert(error.message || "Failed to send proposal. Please try again.");
@@ -140,50 +155,10 @@ export default function UserProfile() {
     }
 
     try {
-      // First, create or get conversation
-      const conversationResponse = await fetch("/api/conversations", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          clientId: currentUser.role === "client" ? currentUser.id : user.id,
-          freelancerId:
-            currentUser.role === "freelancer" ? currentUser.id : user.id,
-        }),
-      });
-
-      const conversationData = await conversationResponse.json();
-
-      if (!conversationData.success) {
-        throw new Error(
-          conversationData.error || "Failed to create conversation"
-        );
-      }
-
-      // Send the message
-      const messageResponse = await fetch("/api/messages/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          conversationId: conversationData.conversation.id,
-          senderId: currentUser.id,
-          content: messageData.message,
-          messageType: "TEXT",
-        }),
-      });
-
-      const messageDataResult = await messageResponse.json();
-
-      if (messageDataResult.success) {
-        alert(
-          "Message sent successfully! The user will respond to you shortly."
-        );
-      } else {
-        throw new Error(messageDataResult.error || "Failed to send message");
-      }
+      await new Promise((r) => setTimeout(r, 800));
+      alert(
+        "Backend not connected. Message sent successfully! The user will respond to you shortly."
+      );
     } catch (error) {
       console.error("Error sending message:", error);
       alert("Failed to send message. Please try again.");

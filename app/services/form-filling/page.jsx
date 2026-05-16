@@ -60,24 +60,15 @@ const ServiceDetail = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("/api/formSubmit", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(formData),
+    await new Promise((r) => setTimeout(r, 1000));
+    setIsSubmitted(true);
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      serviceCategory: "",
+      message: "",
     });
-    const data = await res.json();
-    if (res.ok) {
-      setIsSubmitted(true);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        serviceCategory: "",
-        message: "",
-      });
-    } else {
-      setError("Server Error. Please try again.");
-    }
   };
 
   const serviceCategories = [

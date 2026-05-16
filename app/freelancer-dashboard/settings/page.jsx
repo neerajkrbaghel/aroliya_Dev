@@ -69,57 +69,22 @@ export default function SettingsPage() {
   }, []);
 
   const checkAuthentication = async () => {
-    try {
-      const response = await fetch("/api/auth/verify", {
-        method: "GET",
-        credentials: "include",
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setUser(data.user);
-        fetchUserProfile(data.user.id);
-      } else {
-        router.push("/auth/login");
-      }
-    } catch (error) {
-      console.error("Auth check error:", error);
-      router.push("/auth/login");
-    } finally {
-      setAuthLoading(false);
-    }
+    const mockUser = { id: 1, name: "Freelancer User", email: "freelancer@example.com", role: "freelancer" };
+    setUser(mockUser);
+    setProfileForm({
+      name: "Freelancer User",
+      email: "freelancer@example.com",
+      phone: "+91 9876543210",
+      bio: "Experienced full-stack developer",
+      skills: "React, Node.js, Python",
+      location: "Mumbai, India",
+      website: "https://freelancer.example.com",
+    });
+    setAuthLoading(false);
   };
 
   const fetchUserProfile = async (userId) => {
-    try {
-      const response = await fetch(`/api/users/profile?userId=${userId}`);
-      if (response.ok) {
-        const data = await response.json();
-        if (data.profile) {
-          setProfileForm({
-            name: data.user.name || "",
-            email: data.user.email || "",
-            phone: data.profile.phone || "",
-            bio: data.profile.bio || "",
-            skills: data.profile.skills || "",
-            location: data.profile.location || "",
-            website: data.profile.website || "",
-          });
-        } else {
-          setProfileForm({
-            name: data.user.name || "",
-            email: data.user.email || "",
-            phone: "",
-            bio: "",
-            skills: "",
-            location: "",
-            website: "",
-          });
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching user profile:", error);
-    }
+    // Mock - data already set in checkAuthentication
   };
 
   const handleProfileChange = (e) => {
@@ -188,32 +153,9 @@ export default function SettingsPage() {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    try {
-      const response = await fetch("/api/users/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          ...profileForm,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        showMessage("success", "Profile updated successfully!");
-      } else {
-        showMessage("error", result.error || "Failed to update profile");
-      }
-    } catch (error) {
-      console.error("Profile update error:", error);
-      showMessage("error", "Failed to update profile");
-    } finally {
-      setLoading(false);
-    }
+    await new Promise(r => setTimeout(r, 500));
+    showMessage("success", "Profile updated successfully!");
+    setLoading(false);
   };
 
   const handlePasswordUpdate = async (e) => {
@@ -232,136 +174,35 @@ export default function SettingsPage() {
       return;
     }
 
-    try {
-      const response = await fetch("/api/auth/change-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          currentPassword: passwordForm.currentPassword,
-          newPassword: passwordForm.newPassword,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        showMessage("success", "Password updated successfully!");
-        setPasswordForm({
-          currentPassword: "",
-          newPassword: "",
-          confirmPassword: "",
-        });
-        setPasswordStrength("");
-      } else {
-        showMessage("error", result.error || "Failed to update password");
-      }
-    } catch (error) {
-      console.error("Password update error:", error);
-      showMessage("error", "Failed to update password");
-    } finally {
-      setLoading(false);
-    }
+    await new Promise(r => setTimeout(r, 500));
+    showMessage("success", "Password updated successfully!");
+    setPasswordForm({
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+    setPasswordStrength("");
+    setLoading(false);
   };
 
   const handleForgotPassword = async () => {
     setLoading(true);
-
-    try {
-      const response = await fetch("/api/auth/forgot-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: user.email,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        setForgotPasswordStep(2);
-        startResendTimer();
-
-        let successMessage =
-          "✅ " + (result.message || "OTP sent successfully!");
-
-        // Add debug information in development
-        if (result.debugOtp) {
-          successMessage += `\n🔑 OTP: ${result.debugOtp}`;
-         
-        }
-
-        if (result.previewUrl) {
-          successMessage += `\n📧 Preview: ${result.previewUrl}`;
-          console.log("📧 Email preview:", result.previewUrl);
-          // You can also show this as a clickable link
-        }
-
-      } else if (response.status === 429) {
-        // Rate limit error
-        showMessage(
-          "error",
-          "⏳ " + (result.error || "Please wait before requesting another OTP")
-        );
-      } else {
-        let errorMessage = "❌ " + (result.error || "Failed to send OTP");
-
-      
-
-        if (result.previewUrl) {
-          errorMessage += `\n📧 Preview: ${result.previewUrl}`;
-        }
-
-        showMessage("error", errorMessage);
-      }
-    } catch (error) {
-      console.error("Forgot password error:", error);
-      showMessage(
-        "error",
-        "❌ Network error. Please check your connection and try again."
-      );
-    } finally {
-      setLoading(false);
-    }
+    await new Promise(r => setTimeout(r, 500));
+    setForgotPasswordStep(2);
+    startResendTimer();
+    showMessage("success", "✅ OTP sent to your email!");
+    setLoading(false);
   };
   const handleVerifyOTP = async () => {
     if (otp.length !== 6) {
       showMessage("error", "Please enter a valid 6-digit OTP");
       return;
     }
-
     setLoading(true);
-
-    try {
-      const response = await fetch("/api/auth/verify-otp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: user.email,
-          otp,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setForgotPasswordStep(3);
-        showMessage("success", "OTP verified successfully!");
-      } else {
-        showMessage("error", result.error || "Invalid OTP");
-      }
-    } catch (error) {
-      console.error("Verify OTP error:", error);
-      showMessage("error", "Failed to verify OTP");
-    } finally {
-      setLoading(false);
-    }
+    await new Promise(r => setTimeout(r, 500));
+    setForgotPasswordStep(3);
+    showMessage("success", "OTP verified successfully!");
+    setLoading(false);
   };
 
   const handleResetPassword = async () => {
@@ -369,105 +210,36 @@ export default function SettingsPage() {
       showMessage("error", "Passwords do not match");
       return;
     }
-
     if (newPassword.length < 6) {
       showMessage("error", "Password must be at least 6 characters long");
       return;
     }
-
     setLoading(true);
-
-    try {
-      const response = await fetch("/api/auth/reset-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: user.email,
-          otp,
-          password: newPassword,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        showMessage("success", "Password reset successfully!");
-        setForgotPasswordStep(1);
-        setOtp("");
-        setNewPassword("");
-        setConfirmNewPassword("");
-        closeForgotPassword();
-      } else {
-        showMessage("error", result.error || "Failed to reset password");
-      }
-    } catch (error) {
-      console.error("Reset password error:", error);
-      showMessage("error", "Failed to reset password");
-    } finally {
-      setLoading(false);
-    }
+    await new Promise(r => setTimeout(r, 500));
+    showMessage("success", "Password reset successfully!");
+    setForgotPasswordStep(1);
+    setOtp("");
+    setNewPassword("");
+    setConfirmNewPassword("");
+    closeForgotPassword();
+    setLoading(false);
   };
 
   const handleResendOTP = async () => {
     if (resendTimer > 0) return;
-
     setLoading(true);
-    try {
-      const response = await fetch("/api/auth/resend-otp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: user.email }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        startResendTimer();
-        showMessage("success", "New OTP sent to your email!");
-      } else {
-        showMessage("error", result.error || "Failed to resend OTP");
-      }
-    } catch (error) {
-      console.error("Resend OTP error:", error);
-      showMessage("error", "Failed to resend OTP");
-    } finally {
-      setLoading(false);
-    }
+    await new Promise(r => setTimeout(r, 500));
+    startResendTimer();
+    showMessage("success", "New OTP sent to your email!");
+    setLoading(false);
   };
 
   const handleNotificationUpdate = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    try {
-      const response = await fetch("/api/users/notifications", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          ...notifications,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        showMessage("success", "Notification preferences updated!");
-      } else {
-        showMessage("error", result.error || "Failed to update notifications");
-      }
-    } catch (error) {
-      console.error("Notification update error:", error);
-      showMessage("error", "Failed to update notifications");
-    } finally {
-      setLoading(false);
-    }
+    await new Promise(r => setTimeout(r, 500));
+    showMessage("success", "Notification preferences updated!");
+    setLoading(false);
   };
 
   const closeForgotPassword = () => {

@@ -18,19 +18,8 @@ export default function DashboardPage() {
   const [yearlyRevenue, setYearlyRevenue] = useState(0);
 
   useEffect(() => {
-    const fetchRevenue = async () => {
-      try {
-        const res = await fetch("/api/getYearlyRevenue", { method: "GET" });
-        if (!res.ok) throw new Error("Failed to fetch revenue");
-        const data = await res.json();
-        setYearlyRevenue(data.yearlyRevenue || 0);
-      } catch (err) {
-        console.error("Error fetching revenue:", err);
-        setYearlyRevenue(0);
-      }
-    };
-
-    fetchRevenue();
+    const yearlyRevenue = 1250000;
+    setYearlyRevenue(yearlyRevenue);
   }, []);
 
   useEffect(() => {
@@ -39,26 +28,25 @@ export default function DashboardPage() {
   }, []);
 
   const fetchOrders = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("/api/orders");
-      const data = await response.json();
-      setOrders(data);
-    } catch (error) {
-      console.error("Error fetching orders:", error);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    const mockOrders = [
+      { id: 1, status: "completed", amount: 500 },
+      { id: 2, status: "pending", amount: 300 },
+      { id: 3, status: "completed", amount: 700 },
+      { id: 4, status: "pending", amount: 200 },
+      { id: 5, status: "completed", amount: 400 },
+    ];
+    setOrders(mockOrders);
+    setLoading(false);
   };
 
   const fetchUsers = async () => {
-    try {
-      const response = await fetch("/api/create-user");
-      const data = await response.json();
-      setUsers(data);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
+    const mockUsers = [
+      { id: 1, name: "John Doe", email: "john@example.com" },
+      { id: 2, name: "Jane Smith", email: "jane@example.com" },
+      { id: 3, name: "Bob Johnson", email: "bob@example.com" },
+    ];
+    setUsers(mockUsers);
   };
 
   const getStatusCount = (status) => {

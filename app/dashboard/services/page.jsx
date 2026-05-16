@@ -342,23 +342,9 @@ export default function ServicesPage() {
     documents: [],
   });
 
-  const initializeRazorpay = () => {
-    return new Promise((resolve) => {
-      if (window.Razorpay) {
-        resolve(true);
-        return;
-      }
-
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
-      document.body.appendChild(script);
-    });
+  const initializeRazorpay = async () => {
+    console.log("Razorpay disabled (mock mode)");
+    return false;
   };
 
   const handleServiceClick = (service) => {
@@ -471,24 +457,8 @@ export default function ServicesPage() {
   };
 
   const uploadFile = async (file, endpoint) => {
-    const formData = new FormData();
-    formData.append(endpoint === "resume" ? "resume" : "document", file);
-
-    const response = await fetch(
-      `/api/upload${endpoint === "resume" ? "ServiceRs" : "Documents"}`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || `Upload failed: ${response.status}`);
-    }
-
-    const result = await response.json();
-    return result.url;
+    await new Promise(r => setTimeout(r, 300));
+    return "https://example.com/uploads/mock-file.pdf";
   };
 
   const handleFormSubmit = async (e) => {
@@ -496,181 +466,25 @@ export default function ServicesPage() {
     setUploading(true);
 
     if (selectedService?.requiresResume && !formData.resume) {
-      setNotification({
-        message: "Please upload your resume",
-        type: "error",
-      });
+      setNotification({ message: "Please upload your resume", type: "error" });
       setTimeout(() => setNotification(null), 3000);
       setUploading(false);
       return;
     }
 
     if (selectedService?.requiresDocuments && formData.documents.length === 0) {
-      setNotification({
-        message: "Please upload required documents",
-        type: "error",
-      });
+      setNotification({ message: "Please upload required documents", type: "error" });
       setTimeout(() => setNotification(null), 3000);
       setUploading(false);
       return;
     }
 
-    try {
-      let resumeUrl = "";
-      let documentUrls = [];
-
-      if (selectedService?.requiresResume && formData.resume) {
-        try {
-          setNotification({
-            message: "Uploading resume...",
-            type: "info",
-          });
-          resumeUrl = await uploadFile(formData.resume, "resume");
-        } catch (error) {
-          console.error("Resume upload error:", error);
-          setNotification({
-            message:
-              error.message || "Failed to upload resume. Please try again.",
-            type: "error",
-          });
-          setTimeout(() => setNotification(null), 3000);
-          setUploading(false);
-          return;
-        }
-      }
-
-      if (selectedService?.requiresDocuments && formData.documents.length > 0) {
-        try {
-          setNotification({
-            message: "Uploading documents...",
-            type: "info",
-          });
-          for (const document of formData.documents) {
-            const docUrl = await uploadFile(document, "documents");
-            documentUrls.push(docUrl);
-          }
-        } catch (error) {
-          console.error("Document upload error:", error);
-          setNotification({
-            message:
-              error.message || "Failed to upload documents. Please try again.",
-            type: "error",
-          });
-          setTimeout(() => setNotification(null), 3000);
-          setUploading(false);
-          return;
-        }
-      }
-
-      const displayTotal = calculateDisplayTotal();
-      const inrTotal = calculateINRTotal();
-
-      const orderRes = await fetch("/api/payments/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: displayTotal,
-          planType: selectedService.title,
-          userId: user?.id || "guest",
-          currency: currency,
-        }),
-      });
-
-      if (!orderRes.ok) {
-        const errorData = await orderRes.json();
-        throw new Error(errorData.error || "Failed to create payment order");
-      }
-
-      const orderData = await orderRes.json();
-      const order = orderData.order;
-
-      if (!order.id) throw new Error("Failed to create Razorpay order");
-
-      const isRazorpayLoaded = await initializeRazorpay();
-      if (!isRazorpayLoaded) {
-        throw new Error("Razorpay SDK failed to load");
-      }
-
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: order.amount,
-        currency: order.currency,
-        name: "Aroliya",
-        description: `${selectedService.title} - ${formatPrice(displayTotal)}`,
-        order_id: order.id,
-        handler: async function (response) {
-          try {
-            const saveRes = await fetch("/api/orders", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                name: formData.name,
-                email: formData.email,
-                phone: formData.phone,
-                requirements: formData.requirements,
-                quantity: formData.quantity,
-                price: formData.price,
-                displayPrice: formData.displayPrice,
-                basePrice: selectedService.actualPrice,
-                resume: resumeUrl,
-                documents: documentUrls,
-                service: selectedService?.title || "",
-                paymentId: response.razorpay_payment_id,
-                orderId: response.razorpay_order_id,
-                status: "Pending",
-                totalAmount: inrTotal,
-                displayAmount: displayTotal,
-                displayCurrency: currency,
-                paymentCurrency: order.currency,
-                exchangeRate: exchangeRate,
-                userCountry: userCountry,
-                paymentMethod: response.razorpay_payment_method || "card",
-                razorpayOrderData: order,
-              }),
-            });
-
-            if (saveRes.ok) {
-              setNotification({
-                message: "Order placed successfully!",
-                type: "success",
-              });
-              setTimeout(() => setNotification(null), 3000);
-              setShowServiceForm(false);
-              setSelectedService(null);
-            } else {
-              throw new Error("Failed to save order to database");
-            }
-          } catch (err) {
-            console.error(err);
-            setNotification({
-              message: "Error saving order to database",
-              type: "error",
-            });
-            setTimeout(() => setNotification(null), 3000);
-          }
-        },
-        prefill: {
-          name: formData.name,
-          email: formData.email,
-          contact: formData.phone,
-        },
-        theme: {
-          color: "#2563eb",
-        },
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } catch (err) {
-      console.error("Form submission error:", err);
-      setNotification({
-        message: err.message || "Payment processing failed",
-        type: "error",
-      });
-      setTimeout(() => setNotification(null), 3000);
-    } finally {
-      setUploading(false);
-    }
+    await new Promise(r => setTimeout(r, 1000));
+    setNotification({ message: "Order placed successfully! (Mock)", type: "success" });
+    setTimeout(() => setNotification(null), 3000);
+    setShowServiceForm(false);
+    setSelectedService(null);
+    setUploading(false);
   };
 
   const InrIcon = ({ size = 16 }) => (

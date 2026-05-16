@@ -25,37 +25,18 @@ export default function FreelancerRefundsPage() {
   }, []);
 
   const checkAuthentication = async () => {
-    try {
-      const response = await fetch("/api/auth/verify");
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.user) {
-          setUser(data.user);
-          fetchRefundRequests(data.user.id);
-        } else {
-          router.push("/auth/login");
-        }
-      } else {
-        router.push("/auth/login");
-      }
-    } catch (error) {
-      console.error("Auth check error:", error);
-      router.push("/auth/login");
-    }
+    const mockUser = { id: 1, name: "Freelancer User", email: "freelancer@example.com", role: "freelancer" };
+    setUser(mockUser);
+    await fetchRefundRequests(1);
   };
 
   const fetchRefundRequests = async (userId) => {
-    try {
-      const response = await fetch(`/api/refunds?userId=${userId}&userType=freelancer`);
-      if (response.ok) {
-        const data = await response.json();
-        setRefundRequests(data.refunds || []);
-      }
-    } catch (error) {
-      console.error("Error fetching refund requests:", error);
-    } finally {
-      setLoading(false);
-    }
+    const mockRefunds = [
+      { id: 1, amount: 5000, reason: "Project cancelled by client", status: "pending", createdAt: new Date(Date.now() - 86400000 * 2).toISOString(), project: { title: "Web Development Project" }, client: { name: "Client A" } },
+      { id: 2, amount: 3000, reason: "Service not delivered on time", status: "approved", createdAt: new Date(Date.now() - 86400000 * 10).toISOString(), project: { title: "Logo Design" }, client: { name: "Client B" } },
+    ];
+    setRefundRequests(mockRefunds);
+    setLoading(false);
   };
 
   const getStatusBadge = (status) => {

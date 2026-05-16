@@ -242,37 +242,14 @@ export default function DashboardLayout({ children }) {
   };
 
   const fetchCurrentUser = async () => {
-    try {
-      const response = await fetch("/api/auth/verify");
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.user) {
-          setCurrentUser(data.user);
-          fetchUserPlan(data.user.id);
-        } else {
-          router.push("/auth/login");
-        }
-      } else {
-        router.push("/auth/login");
-      }
-    } catch (error) {
-      console.error("Error fetching user:", error);
-      router.push("/auth/login");
-    } finally {
-      setLoading(false);
-    }
+    const mockUser = { id: 1, name: "Freelancer User", email: "freelancer@example.com", role: "freelancer", currency: "INR" };
+    setCurrentUser(mockUser);
+    fetchUserPlan(1);
+    setLoading(false);
   };
 
   const fetchUserPlan = async (userId) => {
-    try {
-      const response = await fetch(`/api/users/${userId}/plan`);
-      if (response.ok) {
-        const data = await response.json();
-        setUserPlan(data.plan || "Free");
-      }
-    } catch (error) {
-      console.error("Error fetching user plan:", error);
-    }
+    setUserPlan("Premium");
   };
 
   const getPlanBadgeClass = (plan) => {
@@ -314,15 +291,9 @@ export default function DashboardLayout({ children }) {
   };
 
   const handleLogout = async () => {
-    try {
-      localStorage.removeItem("user");
-      sessionStorage.removeItem("user");
-      await fetch("/api/auth/logout", { method: "POST" });
-      router.push("/");
-    } catch (error) {
-      console.error("Logout error:", error);
-      router.push("/");
-    }
+    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
+    router.push("/");
   };
 
   const getUserInitials = (name) => {

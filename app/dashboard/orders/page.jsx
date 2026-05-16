@@ -38,49 +38,22 @@ export default function OrdersPage() {
   }, [user]);
 
   const fetchData = async () => {
-    try {
-      setLoading(true);
-
-      if (userRole === "admin") {
-        const ordersRes = await fetch("/api/orders");
-        const ordersData = await ordersRes.json();
-        setOrders(ordersData);
-      } else {
-        const ordersRes = await fetch(`/api/orders?email=${user.email}`);
-        const ordersData = await ordersRes.json();
-        setOrders(ordersData);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    await new Promise(r => setTimeout(r, 200));
+    setOrders([
+      { id: 1, name: "John Doe", email: "john@example.com", service: "Web Development", category: "Web Development", status: "pending", createdAt: new Date().toISOString() },
+      { id: 2, name: "Jane Smith", email: "jane@example.com", service: "Mobile App", category: "Mobile Development", status: "completed", createdAt: new Date().toISOString() },
+    ]);
+    setLoading(false);
   };
 
   const updateOrderStatus = async (orderId, newStatus) => {
-    try {
-      const res = await fetch(`/api/orders/${orderId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
-
-      if (res.ok) {
-        const updatedOrder = await res.json();
-        setOrders((prev) =>
-          prev.map((order) =>
-            order.id === updatedOrder.id ? updatedOrder : order
-          )
-        );
-      } else {
-        alert("Failed to update order status");
-      }
-    } catch (error) {
-      console.error("Error updating order:", error);
-      alert("Error updating order status");
-    }
+    await new Promise(r => setTimeout(r, 200));
+    setOrders((prev) =>
+      prev.map((order) =>
+        order.id === orderId ? { ...order, status: newStatus } : order
+      )
+    );
   };
 
   const handleStatusChange = (orderId, newStatus) => {

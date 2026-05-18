@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node api.js && next dev",
     "lint": "eslint",
     "build": "next build",
-    "start": "next start"
+    "start": "node api.js && next start"
   },
   "dependencies": {
     "@next/mdx": "^16.2.6",
@@ -15,7 +15,7 @@
     "framer-motion": "^12.23.19",
     "gray-matter": "^4.0.3",
     "gsap": "^3.13.0",
-    "next": "^15.5.2",
+    "next": "15.5.9",
     "next-mdx-remote": "^6.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

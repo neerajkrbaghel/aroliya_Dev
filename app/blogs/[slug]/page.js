@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBlogPost, getBlogSlugs } from "@/lib/blogs";
@@ -17,9 +18,20 @@ export async function generateMetadata({ params }) {
   if (!post) return {};
 
   return {
-    title: `${post.data.title} | Aroliya Blog`,
-    description: post.data.excerpt || `Read about ${post.data.title}`,
+    title: `${post.data.title} | Aroliya Blog - Expert Web Development Insights`,
+    description: post.data.excerpt || `Read about ${post.data.title} - Expert insights on web development, Shopify, and digital strategies from Aroliya.`,
+    keywords: post.data.tags ? post.data.tags.join(", ") + ", web development, Shopify, digital marketing" : "web development, Shopify, digital marketing, Aroliya blog",
+    authors: post.data.author ? [{ name: post.data.author }] : undefined,
     openGraph: {
+      title: `${post.data.title} | Aroliya Blog`,
+      description: post.data.excerpt,
+      type: "article",
+      publishedTime: post.data.date,
+      authors: post.data.author ? [post.data.author] : undefined,
+      tags: post.data.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
       title: post.data.title,
       description: post.data.excerpt,
     },
@@ -34,8 +46,13 @@ export default async function BlogPostPage({ params }) {
 
   return (
     <>
+      <Head>
+        <meta property="og:url" content={`https://aroliya.com/blogs/${slug}`} />
+        <link rel="canonical" href={`https://aroliya.com/blogs/${slug}`} />
+      </Head>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
-      <div className={styles.container}>
+      <div className={styles.container} id="main-content" role="main">
         <Link href="/blogs" className={styles.back}>
           &larr; Back to Blog
         </Link>

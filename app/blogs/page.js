@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import { getAllBlogPosts } from "@/lib/blogs";
 import Nav from "@/app/home/component/Nav/page";
@@ -6,9 +7,9 @@ import Whatsapp from "@/app/whatsapp_icon/page";
 import styles from "./Blog.module.css";
 
 export const metadata = {
-  title: "Blog | Aroliya - Web & Mobile App Development Insights",
-  description:
-    "Explore expert articles on custom web development, Shopify, WordPress, mobile apps, and digital business strategies from the Aroliya team.",
+  title: "Top Blog - Web Development, Shopify & Digital Marketing Insights | Aroliya",
+  description: "Discover expert insights on web development, Shopify stores, WordPress, SEO, digital marketing, and e-commerce strategies. Aroliya's top-rated blog for business growth.",
+  keywords: "web development blog, Shopify tips, WordPress development, digital marketing blog, e-commerce tips, SEO guide, web development insights, top digital blog, best tech blog India, online business growth, website optimization, ecommerce strategies, React development tips, Shopify SEO, WordPress tutorials",
 };
 
 export default function BlogPage() {
@@ -16,9 +17,26 @@ export default function BlogPage() {
 
   return (
     <>
+      <Head>
+        <meta name="keywords" content="web development blog, Shopify tips, WordPress development, digital marketing blog, e-commerce tips, SEO guide, web development insights, top digital blog, best tech blog India, online business growth, website optimization, ecommerce strategies, React development tips, Shopify SEO, WordPress tutorials" />
+        <meta name="author" content="Aroliya" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Top Blog - Web Development & Digital Marketing Insights | Aroliya" />
+        <meta property="og:description" content="Discover expert insights on web development, Shopify stores, and digital marketing strategies." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://aroliya.com/blogs" />
+        <meta property="og:image" content="https://aroliya.com/og-blogs.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Top Blog - Web Development & Digital Marketing | Aroliya" />
+        <meta name="twitter:description" content="Expert insights on web development, Shopify, and digital marketing." />
+        <link rel="canonical" href="https://aroliya.com/blogs" />
+        <meta name="geo.region" content="IN" />
+        <meta name="geo.placename" content="India" />
+      </Head>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
       <Whatsapp />
-      <div className={styles.container}>
+      <div className={styles.container} id="main-content" role="main">
         <section className={styles.hero}>
           <h1>Aroliya Blog</h1>
           <p>

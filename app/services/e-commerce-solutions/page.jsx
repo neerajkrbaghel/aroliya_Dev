@@ -174,18 +174,27 @@ const EcommerceSolutions = () => {
   return (
     <>
       <Head>
-        <title>Shopify & WooCommerce Development Services | Aroliya</title>
-        <meta
-          name="description"
-          content="We provide Shopify and WooCommerce development services. Build custom e-commerce stores, themes, and integrations for your online business."
-        />
-        <meta
-          name="keywords"
-          content="shopify development, woocommerce development, ecommerce store, shopify theme, woocommerce plugin, online store development"
-        />
+        <title>Top Shopify & E-Commerce Development Agency | Best Shopify Experts | Aroliya</title>
+        <meta name="description" content="Aroliya is a top Shopify development agency and e-commerce expert. We build high-converting Shopify stores, WooCommerce websites, and custom online stores. Contact the best e-commerce development company for your online business." />
+        <meta name="keywords" content="top Shopify development agency, best e-commerce development company, Shopify experts, top WooCommerce developers, ecommerce store development, Shopify theme development, custom Shopify store, WooCommerce development, best online store builders, ecommerce website development, Shopify Plus experts, Shopify app development, WooCommerce customization, ecommerce solutions, online shop development, best Shopify developers India, e-commerce web development, multi-vendor marketplace, payment gateway integration, Shopify SEO optimization, ecommerce marketing integration, top ecommerce platform, best online store development agency" />
+        <meta name="author" content="Aroliya" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Top Shopify & E-Commerce Development Agency | Aroliya" />
+        <meta property="og:description" content="Top Shopify development agency offering e-commerce solutions. Build high-converting online stores with our expert developers." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://aroliya.com/services/e-commerce-solutions" />
+        <meta property="og:image" content="https://aroliya.com/og-ecommerce.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Top Shopify & E-Commerce Development Agency | Aroliya" />
+        <meta name="twitter:description" content="Best Shopify and e-commerce development services. Build your online store with top experts." />
+        <link rel="canonical" href="https://aroliya.com/services/e-commerce-solutions" />
+        <meta name="geo.region" content="IN" />
+        <meta name="geo.placename" content="India" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html: `{"@context":"https://schema.org","@type":"ProfessionalService","name":"Aroliya","description":"Top Shopify and e-commerce development agency. Expert Shopify and WooCommerce store development services.","url":"https://aroliya.com/services/e-commerce-solutions","areaServed":"India","serviceType":"E-Commerce Development","priceRange":"$$"}}`}} />
       </Head>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
-      <div className={styles.container}>
+      <div className={styles.container} id="main-content" role="main">
         <WhatsApp />
 
         <section className={styles.hero}>

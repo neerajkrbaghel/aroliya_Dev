@@ -33,7 +33,6 @@ import {
   SiMysql,
   SiGit,
   SiDocker,
-  SiAmazon, // ✅ correct one
 } from "react-icons/si";
 import { SiFigma } from "react-icons/si";
 import styles from "./WebDeve.module.css";
@@ -198,7 +197,7 @@ const Services = () => {
     { name: "MySQL", icon: <SiMysql />, color: "#4479A1" },
     { name: "Git", icon: <SiGit />, color: "#F05032" },
     { name: "Docker", icon: <SiDocker />, color: "#2496ED" },
-    { name: "AWS", icon: <SiAmazon />, color: "#FF9900" },
+    { name: "AWS", icon: <FiCloud />, color: "#FF9900" },
     { name: "PHP", icon: <DiPhp />, color: "#777BB4" },
     { name: "Figma", icon: <SiFigma />, color: "#F24E1E" },
   ];

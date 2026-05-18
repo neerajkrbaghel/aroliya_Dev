@@ -7,46 +7,26 @@
     "lint": "eslint",
     "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
-    "start": "next start",
-    "postinstall": "prisma generate"
+    "start": "next start"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.927.0",
     "@botpress/webchat": "^3.2.11",
     "@next/mdx": "^16.2.6",
-    "@prisma/client": "^6.19.1",
     "aos": "^2.3.4",
-    "axios": "^1.12.2",
-    "bcryptjs": "^3.0.2",
-    "cloudinary": "^2.8.0",
-    "compression": "^1.8.1",
-    "crypto-js": "^4.2.0",
-    "express": "^5.1.0",
-    "framer-motion": "^12.23.19",
+    "framer-motion": "^12.38.0",
     "gray-matter": "^4.0.3",
-    "gsap": "^3.13.0",
-    "jsonwebtoken": "^9.0.2",
     "next": "^16.2.6",
-    "next-auth": "^4.24.11",
     "next-mdx-remote": "^6.0.0",
     "next-sitemap": "^4.2.3",
     "nextjs-google-analytics": "^2.3.7",
-    "nodemailer": "^6.10.1",
-    "razorpay": "^2.9.6",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-icons": "^5.5.0",
-    "react-intersection-observer": "^9.16.0",
-    "recharts": "^3.3.0",
-    "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1",
+    "react-intersection-observer": "^10.0.3",
     "swiper": "^11.2.10"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@types/socket.io": "^3.0.1",
     "eslint": "^9",
-    "eslint-config-next": "15.5.2",
-    "prisma": "^6.19.1"
+    "eslint-config-next": "16.2.6"
   }
 }

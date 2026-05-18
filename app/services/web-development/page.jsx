@@ -347,29 +347,28 @@ const Services = () => {
 
           <div className={styles.projectsGrid}>
             {projects.map((project, index) => (
-              <Link href={project.link} key={index} target="_blank" rel="noopener noreferrer">
-                <motion.div
-                  className={styles.projectCard}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                >
-                  <div className={styles.projectImage}>
-                    <img src={project.image} alt={project.title} />
+              <motion.div
+                key={index}
+                className={styles.projectCard}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              >
+                <div className={styles.projectImage}>
+                  <img src={project.image} alt={project.title} />
+                </div>
+                <div className={styles.projectContent}>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  <div className={styles.projectTech}>
+                    {project.technologies.map((tech, techIndex) => (
+                      <span key={techIndex} className={styles.techTag}>{tech}</span>
+                    ))}
                   </div>
-                  <div className={styles.projectContent}>
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
-                    <div className={styles.projectTech}>
-                      {project.technologies.map((tech, techIndex) => (
-                        <span key={techIndex} className={styles.techTag}>{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              </Link>
+                </div>
+              </motion.div>
             ))}
           </div>
         </section>

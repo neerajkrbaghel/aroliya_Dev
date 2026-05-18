@@ -191,18 +191,27 @@ const Services = () => {
   return (
     <>
       <Head>
-        <title>Custom Web Development Services | Next.js, React.js, Angular | Aroliya</title>
-        <meta
-          name="description"
-          content="We build custom web applications in Next.js, React.js, Angular, WordPress, Wix, and Framer. Professional web development services tailored to your business needs."
-        />
-        <meta
-          name="keywords"
-          content="custom web development, nextjs development, reactjs development, angular development, wordpress development, framer development, wix development"
-        />
+        <title>Top Web Development Agency | Custom Web Apps | Next.js, React.js, Angular | Aroliya</title>
+        <meta name="description" content="Aroliya is a top web development agency offering professional web development services. We build custom web applications using Next.js, React.js, Angular, WordPress, Wix, and Framer. Contact the best web development company for your project." />
+        <meta name="keywords" content="top web development agency, best web development company, custom web development, nextjs development, reactjs development, angular development, wordpress development, framer development, wix development, web app development, custom website development, professional web developers, top React developers, best Next.js agency, ecommerce web development, corporate website development, responsive web design, SEO optimized websites, web development services India, React Next.js expert, full stack web developers" />
+        <meta name="author" content="Aroliya" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Top Web Development Agency | Custom Web Apps | Aroliya" />
+        <meta property="og:description" content="Top web development agency offering professional web development services using Next.js, React.js, Angular, WordPress, and more." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://aroliya.com/services/web-development" />
+        <meta property="og:image" content="https://aroliya.com/og-web-dev.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Top Web Development Agency | Aroliya" />
+        <meta name="twitter:description" content="Best web development services using Next.js, React.js, Angular, WordPress and more." />
+        <link rel="canonical" href="https://aroliya.com/services/web-development" />
+        <meta name="geo.region" content="IN" />
+        <meta name="geo.placename" content="India" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html: `{"@context":"https://schema.org","@type":"ProfessionalService","name":"Aroliya","description":"Top web development agency offering professional web development services using Next.js, React.js, Angular, WordPress, and Framer.","url":"https://aroliya.com/services/web-development","areaServed":"India","serviceType":"Web Development","priceRange":"$$"}}`}} />
       </Head>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
-      <div className={styles.container}>
+      <div className={styles.container} id="main-content" role="main">
         <WhatsApp />
 
         <section className={styles.hero}>

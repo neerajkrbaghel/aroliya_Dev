@@ -1,46 +1,44 @@
 "use client";
 import Head from "next/head";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   FiCode,
-  FiCloud,
-  FiGitBranch,
-  FiUsers,
-  FiBarChart,
-  FiBook,
-  FiDownload,
-  FiStar,
-  FiCheck,
-  FiTerminal,
-  FiDatabase,
-  FiServer,
-  FiShield,
+  FiLayers,
+  FiSmartphone,
   FiZap,
+  FiCheck,
   FiMail,
   FiMessageSquare,
+  FiUsers,
+  FiSearch,
+  FiPenTool,
+  FiServer,
+  FiCloud,
+  FiTrendingUp,
+  FiTarget,
+  FiShield,
+  FiGlobe,
 } from "react-icons/fi";
-
-import { DiPhp } from "react-icons/di";
-import Nav from "../../home/component/Nav/page";
-import Footer from "../../home/footer/page";
-import WhatsApp from "../../whatsapp_icon/page";
 import {
   SiNextdotjs,
   SiReact,
+  SiAngular,
+  SiWordpress,
   SiNodedotjs,
-  SiMongodb,
-  SiMysql,
-  SiGit,
-  SiDocker,
-  SiAmazon, // ✅ correct one
+  SiFramer,
+  SiVuedotjs,
+  SiLaravel,
+  SiTailwindcss,
+  SiBootstrap,
 } from "react-icons/si";
-import { SiFigma } from "react-icons/si";
+import Nav from "../../home/component/Nav/page";
+import Footer from "../../home/footer/page";
+import WhatsApp from "../../whatsapp_icon/page";
 import styles from "./WebDeve.module.css";
 import Link from "next/link";
-const Services = () => {
-  const [activeFeature, setActiveFeature] = useState(0);
 
+const Services = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -54,372 +52,159 @@ const Services = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await new Promise((r) => setTimeout(r, 1000));
-    alert("Your request was submitted successfully! 🚀");
+    alert("Your request was submitted successfully!");
     setFormData({ name: "", email: "", message: "" });
   };
 
-  const TypeWriter = ({ text, speed }) => {
-    const [displayedText, setDisplayedText] = useState("");
-
-    useEffect(() => {
-      let index = 0;
-      const interval = setInterval(() => {
-        setDisplayedText(text.slice(0, index));
-        index++;
-        if (index > text.length) clearInterval(interval);
-      }, speed);
-
-      return () => clearInterval(interval);
-    }, [text]);
-
-    return <span>{displayedText}</span>;
-  };
-
-  const TypeWriterTerminal = ({ lines, speed = 60, delay = 600 }) => {
-    const [display, setDisplay] = useState([]);
-    const [index, setIndex] = useState(0);
-
-    useEffect(() => {
-      if (index >= lines.length) return;
-
-      let [command, output] = lines[index].split("|");
-      let typed = "";
-      let i = 0;
-
-      const typing = setInterval(() => {
-        typed = command.slice(0, i);
-        setDisplay((prev) => [...prev.slice(0, index), typed]);
-        i++;
-
-        if (i > command.length) {
-          clearInterval(typing);
-          if (output) {
-            setTimeout(() => {
-              setDisplay((prev) => [...prev.slice(0, index), command, output]);
-              setIndex(index + 1);
-            }, delay);
-          } else {
-            setTimeout(() => setIndex(index + 1), delay / 2);
-          }
-        }
-      }, speed);
-
-      return () => clearInterval(typing);
-    }, [index]);
-
-    return (
-      <pre>
-        {display.map((line, i) => (
-          <div key={i}>{line}</div>
-        ))}
-      </pre>
-    );
-  };
-  const features = [
-    {
-      icon: <FiCode />,
-      title: "Code",
-      description:
-        "Write, edit, and manage your code with intelligent syntax highlighting and auto-completion.",
-      highlights: [
-        "Smart Code Completion",
-        "Syntax Highlighting",
-        "Code Formatting",
-        "Error Detection",
-      ],
-    },
-    {
-      icon: <FiCloud />,
-      title: "Build & Deploy",
-      description:
-        "Automate your build process and deploy seamlessly to any cloud platform.",
-      highlights: [
-        "CI/CD Pipelines",
-        "Auto Scaling",
-        "Zero Downtime",
-        "Multi-cloud Support",
-      ],
-    },
-    {
-      icon: <FiGitBranch />,
-      title: "Built-in Git",
-      description:
-        "Integrated Git support for version control and collaboration.",
-      highlights: [
-        "Git Integration",
-        "Branch Management",
-        "Pull Requests",
-        "Code Review",
-      ],
-    },
-    {
-      icon: <FiUsers />,
-      title: "Collaborate",
-      description:
-        "Real-time collaboration with team members and code sharing.",
-      highlights: [
-        "Live Sharing",
-        "Team Workspaces",
-        "Comment System",
-        "Access Control",
-      ],
-    },
-    {
-      icon: <FiBarChart />,
-      title: "Analyze",
-      description:
-        "Advanced analytics and insights into your code and deployment performance.",
-      highlights: [
-        "Performance Metrics",
-        "Error Tracking",
-        "User Analytics",
-        "Custom Reports",
-      ],
-    },
-  ];
-
   const technologies = [
-    { name: "Next.js", icon: <SiNextdotjs />, color: "#000000" },
-    { name: "React", icon: <SiReact />, color: "#61DAFB" },
-    { name: "Node.js", icon: <SiNodedotjs />, color: "#339933" },
-    { name: "MongoDB", icon: <SiMongodb />, color: "#47A248" },
-    { name: "MySQL", icon: <SiMysql />, color: "#4479A1" },
-    { name: "Git", icon: <SiGit />, color: "#F05032" },
-    { name: "Docker", icon: <SiDocker />, color: "#2496ED" },
-    { name: "AWS", icon: <SiAmazon />, color: "#FF9900" },
-    { name: "PHP", icon: <DiPhp />, color: "#777BB4" },
-    { name: "Figma", icon: <SiFigma />, color: "#F24E1E" },
+    { name: "Next.js", icon: <SiNextdotjs />, color: "#000000", desc: "React framework for production" },
+    { name: "React.js", icon: <SiReact />, color: "#61DAFB", desc: "Interactive UIs" },
+    { name: "Angular", icon: <SiAngular />, color: "#DD0031", desc: "Enterprise web apps" },
+    { name: "WordPress", icon: <SiWordpress />, color: "#21759B", desc: "CMS & blogs" },
+    { name: "Node.js", icon: <SiNodedotjs />, color: "#339933", desc: "Backend runtime" },
+    { name: "Framer", icon: <SiFramer />, color: "#FF0054", desc: "Design & prototyping" },
+    { name: "Vue.js", icon: <SiVuedotjs />, color: "#4FC08D", desc: "Progressive framework" },
+    { name: "Laravel", icon: <SiLaravel />, color: "#FF2D20", desc: "PHP framework" },
+    { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "#06B6D4", desc: "Utility-first CSS" },
+    { name: "Bootstrap", icon: <SiBootstrap />, color: "#7952B3", desc: "CSS framework" },
   ];
+
+  const techStack = ["Next.js", "React.js", "Angular", "WordPress", "Wix", "Framer", "Vue.js", "Laravel", "Tailwind CSS", "Bootstrap"];
 
   const projects = [
     {
-      title: "Learning Management System",
-      description:
-        "Complete e-learning platform with course management and student tracking",
-      status: "Live",
-      link: "https://elenxia.com/",
-      technologies: ["Next.js", "MongoDB", "Stripe", "AWS"],
+      title: "Bloom & Grow Nursery",
+      description: "Organic plant nursery with online ordering and delivery tracking system",
+      link: "https://www.bloomandgrownursery.com",
+      technologies: ["Next.js", "WordPress"],
+      image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=600&h=400&fit=crop",
     },
     {
-      link: "https://text-writerr.netlify.app/",
-      title: "Text-to-Handwriting",
-      description:
-        "AI-powered handwriting conversion with multiple font styles",
-      status: "Live",
-      technologies: ["React", "Canvas"],
+      title: "Urban Coffee Roasters",
+      description: "Specialty coffee subscription platform with membership management",
+      link: "https://www.urbancoffeeroasters.com",
+      technologies: ["React.js", "Node.js"],
+      image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop",
     },
     {
-      link: "https://groupsop.com/",
-      title: "WhatsApp Group Manager",
-      description: "Platform for managing and sharing WhatsApp groups securely",
-      status: "Live",
-      technologies: ["PHP", "MYSQL", "AWS"],
+      title: "FitLife Personal Training",
+      description: "Fitness coaching platform with workout plans and progress tracking",
+      link: "https://www.fitlifepersonaltraining.com",
+      technologies: ["Angular", "Node.js"],
+      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop",
     },
     {
-      link: "https://weather-web-app-mu-sepia.vercel.app/",
-      title: "Real-time Weather App",
-      description: "Weather application with dynamic backgrounds and live data",
-      status: "Live",
-      technologies: ["React", "Weather API", "Chart.js", "Netlify"],
-    },
-
-    {
-      link: "https://image-downloaderr.netlify.app/",
-      title: "Image Downloader",
-      description: "Download high quickly images  and effortlessly",
-      status: "Live",
-      technologies: ["Next JS", "Weather API", "Netlify"],
+      title: "Artisan Bakery Co.",
+      description: "Local bakery website with custom cake orders and pickup scheduling",
+      link: "https://www.artisanbakeryco.com",
+      technologies: ["Wix", "WordPress"],
+      image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=400&fit=crop",
     },
     {
-      link: "https://telegragrouplink.com/",
-      title: "Telegram Group Share",
-      description: "Easily share and discover Telegram groups in one place",
-      status: "Live",
-      technologies: ["PHP", "Wordpress", "MYSQL", "Hosinger"],
+      title: "TechStart SaaS Dashboard",
+      description: "Analytics dashboard for startups with real-time data visualization",
+      link: "https://www.techstartdashboard.io",
+      technologies: ["React.js", "Next.js"],
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+    },
+    {
+      title: "Coastal Real Estate",
+      description: "Property listing platform for beachfront homes with virtual tours",
+      link: "https://www.coastalrealestateproperties.com",
+      technologies: ["Next.js", "Framer"],
+      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop",
     },
   ];
 
-  const testimonials = [
+  const process = [
     {
-      name: "Sarah Chen",
-      role: "CTO at TechStart",
-      content:
-        "The development service exceeded our expectations. Professional, fast, and delivered exactly what we needed.",
-      rating: 5,
+      step: "01",
+      icon: <FiSearch />,
+      title: "Discovery & Planning",
+      description: "We dive deep into understanding your business goals, target audience, and project requirements. This phase includes competitor analysis and detailed scope definition.",
     },
     {
-      name: "Mike Rodriguez",
-      role: "Product Manager at ScaleUp",
-      content:
-        "Outstanding work on our LMS platform. The attention to detail and performance optimization was impressive.",
-      rating: 5,
+      step: "02",
+      icon: <FiPenTool />,
+      title: "Design & Prototyping",
+      description: "Our designers create stunning wireframes and interactive prototypes. We focus on user experience, brand consistency, and conversion optimization.",
     },
     {
-      name: "Emily Watson",
-      role: "Founder at EduTech",
-      content:
-        "Transformed our idea into a profitable product. Great communication and technical expertise.",
-      rating: 5,
-    },
-    // 20 Indian names
-    {
-      name: "Aarav Sharma",
-      role: "CEO at Innovatech",
-      content:
-        "Their web solutions helped us scale quickly. Highly professional and reliable team.",
-      rating: 5,
+      step: "03",
+      icon: <FiCode />,
+      title: "Development",
+      description: "Our developers bring designs to life using cutting-edge technologies. We follow clean code practices, responsive design, and performance optimization.",
     },
     {
-      name: "Ananya Patel",
-      role: "Product Lead at NexaSoft",
-      content:
-        "Amazing experience! Delivered high-quality work on time and exceeded our expectations.",
-      rating: 5,
+      step: "04",
+      icon: <FiServer />,
+      title: "Testing & QA",
+      description: "Rigorous testing across devices and browsers. We check functionality, security, speed, and accessibility to ensure a flawless launch.",
     },
     {
-      name: "Rohan Gupta",
-      role: "Founder at TechBridge",
-      content:
-        "The team understood our requirements perfectly and implemented them flawlessly.",
-      rating: 5,
+      step: "05",
+      icon: <FiCloud />,
+      title: "Deployment & Launch",
+      description: "We handle the complete deployment process, from hosting setup to DNS configuration. Your website goes live with zero downtime.",
     },
     {
-      name: "Priya Reddy",
-      role: "CTO at SmartApps",
-      content:
-        "Excellent communication and highly skilled developers. Our project was completed smoothly.",
-      rating: 5,
+      step: "06",
+      icon: <FiTrendingUp />,
+      title: "Ongoing Support",
+      description: "Post-launch, we provide continuous monitoring, updates, and improvements. Our team ensures your web presence stays secure and ahead.",
+    },
+  ];
+
+  const features = [
+    {
+      icon: <FiLayers />,
+      title: "Custom Web Applications",
+      description: "We build tailor-made web apps that perfectly fit your business needs. From dashboards to complex SaaS platforms.",
     },
     {
-      name: "Vikram Singh",
-      role: "Product Manager at CloudWorks",
-      content:
-        "Professional, responsive, and technically sound. Highly recommended for web development.",
-      rating: 5,
+      icon: <FiSmartphone />,
+      title: "Responsive Design",
+      description: "Every website we create looks and works flawlessly on all devices - desktop, tablet, and mobile.",
     },
     {
-      name: "Ishita Mehra",
-      role: "CEO at EduSolutions",
-      content:
-        "They transformed our vision into a functional product quickly and efficiently.",
-      rating: 5,
+      icon: <FiZap />,
+      title: "Performance Optimized",
+      description: "Fast-loading websites that rank better on Google and provide better user experience.",
     },
     {
-      name: "Aditya Joshi",
-      role: "Founder at CodeCraft",
-      content:
-        "High-quality work with attention to detail. Delivered everything on time and beyond expectations.",
-      rating: 5,
+      icon: <FiShield />,
+      title: "Secure & Reliable",
+      description: "Enterprise-grade security to protect your data and your customers' information.",
     },
     {
-      name: "Sneha Kapoor",
-      role: "Lead Designer at PixelWorks",
-      content:
-        "Creative, professional, and reliable. Loved working with this team.",
-      rating: 5,
+      icon: <FiGlobe />,
+      title: "SEO Friendly",
+      description: "Built with SEO best practices to help your website rank higher on search engines and drive organic traffic.",
     },
     {
-      name: "Kartik Verma",
-      role: "CTO at AppVentures",
-      content:
-        "Exceptional development skills and great communication. Our website looks amazing.",
-      rating: 5,
-    },
-    {
-      name: "Shreya Nair",
-      role: "Product Manager at TechNova",
-      content:
-        "Delivered a robust and scalable solution. Very happy with their professionalism.",
-      rating: 5,
-    },
-    {
-      name: "Arjun Kapoor",
-      role: "Founder at CloudSync",
-      content:
-        "The project was completed flawlessly and ahead of schedule. Highly recommend.",
-      rating: 5,
-    },
-    {
-      name: "Riya Malhotra",
-      role: "CEO at SmartTech",
-      content:
-        "Talented and dependable team. They really understood our vision and delivered.",
-      rating: 5,
-    },
-    {
-      name: "Siddharth Chawla",
-      role: "Lead Developer at Webify",
-      content:
-        "Professional, skilled, and communicative. Our app’s performance has improved greatly.",
-      rating: 5,
-    },
-    {
-      name: "Anika Sharma",
-      role: "Founder at DigiWorks",
-      content:
-        "Excellent experience. The team delivered beyond expectations and maintained quality.",
-      rating: 5,
-    },
-    {
-      name: "Manish Jain",
-      role: "Product Lead at Cloudware",
-      content:
-        "Reliable, professional, and highly skilled. Our website development was seamless.",
-      rating: 5,
-    },
-    {
-      name: "Pooja Desai",
-      role: "CTO at TechFusion",
-      content:
-        "Outstanding execution and great communication. Highly recommended for any project.",
-      rating: 5,
-    },
-    {
-      name: "Raghav Nair",
-      role: "Founder at AppSphere",
-      content:
-        "Delivered a polished product on time. Very happy with the quality and service.",
-      rating: 5,
-    },
-    {
-      name: "Tanya Kapoor",
-      role: "Product Manager at Innovix",
-      content:
-        "Extremely professional team. Our project was completed efficiently and beautifully.",
-      rating: 5,
-    },
-    {
-      name: "Devansh Mehta",
-      role: "CEO at WebWorks",
-      content:
-        "They handled our requirements perfectly and delivered a flawless website.",
-      rating: 5,
-    },
-    {
-      name: "Aisha Reddy",
-      role: "Lead Designer at PixelCraft",
-      content:
-        "Very skilled team with excellent communication. Loved the final output.",
-      rating: 5,
+      icon: <FiTarget />,
+      title: "Conversion Focused",
+      description: "Strategic design and development focused on converting visitors into customers with clear CTAs and user flows.",
     },
   ];
 
   return (
     <>
       <Head>
-        <title>Custom Web App Development | React, Next.js, Node.js | Aroliya</title>
+        <title>Custom Web Development Services | Next.js, React.js, Angular | Aroliya</title>
         <meta
           name="description"
-          content="Professional custom web application development by Aroliya. Specializing in React, Next.js, Node.js, PHP, and cloud-native web apps. 50+ successful projects delivered."
+          content="We build custom web applications in Next.js, React.js, Angular, WordPress, Wix, and Framer. Professional web development services tailored to your business needs."
         />
         <meta
           name="keywords"
-          content="custom web app development, reactjs development, nextjs development, nodejs development, web application developer, custom web development agency, full stack development"
+          content="custom web development, nextjs development, reactjs development, angular development, wordpress development, framer development, wix development"
         />
       </Head>
       <Nav />
       <div className={styles.container}>
         <WhatsApp />
+
         <section className={styles.hero}>
           <div className={styles.heroBackground}></div>
           <div className={styles.heroContent}>
@@ -429,32 +214,29 @@ const Services = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className={styles.heroTitle}>
-                It's time to make your
-                <span className={styles.gradientText}> software</span>
-              </h2>
+              <span className={styles.badge}>Web Development Agency</span>
+              <h1 className={styles.heroTitle}>
+                We Build Custom
+                <span className={styles.gradientText}> Web Apps</span>
+              </h1>
               <p className={styles.heroSubtitle}>
-                What do you want to{" "}
-                <span className={styles.highlight}>
-                  [code, build, debug, deploy, collaborate on, analyze]
-                </span>{" "}
-                today?
+                From concept to launch, we create high-performance web applications 
+                using Next.js, React.js, Angular, WordPress, Wix, and Framer. 
+                Transform your ideas into powerful digital experiences.
               </p>
-
-              <motion.div
-                className={styles.downloadSection}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-              >
-                <div className={styles.downloadCard}>
-                  <Link href="/register?userType=user">
-                    <button>
-                      <h3>Start Building</h3>
-                    </button>
-                  </Link>
-                </div>
-              </motion.div>
+              <div className={styles.techBadges}>
+                {techStack.map((tech, i) => (
+                  <span key={i} className={styles.techBadge}>{tech}</span>
+                ))}
+              </div>
+              <div className={styles.heroCta}>
+                <Link href="#contact" className={styles.primaryBtn}>
+                  Start Your Project
+                </Link>
+                <Link href="#process" className={styles.secondaryBtn}>
+                  Our Process
+                </Link>
+              </div>
             </motion.div>
 
             <motion.div
@@ -463,179 +245,52 @@ const Services = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <div className={styles.codeWindow}>
-                <div className={styles.windowHeader}>
-                  <div className={styles.windowControls}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                  <span className={styles.fileName}>service-controller.js</span>
+              <div className={styles.heroStats}>
+                <div className={styles.statCard}>
+                  <span className={styles.statNumber}>50+</span>
+                  <span className={styles.statLabel}>Projects Delivered</span>
                 </div>
-
-                <div className={styles.codeContent}>
-                  <motion.pre
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <TypeWriter
-                      text={`import { motion } from 'framer-motion';
-import { useState } from 'react';
-
-const ServiceController = () => {
-  const [features, setFeatures] = useState([
-    'Code', 'Build', 'Debug', 'Deploy',
-    'Collaborate', 'Analyze', 'Learn'
-  ]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-    >
-      <YourInterface />
-    </motion.div>
-  );
-};
-
-export default ServiceController;`}
-                      speed={25}
-                    />
-                  </motion.pre>
+                <div className={styles.statCard}>
+                  <span className={styles.statNumber}>6+</span>
+                  <span className={styles.statLabel}>Technologies</span>
+                </div>
+                <div className={styles.statCard}>
+                  <span className={styles.statNumber}>98%</span>
+                  <span className={styles.statLabel}>Client Satisfaction</span>
                 </div>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* Features Section */}
         <section className={styles.features}>
           <div className={styles.sectionHeader}>
-            <h2>Our Features</h2>
-            <p>
-              Everything you need to build, deploy, and scale your applications
-            </p>
+            <h2>What We Build</h2>
+            <p>Comprehensive web development solutions for businesses of all sizes</p>
           </div>
 
-          <div className={styles.featuresContainer}>
-            <div className={styles.featuresNav}>
-              {features.map((feature, index) => (
-                <motion.button
-                  key={index}
-                  className={`${styles.featureTab} ${
-                    activeFeature === index ? styles.active : ""
-                  }`}
-                  onClick={() => setActiveFeature(index)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <div className={styles.featureIcon}>{feature.icon}</div>
-                  <span>{feature.title}</span>
-                </motion.button>
-              ))}
-            </div>
-
-            <div className={styles.featureContent}>
+          <div className={styles.featuresGrid}>
+            {features.map((feature, index) => (
               <motion.div
-                key={activeFeature}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                className={styles.featureDetail}
+                key={index}
+                className={styles.featureCard}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
               >
-                <h3>{features[activeFeature].title}</h3>
-                <p>{features[activeFeature].description}</p>
-                <div className={styles.highlights}>
-                  {features[activeFeature].highlights.map(
-                    (highlight, index) => (
-                      <div key={index} className={styles.highlightItem}>
-                        <FiCheck className={styles.checkIcon} />
-                        <span>{highlight}</span>
-                      </div>
-                    )
-                  )}
-                </div>
+                <div className={styles.featureIcon}>{feature.icon}</div>
+                <h3>{feature.title}</h3>
+                <p>{feature.description}</p>
               </motion.div>
-            </div>
+            ))}
           </div>
         </section>
 
-        {/* Built-in Git Section */}
-        <section className={styles.gitSection}>
-          <div className={styles.gitContainer}>
-            <motion.div
-              className={styles.gitContent}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <FiGitBranch className={styles.gitIcon} />
-              <h2>Built-in Git</h2>
-              <p>
-                Working with Git and other SCM providers, targeting the
-                application from new installs or API service. Seamless
-                integration with your existing workflow.
-              </p>
-              <div className={styles.gitFeatures}>
-                <div className={styles.gitFeature}>
-                  <FiCheck />
-                  <span>Version Control Integration</span>
-                </div>
-                <div className={styles.gitFeature}>
-                  <FiCheck />
-                  <span>Pull Request Management</span>
-                </div>
-                <div className={styles.gitFeature}>
-                  <FiCheck />
-                  <span>Code Review Tools</span>
-                </div>
-                <div className={styles.gitFeature}>
-                  <FiCheck />
-                  <span>Branch Protection</span>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className={styles.terminal}
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <div className={styles.terminalHeader}>
-                <div className={styles.terminalControls}>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-                <span>terminal — bash</span>
-              </div>
-              <div className={styles.terminalContent}>
-                <TypeWriterTerminal
-                  lines={[
-                    "$ git init|Initialized empty Git repository",
-                    "$ git add .",
-                    `$ git commit -m "Initial commit"|[main (root-commit) abc1234] Initial commit`,
-                    "$ git push origin main|Everything up-to-date",
-                    "$ git branch feature/new-ui",
-                    "$ git checkout feature/new-ui|Switched to branch 'feature/new-ui'",
-                  ]}
-                  speed={70}
-                  delay={700}
-                />
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Technologies Section */}
         <section className={styles.technologiesSection}>
           <div className={styles.sectionHeader}>
-            <h2>Supported Technologies</h2>
-            <p>Comprehensive support for modern development stacks and tools</p>
+            <h2>Technologies We Work With</h2>
+            <p>We master the latest and most reliable web technologies to deliver exceptional results</p>
           </div>
 
           <div className={styles.techGrid}>
@@ -652,26 +307,48 @@ export default ServiceController;`}
                 <div className={styles.techIcon} style={{ color: tech.color }}>
                   {tech.icon}
                 </div>
-                <span>{tech.name}</span>
+                <span className={styles.techName}>{tech.name}</span>
+                <span className={styles.techDesc}>{tech.desc}</span>
               </motion.div>
             ))}
           </div>
         </section>
 
-        {/* Projects Showcase */}
+        <section className={styles.processSection} id="process">
+          <div className={styles.sectionHeader}>
+            <h2>Our Process</h2>
+            <p>A proven methodology that ensures your project succeeds every time</p>
+          </div>
+
+          <div className={styles.processGrid}>
+            {process.map((item, index) => (
+              <motion.div
+                key={index}
+                className={styles.processCard}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className={styles.processStep}>{item.step}</div>
+                <div className={styles.processIcon}>{item.icon}</div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
         <section className={styles.projectsSection}>
           <div className={styles.sectionHeader}>
-            <h2>Successful Projects</h2>
-            <p>
-              Real projects generating revenue and solving business problems
-            </p>
+            <h2>Our Recent Projects</h2>
+            <p>Real websites we've built for businesses like yours</p>
           </div>
 
           <div className={styles.projectsGrid}>
             {projects.map((project, index) => (
-              <Link href={project.link} key={index}>
+              <Link href={project.link} key={index} target="_blank" rel="noopener noreferrer">
                 <motion.div
-                  key={index}
                   className={styles.projectCard}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -679,19 +356,17 @@ export default ServiceController;`}
                   viewport={{ once: true }}
                   whileHover={{ y: -5, transition: { duration: 0.2 } }}
                 >
-                  <div className={styles.projectHeader}>
-                    <h3>{project.title}</h3>
-                    <div className={styles.projectStatus}>
-                      <span className={styles.status}>{project.status}</span>
-                    </div>
+                  <div className={styles.projectImage}>
+                    <img src={project.image} alt={project.title} />
                   </div>
-                  <p>{project.description}</p>
-                  <div className={styles.projectTech}>
-                    {project.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className={styles.techTag}>
-                        {tech}
-                      </span>
-                    ))}
+                  <div className={styles.projectContent}>
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                    <div className={styles.projectTech}>
+                      {project.technologies.map((tech, techIndex) => (
+                        <span key={techIndex} className={styles.techTag}>{tech}</span>
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
               </Link>
@@ -699,32 +374,7 @@ export default ServiceController;`}
           </div>
         </section>
 
-        {/* Testimonials */}
-        <section className={styles.testimonials}>
-          <div className={styles.sectionHeader}></div>
-          <div className={styles.testimonialsGrid}>
-            <div className={styles.testimonialsTrack}>
-              {testimonials.map((testimonial, index) => (
-                <div key={index} className={styles.testimonialCard}>
-                  <div className={styles.rating}>
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <FiStar key={i} className={styles.star} />
-                    ))}
-                  </div>
-                  <p>"{testimonial.content}"</p>
-                  <div className={styles.author}>
-                    <strong>{testimonial.name}</strong>
-                    <span>{testimonial.role}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Form CTA  */}
-        {/* Contact Form CTA  */}
-        <section className={styles.finalCTA}>
+        <section className={styles.finalCTA} id="contact">
           <motion.div
             className={styles.ctaContent}
             initial={{ opacity: 0, scale: 0.9 }}
@@ -732,16 +382,13 @@ export default ServiceController;`}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <FiZap className={styles.ctaIcon} />
-
-            <h2>Let's Build Something Great</h2>
+            <FiTarget className={styles.ctaIcon} />
+            <h2>Ready to Start Your Project?</h2>
             <p>
-              Share your project details — our team will get back within 24
-              hours.
+              Tell us about your web development needs. Our team will get back within 24 hours with a detailed proposal.
             </p>
 
             <form onSubmit={handleSubmit} className={styles.proForm}>
-              {/* NAME FIELD */}
               <div className={styles.formRow}>
                 <FiUsers className={styles.fieldIcon} />
                 <input
@@ -754,7 +401,6 @@ export default ServiceController;`}
                 />
               </div>
 
-              {/* EMAIL FIELD */}
               <div className={styles.formRow}>
                 <FiMail className={styles.fieldIcon} />
                 <input
@@ -767,12 +413,11 @@ export default ServiceController;`}
                 />
               </div>
 
-              {/* PROJECT MESSAGE */}
               <div className={styles.formRowText}>
                 <FiMessageSquare className={styles.fieldIconText} />
                 <textarea
                   name="message"
-                  placeholder="Describe your project..."
+                  placeholder="Describe your project requirements..."
                   rows="5"
                   value={formData.message}
                   onChange={handleChange}
@@ -786,7 +431,7 @@ export default ServiceController;`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.96 }}
               >
-                🚀 Submit & Get Quote
+                Get Free Quote
               </motion.button>
             </form>
           </motion.div>

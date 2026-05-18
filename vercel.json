@@ -1,8 +1,5 @@
 {
   "framework": "nextjs",
-  "functions": {
-    "app/api/**/route.js": {
-      "maxDuration": 30
-    }
-  }
+  "buildCommand": "npm run build",
+  "installCommand": "npm install"
 }

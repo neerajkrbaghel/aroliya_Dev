@@ -208,27 +208,6 @@ export default function ProjectManagement() {
     setLoading(false);
   };
 
-  const fetchPaymentRequests = async (userId) => {
-    try {
-      const response = await fetch(
-        `/api/payment-requests?userId=${userId}&userType=freelancer`
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          const paymentRequestsData = data.paymentRequests || [];
-          setPaymentRequests(paymentRequestsData);
-          convertPaymentRequestAmounts(paymentRequestsData);
-        }
-      } else {
-        console.error("Failed to fetch payment requests");
-      }
-    } catch (error) {
-      console.error("Error fetching payment requests:", error);
-    }
-  };
-
   const updateConvertedAmounts = (projectsData = projects) => {
     if (!projectsData || projectsData.length === 0) {
       console.log("No projects data to convert");

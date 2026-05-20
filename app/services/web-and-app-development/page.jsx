@@ -1,7 +1,8 @@
 "use client";
 import Head from "next/head";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import {
   FiCode,
   FiLayers,
@@ -19,6 +20,7 @@ import {
   FiTarget,
   FiShield,
   FiGlobe,
+  FiShoppingCart,
 } from "react-icons/fi";
 import {
   SiNextdotjs,
@@ -31,6 +33,11 @@ import {
   SiLaravel,
   SiTailwindcss,
   SiBootstrap,
+  SiFlutter,
+  SiKotlin,
+  SiSwift,
+  SiShopify,
+  SiWoocommerce,
 } from "react-icons/si";
 import Nav from "../../home/component/Nav/page";
 import Footer from "../../home/footer/page";
@@ -44,16 +51,28 @@ const Services = () => {
     email: "",
     message: "",
   });
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const formRef = useRef(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await new Promise((r) => setTimeout(r, 1000));
-    alert("Your request was submitted successfully!");
-    setFormData({ name: "", email: "", message: "" });
+    try {
+      await emailjs.sendForm(
+        "service_gq6cy0v",
+        "template_k0pxln4",
+        formRef.current,
+        "QnDtxEHfL_ED3AVWE"
+      );
+      setFormData({ name: "", email: "", message: "" });
+      setShowSuccess(true);
+    } catch (err) {
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   const technologies = [
@@ -62,57 +81,36 @@ const Services = () => {
     { name: "Angular", icon: <SiAngular />, color: "#DD0031", desc: "Enterprise web apps" },
     { name: "WordPress", icon: <SiWordpress />, color: "#21759B", desc: "CMS & blogs" },
     { name: "Node.js", icon: <SiNodedotjs />, color: "#339933", desc: "Backend runtime" },
-    { name: "Framer", icon: <SiFramer />, color: "#FF0054", desc: "Design & prototyping" },
-    { name: "Vue.js", icon: <SiVuedotjs />, color: "#4FC08D", desc: "Progressive framework" },
-    { name: "Laravel", icon: <SiLaravel />, color: "#FF2D20", desc: "PHP framework" },
-    { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "#06B6D4", desc: "Utility-first CSS" },
-    { name: "Bootstrap", icon: <SiBootstrap />, color: "#7952B3", desc: "CSS framework" },
+    { name: "React Native", icon: <SiReact />, color: "#61DAFB", desc: "Cross-platform mobile apps" },
+    { name: "Flutter", icon: <SiFlutter />, color: "#02569B", desc: "Native mobile & web UI" },
+    { name: "Kotlin", icon: <SiKotlin />, color: "#7F52FF", desc: "Modern Android development" },
+    { name: "Swift", icon: <SiSwift />, color: "#F05138", desc: "iOS & macOS apps" },
+    { name: "Shopify", icon: <SiShopify />, color: "#7AB55C", desc: "E-commerce platform" },
   ];
 
-  const techStack = ["Next.js", "React.js", "Angular", "WordPress", "Wix", "Framer", "Vue.js", "Laravel", "Tailwind CSS", "Bootstrap"];
+  const techStack = ["Next.js", "React Native", "Flutter", "Kotlin", "Swift", "Shopify", "React.js", "Angular", "WordPress", "WooCommerce"];
 
   const projects = [
     {
-      title: "Bloom & Grow Nursery",
-      description: "Organic plant nursery with online ordering and delivery tracking system",
-      link: "https://www.bloomandgrownursery.com",
-      technologies: ["Next.js", "WordPress"],
-      image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=600&h=400&fit=crop",
+      title: "Learning Management System",
+      description: "Complete e-learning platform with course management and student tracking",
+      link: "https://elenxia.com/",
+      technologies: ["Next.js", "MongoDB", "Stripe", "AWS"],
+      image: "/projects/elenxia.png",
     },
     {
-      title: "Urban Coffee Roasters",
-      description: "Specialty coffee subscription platform with membership management",
-      link: "https://www.urbancoffeeroasters.com",
-      technologies: ["React.js", "Node.js"],
-      image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop",
+      title: "Text-to-Handwriting",
+      description: "AI-powered handwriting conversion with multiple font styles",
+      link: "https://text-writerr.netlify.app/",
+      technologies: ["React", "Canvas"],
+      image: "/projects/text-writerr.png",
     },
     {
-      title: "FitLife Personal Training",
-      description: "Fitness coaching platform with workout plans and progress tracking",
-      link: "https://www.fitlifepersonaltraining.com",
-      technologies: ["Angular", "Node.js"],
-      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop",
-    },
-    {
-      title: "Artisan Bakery Co.",
-      description: "Local bakery website with custom cake orders and pickup scheduling",
-      link: "https://www.artisanbakeryco.com",
-      technologies: ["Wix", "WordPress"],
-      image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=400&fit=crop",
-    },
-    {
-      title: "TechStart SaaS Dashboard",
-      description: "Analytics dashboard for startups with real-time data visualization",
-      link: "https://www.techstartdashboard.io",
-      technologies: ["React.js", "Next.js"],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-    },
-    {
-      title: "Coastal Real Estate",
-      description: "Property listing platform for beachfront homes with virtual tours",
-      link: "https://www.coastalrealestateproperties.com",
-      technologies: ["Next.js", "Framer"],
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop",
+      title: "Telegram Group Share",
+      description: "Easily share and discover Telegram groups in one place",
+      link: "https://telegragrouplink.com/",
+      technologies: ["PHP", "WordPress", "MySQL"],
+      image: "/projects/telegragrouplink.png",
     },
   ];
 
@@ -133,7 +131,7 @@ const Services = () => {
       step: "03",
       icon: <FiCode />,
       title: "Development",
-      description: "Our developers bring designs to life using cutting-edge technologies. We follow clean code practices, responsive design, and performance optimization.",
+      description: "Our developers bring designs to life using cutting-edge web and mobile technologies. We follow clean code practices, responsive design, and performance optimization.",
     },
     {
       step: "04",
@@ -157,59 +155,58 @@ const Services = () => {
 
   const features = [
     {
-      icon: <FiLayers />,
-      title: "Custom Web Applications",
-      description: "We build tailor-made web apps that perfectly fit your business needs. From dashboards to complex SaaS platforms.",
+      icon: <FiCode />,
+      title: "Custom Web Apps",
+      description: "Tailor-made web applications using Next.js, React.js, and Angular. From dashboards to complex SaaS platforms.",
+    },
+    {
+      icon: <FiShoppingCart/>,
+      title: "Shopify & WooCommerce",
+      description: "Full-featured e-commerce stores with custom themes, product management, payment integration, and inventory control.",
     },
     {
       icon: <FiSmartphone />,
-      title: "Responsive Design",
-      description: "Every website we create looks and works flawlessly on all devices - desktop, tablet, and mobile.",
+      title: "React Native Apps",
+      description: "Cross-platform mobile apps for iOS and Android with near-native performance using React Native.",
     },
     {
-      icon: <FiZap />,
-      title: "Performance Optimized",
-      description: "Fast-loading websites that rank better on Google and provide better user experience.",
+      icon: <FiSmartphone />,
+      title: "Flutter Development",
+      description: "Beautiful, natively compiled applications for mobile, web, and desktop from a single Dart codebase.",
     },
     {
-      icon: <FiShield />,
-      title: "Secure & Reliable",
-      description: "Enterprise-grade security to protect your data and your customers' information.",
+      icon: <FiCode />,
+      title: "Native Android (Kotlin)",
+      description: "High-performance Android applications built with Kotlin, following modern architecture patterns.",
     },
     {
-      icon: <FiGlobe />,
-      title: "SEO Friendly",
-      description: "Built with SEO best practices to help your website rank higher on search engines and drive organic traffic.",
-    },
-    {
-      icon: <FiTarget />,
-      title: "Conversion Focused",
-      description: "Strategic design and development focused on converting visitors into customers with clear CTAs and user flows.",
+      icon: <FiCode />,
+      title: "Native iOS (Swift)",
+      description: "Premium iOS applications built with Swift, delivering seamless Apple ecosystem experiences.",
     },
   ];
 
   return (
     <>
       <Head>
-        <title>Top Web Development Agency | Custom Web Apps | Next.js, React.js, Angular | Aroliya</title>
-        <meta name="description" content="Aroliya is a top web development agency offering professional web development services. We build custom web applications using Next.js, React.js, Angular, WordPress, Wix, and Framer. Contact the best web development company for your project." />
-        <meta name="keywords" content="top web development agency, best web development company, custom web development, nextjs development, reactjs development, angular development, wordpress development, framer development, wix development, web app development, custom website development, professional web developers, top React developers, best Next.js agency, ecommerce web development, corporate website development, responsive web design, SEO optimized websites, web development services India, React Next.js expert, full stack web developers" />
+        <title>Web & App Development Agency | Custom Web & Mobile Apps | Aroliya</title>
+        <meta name="description" content="Aroliya is a top web and app development agency. We build custom web apps using Next.js, React.js, Angular, Shopify, WooCommerce and mobile apps using React Native, Flutter, Kotlin, Swift. Contact the best web & app development company." />
+        <meta name="keywords" content="web and app development agency, mobile app development, web development company, nextjs development, react native development, flutter development, kotlin development, swift development, shopify development, woocommerce development, custom web apps, cross-platform apps, android app development, ios app development, full stack developers India" />
         <meta name="author" content="Aroliya" />
         <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="Top Web Development Agency | Custom Web Apps | Aroliya" />
-        <meta property="og:description" content="Top web development agency offering professional web development services using Next.js, React.js, Angular, WordPress, and more." />
+        <meta property="og:title" content="Web & App Development Agency | Custom Web & Mobile Apps | Aroliya" />
+        <meta property="og:description" content="Top web and app development agency offering custom web apps (Next.js, React, Angular, Shopify) and mobile apps (React Native, Flutter, Kotlin, Swift)." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://aroliya.com/services/web-development" />
+        <meta property="og:url" content="https://aroliya.com/services/web-and-app-development" />
         <meta property="og:image" content="https://aroliya.com/og-web-dev.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Top Web Development Agency | Aroliya" />
-        <meta name="twitter:description" content="Best web development services using Next.js, React.js, Angular, WordPress and more." />
-        <link rel="canonical" href="https://aroliya.com/services/web-development" />
+        <meta name="twitter:title" content="Web & App Development Agency | Aroliya" />
+        <meta name="twitter:description" content="Best web and app development services using Next.js, React, Flutter, Kotlin, Swift and more." />
+        <link rel="canonical" href="https://aroliya.com/services/web-and-app-development" />
         <meta name="geo.region" content="IN" />
         <meta name="geo.placename" content="India" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{__html: `{"@context":"https://schema.org","@type":"ProfessionalService","name":"Aroliya","description":"Top web development agency offering professional web development services using Next.js, React.js, Angular, WordPress, and Framer.","url":"https://aroliya.com/services/web-development","areaServed":"India","serviceType":"Web Development","priceRange":"$$"}}`}} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html: `{"@context":"https://schema.org","@type":"ProfessionalService","name":"Aroliya","description":"Top web and app development agency offering custom web apps and mobile apps using Next.js, React, Flutter, Kotlin, Swift, Shopify, and WooCommerce.","url":"https://aroliya.com/services/web-and-app-development","areaServed":"India","serviceType":"Web & App Development","priceRange":"$$"}}`}} />
       </Head>
-      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
       <div className={styles.container} id="main-content" role="main">
         <WhatsApp />
@@ -223,14 +220,15 @@ const Services = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <span className={styles.badge}>Web Development Agency</span>
+              <span className={styles.badge}>Web & App Development Agency</span>
               <h1 className={styles.heroTitle}>
                 We Build Custom
-                <span className={styles.gradientText}> Web Apps</span>
+                <span className={styles.gradientText}> Web & App</span>
               </h1>
               <p className={styles.heroSubtitle}>
-                From concept to launch, we create high-performance web applications 
-                using Next.js, React.js, Angular, WordPress, Wix, and Framer. 
+                From concept to launch, we create high-performance web applications and mobile apps.
+                Web: Next.js, React.js, Angular, Shopify, WooCommerce. 
+                Mobile: React Native, Flutter, Kotlin, Swift.
                 Transform your ideas into powerful digital experiences.
               </p>
               <div className={styles.techBadges}>
@@ -260,7 +258,7 @@ const Services = () => {
                   <span className={styles.statLabel}>Projects Delivered</span>
                 </div>
                 <div className={styles.statCard}>
-                  <span className={styles.statNumber}>6+</span>
+                  <span className={styles.statNumber}>10+</span>
                   <span className={styles.statLabel}>Technologies</span>
                 </div>
                 <div className={styles.statCard}>
@@ -275,7 +273,7 @@ const Services = () => {
         <section className={styles.features}>
           <div className={styles.sectionHeader}>
             <h2>What We Build</h2>
-            <p>Comprehensive web development solutions for businesses of all sizes</p>
+            <p>Comprehensive web & mobile app development solutions for businesses of all sizes</p>
           </div>
 
           <div className={styles.featuresGrid}>
@@ -299,7 +297,7 @@ const Services = () => {
         <section className={styles.technologiesSection}>
           <div className={styles.sectionHeader}>
             <h2>Technologies We Work With</h2>
-            <p>We master the latest and most reliable web technologies to deliver exceptional results</p>
+            <p>We master the latest web and mobile technologies to deliver exceptional results</p>
           </div>
 
           <div className={styles.techGrid}>
@@ -351,7 +349,7 @@ const Services = () => {
         <section className={styles.projectsSection}>
           <div className={styles.sectionHeader}>
             <h2>Our Recent Projects</h2>
-            <p>Real websites we've built for businesses like yours</p>
+            <p>Real websites and apps we've built for businesses like yours</p>
           </div>
 
           <div className={styles.projectsGrid}>
@@ -364,6 +362,8 @@ const Services = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                onClick={() => window.open(project.link, "_blank", "noopener,noreferrer")}
+                style={{ cursor: "pointer" }}
               >
                 <div className={styles.projectImage}>
                   <img src={project.image} alt={project.title} />
@@ -393,10 +393,10 @@ const Services = () => {
             <FiTarget className={styles.ctaIcon} />
             <h2>Ready to Start Your Project?</h2>
             <p>
-              Tell us about your web development needs. Our team will get back within 24 hours with a detailed proposal.
+              Tell us about your web or app development needs. Our team will get back within 24 hours with a detailed proposal.
             </p>
 
-            <form onSubmit={handleSubmit} className={styles.proForm}>
+            <form ref={formRef} onSubmit={handleSubmit} className={styles.proForm}>
               <div className={styles.formRow}>
                 <FiUsers className={styles.fieldIcon} />
                 <input
@@ -447,6 +447,23 @@ const Services = () => {
 
         <Footer />
       </div>
+
+      {showSuccess && (
+        <div className={styles.overlay} onClick={() => setShowSuccess(false)}>
+          <motion.div
+            className={styles.successModal}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.successIcon}><FiCheck /></div>
+            <h3>Thank You!</h3>
+            <p>Your request has been received. Our team will contact you within 24 hours.</p>
+            <button className={styles.modalBtn} onClick={() => setShowSuccess(false)}>Got it</button>
+          </motion.div>
+        </div>
+      )}
     </>
   );
 };

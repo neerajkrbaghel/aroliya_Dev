@@ -168,8 +168,8 @@ export default function Nav() {
             </button>
             {dropdown.services && (
               <div className={styles.dropdownMenu} role="menu" aria-label="Services">
-                <Link href="/services/web-development" onClick={closeMenu} role="menuitem">
-                  Web Development
+                <Link href="/services/web-and-app-development" onClick={closeMenu} role="menuitem">
+                  Web & App Development
                 </Link>
                 <Link href="/services/e-commerce-solutions" onClick={closeMenu} role="menuitem">
                   E-Commerce & Shopify

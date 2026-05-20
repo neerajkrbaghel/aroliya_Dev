@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@next/mdx": "^16.2.6",
     "aos": "^2.3.4",
     "axios": "^1.12.2",

@@ -172,7 +172,7 @@ export default function Nav() {
                   Web & App Development
                 </Link>
                 <Link href="/services/e-commerce-solutions" onClick={closeMenu} role="menuitem">
-                  E-Commerce & Shopify
+                  E-commerce Solutions
                 </Link>
                 <Link href="/services/virtual-assistance" onClick={closeMenu} role="menuitem">
                   Virtual Assistance

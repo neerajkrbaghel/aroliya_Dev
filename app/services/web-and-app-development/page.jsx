@@ -92,6 +92,27 @@ const Services = () => {
 
   const projects = [
     {
+      title: "Mohh Furniture",
+      description: "Premium furniture brand in India with elegant product showcases and seamless checkout experience",
+      link: "https://mohh.com",
+      technologies: ["Shopify", "Liquid"],
+      image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=400&fit=crop",
+    },
+    {
+      title: "Expressiam",
+      description: "Contemporary clothing brand with stylish collections and smooth shopping experience",
+      link: "https://expressiam.com",
+      technologies: ["Shopify", "Custom Theme"],
+      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop",
+    },
+    {
+      title: "Louilash",
+      description: "Luxury cosmetic store with premium design and seamless product browsing experience",
+      link: "https://louilash.com/",
+      technologies: ["Shopify", "Storefront API"],
+      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=400&fit=crop",
+    },
+    {
       title: "Learning Management System",
       description: "Complete e-learning platform with course management and student tracking",
       link: "https://elenxia.com/",

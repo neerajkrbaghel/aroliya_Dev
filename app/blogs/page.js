@@ -33,7 +33,6 @@ export default function BlogPage() {
         <meta name="geo.region" content="IN" />
         <meta name="geo.placename" content="India" />
       </Head>
-      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
       <Whatsapp />
       <div className={styles.container} id="main-content" role="main">

@@ -50,7 +50,6 @@ export default async function BlogPostPage({ params }) {
         <meta property="og:url" content={`https://aroliya.com/blogs/${slug}`} />
         <link rel="canonical" href={`https://aroliya.com/blogs/${slug}`} />
       </Head>
-      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
       <div className={styles.container} id="main-content" role="main">
         <Link href="/blogs" className={styles.back}>

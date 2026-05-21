@@ -11,6 +11,7 @@ import {
   FiCheck,
   FiMail,
   FiMessageSquare,
+  FiPhone,
   FiUsers,
   FiSearch,
   FiPenTool,
@@ -49,6 +50,7 @@ const Services = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    mobile: "",
     message: "",
   });
   const [showSuccess, setShowSuccess] = useState(false);
@@ -68,7 +70,7 @@ const Services = () => {
         formRef.current,
         "QnDtxEHfL_ED3AVWE"
       );
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", email: "", mobile: "", message: "" });
       setShowSuccess(true);
     } catch (err) {
       alert("Something went wrong. Please try again.");
@@ -437,6 +439,18 @@ const Services = () => {
                   name="email"
                   placeholder="Email Address"
                   value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className={styles.formRow}>
+                <FiPhone className={styles.fieldIcon} />
+                <input
+                  type="tel"
+                  name="mobile"
+                  placeholder="Mobile Number"
+                  value={formData.mobile}
                   onChange={handleChange}
                   required
                 />

@@ -1,4 +1,5 @@
 import "./globals.css";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 export const metadata = {
   title: {
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico" />
       </head>
       <body suppressHydrationWarning>
+        <GoogleAnalytics />
         <a href="#main-content" className="skip-to-content">
           Skip to main content
         </a>

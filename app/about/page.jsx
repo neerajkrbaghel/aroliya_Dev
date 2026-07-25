@@ -310,23 +310,11 @@ export default function About() {
                 </motion.div>
 
                 <motion.div className={styles.heroButtons} variants={fadeInUp}>
-                  <Link href="/">
-                    <motion.button
-                      className={styles.primaryButton}
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Our Services
-                    </motion.button>
+                  <Link href="/" className={styles.primaryButton}>
+                    Our Services
                   </Link>
-                  <Link href="/our-team">
-                    <motion.button
-                      className={styles.secondaryButton}
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Meet Our Team
-                    </motion.button>
+                  <Link href="/our-team" className={styles.secondaryButton}>
+                    Meet Our Team
                   </Link>
                 </motion.div>
               </motion.div>
@@ -464,7 +452,10 @@ export default function About() {
                   <span className={styles.founderTitle}>Founder & CEO</span>
                   <div className={styles.founderSocial}>
                     <motion.a
-                      href="#"
+                      href="https://www.linkedin.com/company/aroliya-group/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Neeraj Baghel on LinkedIn"
                       className={styles.socialLink}
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.9 }}
@@ -472,7 +463,10 @@ export default function About() {
                       <FaLinkedin />
                     </motion.a>
                     <motion.a
-                      href="#"
+                      href="https://x.com/Aroliya171825/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Neeraj Baghel on Twitter"
                       className={styles.socialLink}
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.9 }}
@@ -484,6 +478,7 @@ export default function About() {
                       className={styles.socialLink}
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.9 }}
+                      aria-label="Neeraj Baghel on GitHub"
                     >
                       <FaGithub />
                     </motion.a>
@@ -813,24 +808,11 @@ export default function About() {
             <h2>Ready to Start Your Project?</h2>
             <p>Let's discuss how we can help you achieve your digital goals</p>
             <div className={styles.ctaButtons}>
-              <Link href="/register">
-                {" "}
-                <motion.button
-                  className={styles.primaryButton}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Get Started
-                </motion.button>
+              <Link href="/register" className={styles.primaryButton}>
+                Get Started
               </Link>
-              <Link href="/contact">
-                <motion.button
-                  className={styles.secondaryButton}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Contact Us
-                </motion.button>
+              <Link href="/contact" className={styles.secondaryButton}>
+                Contact Us
               </Link>
             </div>
           </motion.div>

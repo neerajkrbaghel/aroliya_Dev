@@ -65,7 +65,7 @@
   align-items: center;
   gap: 16px;
   font-size: 0.88rem;
-  color: #94a3b8;
+  color: #6b7280;
   margin-bottom: 28px;
   padding-bottom: 28px;
   border-bottom: 1px solid #e2e8f0;
@@ -73,7 +73,7 @@
 
 .author {
   font-weight: 500;
-  color: #64748b;
+  color: #52525b;
 }
 
 .content {
@@ -149,7 +149,7 @@
   border-left: 4px solid #6366f1;
   padding-left: 20px;
   margin: 1.5rem 0;
-  color: #64748b;
+  color: #52525b;
   font-style: italic;
   background: #f8fafc;
   padding: 16px 20px;

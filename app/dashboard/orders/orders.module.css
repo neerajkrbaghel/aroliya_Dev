@@ -21,7 +21,7 @@
 }
 
 .headerTitle p {
-  color: #718096;
+  color: #4a5568;
   margin: 0;
   font-size: 0.875rem;
 }
@@ -121,7 +121,7 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #718096;
+  color: #4a5568;
 }
 
 .tableRow {
@@ -167,7 +167,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.75rem;
-  color: #718096;
+  color: #4a5568;
 }
 
 .service, .date {
@@ -264,7 +264,7 @@
   align-items: center;
   gap: 1rem;
   padding: 4rem 2rem;
-  color: #718096;
+  color: #4a5568;
   font-weight: 500;
 }
 
@@ -297,7 +297,7 @@
 }
 
 .noData p {
-  color: #718096;
+  color: #4a5568;
   margin: 0;
   font-size: 0.875rem;
 }

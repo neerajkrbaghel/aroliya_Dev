@@ -78,7 +78,7 @@
 
 .stat span {
   font-size: 14px;
-  color: #94a3b8;
+  color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -575,7 +575,7 @@
 }
 
 .featureTextExcluded {
-  color: #9ca3af;
+  color: #6b7280;
   text-decoration: line-through;
   font-size: 14px;
 }
@@ -676,7 +676,7 @@
 
 .authorInfo span {
   font-size: 16px;
-  color: #718096;
+  color: #4a5568;
 }
 
 .industryTag {
@@ -740,7 +740,7 @@
 .slideCounter {
   text-align: center;
   font-size: 14px;
-  color: #718096;
+  color: #4a5568;
   font-weight: 500;
 }
 
@@ -1312,7 +1312,7 @@
 }
 
 .projectContent p {
-  color: #718096;
+  color: #4a5568;
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 1rem;

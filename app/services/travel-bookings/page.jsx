@@ -823,11 +823,9 @@ const TravelBookings = () => {
                     </li>
                   ))}
                 </ul>
-                <Link href="https://expedia.com/affiliate/Taymxbh">
-                  <button className={styles.serviceButton}>
+                <Link href="https://expedia.com/affiliate/Taymxbh" className={styles.serviceButton}>
                     Explore Premium Options <FaChevronRight />
-                  </button>
-                </Link>
+                  </Link>
               </div>
             ))}
           </div>

@@ -588,11 +588,9 @@ const EcommerceSolutions = () => {
                     Start Your Store <FaArrowRight />
                   </motion.button>
                 </Link>
-                <Link href="#services">
-                  <button className={styles.btnSecondary}>
+                <Link href="#services" className={styles.btnSecondary}>
                     Explore Services
-                  </button>
-                </Link>
+                  </Link>
               </div>
             </motion.div>
             <motion.div

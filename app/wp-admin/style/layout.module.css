@@ -129,7 +129,7 @@
 .sidebarToggle {
   background: none;
   border: none;
-  color: #94a3b8;
+  color: #6b7280;
   font-size: 1.25rem;
   cursor: pointer;
   padding: 0.25rem;
@@ -268,7 +268,7 @@
 
 .userRole {
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: #6b7280;
   white-space: nowrap;
 }
 

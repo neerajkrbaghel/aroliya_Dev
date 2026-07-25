@@ -302,7 +302,7 @@
 }
 
 .searchInput::placeholder {
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 .filterContainer {
@@ -474,7 +474,7 @@
 }
 
 .dateIcon {
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 .actionCell {
@@ -764,7 +764,7 @@
 
 .historyDate {
   font-size: 12px;
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 .historyAmount {

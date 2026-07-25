@@ -67,7 +67,7 @@
   align-items: center;
   gap: 8px;
   background: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
+  color: #1d4ed8;
   padding: 8px 16px;
   border-radius: 50px;
   font-size: 14px;
@@ -162,7 +162,7 @@
 
 .secondaryButton {
   background: transparent;
-  color: #3b82f6;
+  color: #1d4ed8;
   border: 2px solid #3b82f6;
 }
 
@@ -214,7 +214,7 @@
   align-items: center;
   justify-content: center;
   font-size: 24px;
-  color: #3b82f6;
+  color: #1d4ed8;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
@@ -247,7 +247,7 @@
 .sectionLabel {
   display: inline-block;
   background: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
+  color: #1d4ed8;
   padding: 6px 16px;
   border-radius: 50px;
   font-size: 14px;
@@ -316,7 +316,7 @@
 }
 
 .achievementIcon {
-  color: #3b82f6;
+  color: #1d4ed8;
   font-size: 18px;
 }
 
@@ -393,7 +393,7 @@
 }
 
 .quoteIcon {
-  color: #3b82f6;
+  color: #1d4ed8;
   font-size: 24px;
   margin-bottom: 10px;
 }
@@ -547,7 +547,7 @@
   display: block;
   font-size: 2rem;
   font-weight: 700;
-  color: #3b82f6;
+  color: #1d4ed8;
   margin-bottom: 5px;
 }
 
@@ -685,7 +685,7 @@
 
 .ctaSection .primaryButton {
   background: white;
-  color: #3b82f6;
+  color: #1d4ed8;
 }
 
 .ctaSection .secondaryButton {

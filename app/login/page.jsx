@@ -1,6 +1,6 @@
-// app\login\page.jsx
 "use client";
 import { useState } from "react";
+import Head from "next/head";
 import styles from "./Login.module.css";
 import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash, FaUser, FaLock, FaEnvelope } from "react-icons/fa";
@@ -115,6 +115,10 @@ const handleGoogleLogin = async () => {
     <>
       <Nav />
       <WhatsApp />
+      <Head>
+        <title>Sign In | Aroliya - Web & Mobile App Development Agency</title>
+        <meta name="description" content="Sign in to your Aroliya account to access professional freelancing services, client dashboard, and project management tools." />
+      </Head>
       <div className={styles.container}>
         <div className={styles.loginWrapper}>
           {/* Left Panel - Brand Section */}
@@ -344,7 +348,7 @@ const handleGoogleLogin = async () => {
 
               {message && (
                 <div
-                  className={`${styles.message} ${
+                  role="alert" className={`${styles.message} ${
                     message.toLowerCase().includes("error") ||
                     message.toLowerCase().includes("invalid") ||
                     message.toLowerCase().includes("failed")

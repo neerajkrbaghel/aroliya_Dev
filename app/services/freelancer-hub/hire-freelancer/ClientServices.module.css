@@ -186,7 +186,7 @@
 
 .secondaryButton:hover {
   background: #f8fafc;
-  border-color: #94a3b8;
+  border-color: #6b7280;
 }
 
 .playIcon {
@@ -318,7 +318,7 @@
 
 .featureItem:hover {
   background: white;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   transform: translateX(4px);
 }
 
@@ -411,7 +411,7 @@
 
 .processStep:hover {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   transform: translateY(-8px);
 }
 
@@ -448,7 +448,7 @@
 .processStep:hover .stepIcon {
   background: linear-gradient(135deg, #1d4ed8, #3b82f6);
   color: white;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   transform: scale(1.1);
 }
 
@@ -513,7 +513,7 @@
 
 .industryCard:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   transform: translateY(-8px);
 }
 
@@ -544,7 +544,7 @@
 }
 
 .projectCount {
-  color: #3b82f6;
+  color: #1d4ed8;
   font-weight: 700;
   font-size: 0.95rem;
   background: #f0f9ff;
@@ -611,7 +611,7 @@
 .tabButton.active {
   background: white;
   color: #1d4ed8;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
 }
 
@@ -655,7 +655,7 @@
 .featureCard:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
   transform: translateY(-8px);
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
 }
 
 .featureHeader {
@@ -716,7 +716,7 @@
   position: absolute;
   bottom: 2.5rem;
   right: 2.5rem;
-  color: #3b82f6;
+  color: #1d4ed8;
   font-size: 1.25rem;
   transition: all 0.3s ease;
   width: 40px;
@@ -776,7 +776,7 @@
 }
 
 .planCard.popular {
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
   transform: scale(1.05);
 }
@@ -888,7 +888,7 @@
 }
 
 .featureExcluded {
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 .featureCheck {
@@ -898,7 +898,7 @@
 }
 
 .featureCross {
-  color: #94a3b8;
+  color: #6b7280;
   font-size: 1.1rem;
   flex-shrink: 0;
 }
@@ -1009,8 +1009,8 @@
 }
 
 .navButton:hover {
-  border-color: #3b82f6;
-  color: #3b82f6;
+  border-color: #1d4ed8;
+  color: #1d4ed8;
   transform: scale(1.1);
 }
 
@@ -1084,7 +1084,7 @@
 
 .quoteIcon {
   font-size: 4rem;
-  color: #3b82f6;
+  color: #1d4ed8;
   opacity: 0.3;
 }
 
@@ -1118,7 +1118,7 @@
 .testimonialText::before,
 .testimonialText::after {
   content: '"';
-  color: #3b82f6;
+  color: #1d4ed8;
   font-size: 2rem;
   font-weight: bold;
   opacity: 0.5;
@@ -1187,7 +1187,7 @@
 }
 
 .company {
-  color: #3b82f6 !important;
+  color: #1d4ed8 !important;
   font-weight: 600;
   font-size: 0.9rem !important;
 }
@@ -1201,7 +1201,7 @@
 .industry,
 .projects {
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: #6b7280;
   background: rgba(255, 255, 255, 0.1);
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -1237,13 +1237,13 @@
 .scrollItem.active {
   background: linear-gradient(135deg, #1d4ed8, #3b82f6);
   color: white;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
   transform: scale(1.05);
 }
 
 .scrollItem:hover:not(.active) {
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   transform: translateY(-2px);
 }
 
@@ -1264,7 +1264,7 @@
 
 .scrollItem.active .scrollAvatar {
   background: white;
-  color: #3b82f6;
+  color: #1d4ed8;
 }
 
 .scrollInfo {
@@ -1426,7 +1426,7 @@
 }
 
 .faqItem.active {
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15);
 }
 

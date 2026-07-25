@@ -1,0 +1,94 @@
+---
+title: "Web Security Best Practices Every Developer Should Follow"
+date: "5 July 2026"
+author: "Neeraj Kumar"
+tags: ["security", "web-development", "best-practices"]
+excerpt: "Protect your users and your business with these essential web security practices. From HTTPS to CSP, here's what every developer needs to know."
+---
+
+Security isn't an afterthought—it's a fundamental part of building web applications. With cyber attacks becoming more sophisticated, every developer must understand and implement security best practices from day one.
+
+## 1. HTTPS Everywhere
+
+There's no excuse for not using HTTPS in 2026. SSL/TLS certificates are free through Let's Encrypt and provide:
+
+- Encrypted data transmission
+- Authentication of your server
+- Data integrity protection
+- Better search engine rankings
+
+## 2. Input Validation and Sanitization
+
+Never trust user input. Always validate and sanitize on both client and server side:
+
+### Client-Side Validation
+- Check data types and formats
+- Validate file uploads (type, size, dimensions)
+- Use proper input types (email, url, tel)
+
+### Server-Side Validation
+- Never rely solely on client-side validation
+- Sanitize all inputs to prevent XSS attacks
+- Use parameterized queries to prevent SQL injection
+- Validate file uploads server-side
+
+## 3. Cross-Site Scripting (XSS) Prevention
+
+XSS attacks inject malicious scripts into your web pages. Prevent them by:
+
+- Escaping output properly (React does this by default)
+- Using Content Security Policy (CSP) headers
+- Avoiding dangerouslySetInnerHTML in React
+- Sanitizing HTML when you must render user content
+
+```
+Content-Security-Policy: default-src 'self'; script-src 'self'
+```
+
+## 4. Authentication and Session Management
+
+Secure authentication is critical:
+
+- Use bcrypt or Argon2 for password hashing
+- Implement multi-factor authentication
+- Use HTTP-only, secure cookies for sessions
+- Set short session expiration times
+- Implement rate limiting on login endpoints
+
+## 5. API Security
+
+If your frontend communicates with APIs, secure them properly:
+
+- Use API keys or OAuth for authentication
+- Implement rate limiting
+- Validate all request payloads
+- Use HTTPS exclusively
+- Log and monitor API access
+
+## 6. Regular Dependency Audits
+
+Your application is only as secure as its weakest dependency:
+
+- Run `npm audit` regularly
+- Use tools like Dependabot or Snyk for automated vulnerability detection
+- Keep dependencies updated
+- Remove unused dependencies
+- Review dependency licenses
+
+## 7. Security Headers
+
+Implement these essential HTTP security headers:
+
+```
+Strict-Transport-Security: max-age=31536000
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Referrer-Policy: strict-origin-when-cross-origin
+Permissions-Policy: camera=(), microphone=()
+```
+
+## Conclusion
+
+Web security is an ongoing process, not a one-time implementation. Stay informed about new vulnerabilities, keep your dependencies updated, and make security a part of your development workflow.
+
+Remember: the cost of a security breach far exceeds the investment in prevention.

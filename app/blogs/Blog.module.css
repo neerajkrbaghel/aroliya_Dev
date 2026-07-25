@@ -41,7 +41,7 @@
 
 .hero p {
   font-size: 1.15rem;
-  color: #94a3b8;
+  color: #6b7280;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -110,7 +110,7 @@
 
 .card p {
   font-size: 0.9rem;
-  color: #64748b;
+  color: #52525b;
   line-height: 1.6;
   margin-bottom: 16px;
 }
@@ -120,18 +120,18 @@
   align-items: center;
   gap: 12px;
   font-size: 0.82rem;
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 .author {
   font-weight: 500;
-  color: #64748b;
+  color: #52525b;
 }
 
 .empty {
   grid-column: 1 / -1;
   text-align: center;
-  color: #94a3b8;
+  color: #6b7280;
   font-size: 1.1rem;
   padding: 60px 0;
 }

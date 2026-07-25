@@ -96,7 +96,7 @@
 
 .paginationButton:hover:not(:disabled) {
   background: #f3f4f6;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .paginationButton:disabled {
@@ -124,13 +124,13 @@
 
 .pageButton:hover {
   background: #f3f4f6;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .activePage {
   background: #3b82f6;
   color: white;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
 }
 
 .ellipsis {

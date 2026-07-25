@@ -95,7 +95,6 @@ const FAQ = () => {
     },
   ];
 
-  // Determine which FAQs to show based on active tab
   let currentFAQs = [];
   if (activeTab === "general") {
     currentFAQs = generalFAQs;
@@ -108,7 +107,6 @@ const FAQ = () => {
   return (
     <section className={styles.faqSection} id="faq">
       <div className={styles.container}>
-        {/* Header */}
         <div className={styles.header}>
           <h2 className={styles.title}>Frequently Asked Questions</h2>
           <p className={styles.subtitle}>
@@ -117,7 +115,6 @@ const FAQ = () => {
           </p>
         </div>
 
-        {/* Filter Tabs */}
         <div className={styles.tabs}>
           <button
             className={`${styles.tab} ${
@@ -145,7 +142,6 @@ const FAQ = () => {
           </button>
         </div>
 
-        {/* Freelancer Registration CTA */}
         {activeTab === "freelancer" && (
           <div className={styles.ctaSection}>
             <div className={styles.ctaContent}>
@@ -163,34 +159,39 @@ const FAQ = () => {
           </div>
         )}
 
-        {/* FAQ Items */}
         <div className={styles.faqGrid} data-aos="zoom-out-up">
-          {currentFAQs.map((faq, index) => (
-            <div
-              key={index}
-              className={`${styles.faqItem} ${
-                openQuestion === index ? styles.active : ""
-              }`}
-            >
-              <button
-                className={styles.question}
-                onClick={() => toggleQuestion(index)}
-                aria-expanded={openQuestion === index}
-              >
-                <span className={styles.questionText}>{faq.question}</span>
-                <span className={styles.icon}>
-                  {openQuestion === index ? "−" : "+"}
-                </span>
-              </button>
-
+          {currentFAQs.map((faq, index) => {
+            const isExpanded = openQuestion === index;
+            const panelId = `faq-answer-${index}`;
+            return (
               <div
-                className={styles.answer}
-                aria-hidden={openQuestion !== index}
+                key={index}
+                className={`${styles.faqItem} ${
+                  isExpanded ? styles.active : ""
+                }`}
               >
-                <p>{faq.answer}</p>
+                <button
+                  className={styles.question}
+                  onClick={() => toggleQuestion(index)}
+                  aria-expanded={isExpanded}
+                  aria-controls={panelId}
+                >
+                  <span className={styles.questionText}>{faq.question}</span>
+                  <span className={styles.icon}>
+                    {isExpanded ? "−" : "+"}
+                  </span>
+                </button>
+
+                <div
+                  id={panelId}
+                  className={styles.answer}
+                  hidden={!isExpanded}
+                >
+                  <p>{faq.answer}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

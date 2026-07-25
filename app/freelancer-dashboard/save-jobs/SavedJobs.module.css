@@ -43,7 +43,7 @@
 
 .badgeIcon {
   font-size: 14px;
-  color: #3b82f6;
+  color: #1d4ed8;
 }
 
 .headerTitle h1 {
@@ -88,7 +88,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #3b82f6;
+  color: #1d4ed8;
   font-size: 20px;
 }
 
@@ -150,12 +150,12 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .searchInput::placeholder {
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 .filtersContainer {
@@ -191,7 +191,7 @@
 
 .filterSelect:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
 }
 
 .currencyToggle {
@@ -385,7 +385,7 @@
 }
 
 .jobTitle:hover {
-  color: #3b82f6;
+  color: #1d4ed8;
 }
 
 .jobDescription {
@@ -431,7 +431,7 @@
 }
 
 .moreSkills {
-  color: #94a3b8;
+  color: #6b7280;
   font-size: 12px;
   font-style: italic;
   align-self: center;
@@ -474,7 +474,7 @@
 
 .viewButton:hover {
   background: #f1f5f9;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .applyButton {

@@ -38,7 +38,7 @@
 
 .headerSubtitle {
   font-size: 1.1rem;
-  color: #718096;
+  color: #4a5568;
   margin: 0;
 }
 
@@ -90,7 +90,7 @@
 
 .statLabel {
   font-size: 0.875rem;
-  color: #718096;
+  color: #4a5568;
   font-weight: 500;
 }
 
@@ -244,7 +244,7 @@
   align-items: center;
   gap: 6px;
   font-size: 0.875rem;
-  color: #718096;
+  color: #4a5568;
 }
 
 .metaIcon {
@@ -333,7 +333,7 @@
 }
 
 .bidIcon {
-  color: #718096;
+  color: #4a5568;
   font-size: 0.875rem;
 }
 
@@ -344,7 +344,7 @@
 
 .bidLabel {
   font-size: 0.75rem;
-  color: #718096;
+  color: #4a5568;
   margin-bottom: 2px;
 }
 
@@ -356,7 +356,7 @@
 
 .coverLetterPreview,
 .jobDescriptionPreview {
-  color: #718096;
+  color: #4a5568;
   font-size: 0.9rem;
   line-height: 1.5;
   margin-bottom: 12px;
@@ -396,7 +396,7 @@
   align-items: center;
   gap: 6px;
   font-size: 0.875rem;
-  color: #718096;
+  color: #4a5568;
 }
 
 .proposalActions {
@@ -446,7 +446,7 @@
 }
 
 .emptyState p {
-  color: #718096;
+  color: #4a5568;
   margin: 0 0 24px 0;
   max-width: 400px;
   margin-left: auto;
@@ -489,7 +489,7 @@
 }
 
 .loadingContainer p {
-  color: #718096;
+  color: #4a5568;
   margin: 0;
 }
 
@@ -544,7 +544,7 @@
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #718096;
+  color: #4a5568;
   cursor: pointer;
   padding: 4px;
   border-radius: 4px;
@@ -592,7 +592,7 @@
 
 .detailItem strong {
   font-size: 0.875rem;
-  color: #718096;
+  color: #4a5568;
   font-weight: 500;
 }
 

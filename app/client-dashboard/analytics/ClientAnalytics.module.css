@@ -604,7 +604,7 @@
 }
 
 .sectionTab.active {
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   background: #f8fafc;
 }
 
@@ -697,7 +697,7 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -944,7 +944,7 @@
 }
 
 .noComment {
-  color: #94a3b8;
+  color: #6b7280;
   font-style: italic;
   font-size: 0.875rem;
 }
@@ -1052,7 +1052,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: #94a3b8;
+  color: #6b7280;
   text-align: center;
 }
 
@@ -1580,7 +1580,7 @@
 }
 
 .sectionTab.active {
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
   transform: translateY(-2px);
@@ -1600,7 +1600,7 @@
 }
 
 .sectionTab.active svg {
-  color: #3b82f6;
+  color: #1d4ed8;
 }
 
 .sectionTab:hover:not(.active) svg {
@@ -1846,7 +1846,7 @@
 }
 
 .reviewCard:hover .comment {
-  border-left-color: #3b82f6;
+  border-left-color: #1d4ed8;
   background: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
@@ -1859,7 +1859,7 @@
 }
 
 .noComment {
-  color: #94a3b8;
+  color: #6b7280;
   font-style: italic;
   font-size: 0.875rem;
 }
@@ -1895,7 +1895,7 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.5rem;
-  color: #94a3b8;
+  color: #6b7280;
   font-size: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
@@ -1908,7 +1908,7 @@
 }
 
 .emptyState small {
-  color: #94a3b8;
+  color: #6b7280;
   font-size: 0.875rem;
 }
 
@@ -1950,13 +1950,13 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
   transform: translateY(-1px);
 }
 
 .searchInput::placeholder {
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 .tableActions {
@@ -1982,7 +1982,7 @@
 
 .pageSizeSelect:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -2023,7 +2023,7 @@
 
 .paginationButton:hover:not(:disabled) {
   background: #3b82f6;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   color: #ffffff;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
@@ -2055,21 +2055,21 @@
 }
 
 .pageButton:hover:not(.active) {
-  border-color: #3b82f6;
-  color: #3b82f6;
+  border-color: #1d4ed8;
+  color: #1d4ed8;
   transform: translateY(-1px);
 }
 
 .pageButton.active {
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   color: #ffffff;
   box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
   transform: translateY(-1px);
 }
 
 .pageDots {
-  color: #9ca3af;
+  color: #6b7280;
   padding: 0 0.5rem;
   font-weight: 500;
 }
@@ -2169,7 +2169,7 @@
 
 /* Hover effects for interactive elements */
 .reviewCard:hover .projectTitle {
-  color: #3b82f6;
+  color: #1d4ed8;
 }
 
 .reviewCard:hover .avatar {
@@ -2224,7 +2224,7 @@
   }
 
   .searchInput::placeholder {
-    color: #9ca3af;
+    color: #6b7280;
   }
 
   .comment {
@@ -2391,7 +2391,7 @@
 
 .projectInfo svg,
 .projectBudget svg {
-  color: #3b82f6;
+  color: #1d4ed8;
   font-size: 0.9rem;
 }
 
@@ -2551,13 +2551,13 @@
 
 .commentTextarea:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   background: #fafbfc;
 }
 
 .commentTextarea::placeholder {
-  color: #9ca3af;
+  color: #6b7280;
   font-style: italic;
 }
 
@@ -2871,13 +2871,13 @@
   }
 
   .modalTitle p {
-    color: #9ca3af;
+    color: #6b7280;
   }
 
   .closeButton {
     background: #374151;
     border-color: #4b5563;
-    color: #9ca3af;
+    color: #6b7280;
   }
 
   .closeButton:hover {

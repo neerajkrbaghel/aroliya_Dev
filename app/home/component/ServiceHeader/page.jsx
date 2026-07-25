@@ -103,9 +103,8 @@ export default function ServicesHeader() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
-            <Link href="/register">
-              {" "}
-              <button className={styles.primaryButton}>Get Started</button>
+            <Link href="/register" className={styles.primaryButton}>
+              Get Started
             </Link>
           </motion.div>
 

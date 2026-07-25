@@ -7,8 +7,7 @@ import { FaInstagram, FaFacebook, FaLinkedin, FaUser } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { MdMarkEmailRead } from "react-icons/md";
 import { FaPhoneAlt } from "react-icons/fa";
-import AOS from "aos";
-import "aos/dist/aos.css";
+
 import logo from "../../../../public/logo/logo.png";
 import styles from "./Nav.module.css";
 
@@ -25,7 +24,7 @@ export default function Nav() {
   const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
-    AOS.init({ duration: 1000 });
+    import("aos").then((mod) => mod.default.init({ duration: 1000 }));
     checkAuthStatus();
 
     const handleScroll = () => setIsFixed(window.scrollY > 20);
@@ -129,119 +128,118 @@ export default function Nav() {
           <Image src={logo} alt="Aroliya Logo - Custom Web & Mobile App Development Agency" width={150} height={50} />
         </Link>
 
-        <ul className={`${styles.navLinks} ${isOpen ? styles.active : ""}`} role="menubar" aria-label="Main menu">
+        <div className={`${styles.navLinksContainer} ${isOpen ? styles.active : ""}`}>
           {/* Close button for mobile */}
           <button className={styles.closeButton} onClick={closeMenu} aria-label="Close menu">
             <IoClose size={26} aria-hidden="true" />
           </button>
+          <ul className={styles.navLinks}>
 
-          <li role="none">
-            <Link href="/" onClick={closeMenu} role="menuitem">
-              Home
-            </Link>
-          </li>
-          <li role="none">
-            <Link href="/about" onClick={closeMenu} role="menuitem">
-              About Us
-            </Link>
-          </li>
-          <li role="none">
-            <Link href="/our-team" onClick={closeMenu} role="menuitem">
-              Our Team
-            </Link>
-          </li>
-          <li>
-            <Link href="/blogs" onClick={closeMenu}>
-              Blog
-            </Link>
-          </li>
-          
-          {/* 💼 Services Dropdown */}
-          <li className={styles.dropdown} role="none">
-            <button
-              onClick={() => toggleDropdown("services")}
-              aria-expanded={dropdown.services}
-              aria-haspopup="true"
-              role="menuitem"
-            >
-              Services <IoChevronDown aria-hidden="true" />
-            </button>
-            {dropdown.services && (
-              <div className={styles.dropdownMenu} role="menu" aria-label="Services">
-                <Link href="/services/web-and-app-development" onClick={closeMenu} role="menuitem">
-                  Web & App Development
-                </Link>
-                <Link href="/services/e-commerce-solutions" onClick={closeMenu} role="menuitem">
-                  E-commerce Solutions
-                </Link>
-                <Link href="/services/virtual-assistance" onClick={closeMenu} role="menuitem">
-                  Virtual Assistance
-                </Link>
-                <Link href="/services/form-filling" onClick={closeMenu} role="menuitem">
-                  Online Form Filling
-                </Link>
-                <Link href="/services/travel-bookings" onClick={closeMenu} role="menuitem">
-                  Travel & Hotel booking
-                </Link>
-                <Link href="/services/data-visualization" onClick={closeMenu} role="menuitem">
-                  Data & AI Solution
-                </Link>
-              </div>
-            )}
-          </li>
-          
-          <li role="none">
-            <Link href="/find-work" onClick={closeMenu} role="menuitem">
-              Find Work
-            </Link>
-          </li>
-          
-          {/* 👥 Freelancer Hub Dropdown */}
-          <li className={styles.dropdown} role="none">
-            <button
-              onClick={() => toggleDropdown("freelancer")}
-              aria-expanded={dropdown.freelancer}
-              aria-haspopup="true"
-              role="menuitem"
-            >
-              Freelancer Hub <IoChevronDown aria-hidden="true" />
-            </button>
-            {dropdown.freelancer && (
-              <div className={styles.dropdownMenu} role="menu" aria-label="Freelancer">
-                <Link
-                  href="/services/freelancer-hub/freelancer-plan"
-                  onClick={closeMenu}
-                  role="menuitem"
-                >
-                  Join as Freelancer
-                </Link>
-                <Link
-                  href="/services/freelancer-hub/hire-freelancer"
-                  onClick={closeMenu}
-                  role="menuitem"
-                >
-                  Hire Freelancer
-                </Link>
-              </div>
-            )}
-          </li>
+            <li>
+              <Link href="/" onClick={closeMenu} >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" onClick={closeMenu} >
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link href="/our-team" onClick={closeMenu} >
+                Our Team
+              </Link>
+            </li>
+            <li>
+              <Link href="/blogs" onClick={closeMenu}>
+                Blog
+              </Link>
+            </li>
+            
+            {/* Services Dropdown */}
+            <li className={styles.dropdown}>
+              <button
+                onClick={() => toggleDropdown("services")}
+                aria-expanded={dropdown.services}
+                aria-haspopup="true"
+                
+              >
+                Services <IoChevronDown aria-hidden="true" />
+              </button>
+              {dropdown.services && (
+                <div className={styles.dropdownMenu} role="menu" aria-label="Services">
+                  <Link href="/services/web-and-app-development" onClick={closeMenu} >
+                    Web & App Development
+                  </Link>
+                  <Link href="/services/e-commerce-solutions" onClick={closeMenu} >
+                    E-commerce Solutions
+                  </Link>
+                  <Link href="/services/virtual-assistance" onClick={closeMenu} >
+                    Virtual Assistance
+                  </Link>
+                  <Link href="/services/form-filling" onClick={closeMenu} >
+                    Online Form Filling
+                  </Link>
+                  <Link href="/services/travel-bookings" onClick={closeMenu} >
+                    Travel & Hotel booking
+                  </Link>
+                  <Link href="/services/data-visualization" onClick={closeMenu} >
+                    Data & AI Solution
+                  </Link>
+                </div>
+              )}
+            </li>
+            
+            <li>
+              <Link href="/find-work" onClick={closeMenu} >
+                Find Work
+              </Link>
+            </li>
+            
+            {/* Freelancer Hub Dropdown */}
+            <li className={styles.dropdown}>
+              <button
+                onClick={() => toggleDropdown("freelancer")}
+                aria-expanded={dropdown.freelancer}
+                aria-haspopup="true"
+                
+              >
+                Freelancer Hub <IoChevronDown aria-hidden="true" />
+              </button>
+              {dropdown.freelancer && (
+                <div className={styles.dropdownMenu} role="menu" aria-label="Freelancer">
+                  <Link
+                    href="/services/freelancer-hub/freelancer-plan"
+                    onClick={closeMenu}
+                    
+                  >
+                    Join as Freelancer
+                  </Link>
+                  <Link
+                    href="/services/freelancer-hub/hire-freelancer"
+                    onClick={closeMenu}
+                    
+                  >
+                    Hire Freelancer
+                  </Link>
+                </div>
+              )}
+            </li>
 
-  
-       
+            <li>
+              <Link href="/career" onClick={closeMenu} >
+                Career
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact-us" onClick={closeMenu} >
+                Contact Us
+              </Link>
+            </li>
+          </ul>
 
-          <li role="none">
-            <Link href="/career" onClick={closeMenu} role="menuitem">
-              Career
-            </Link>
-          </li>
-          <li role="none">
-            <Link href="/contact-us" onClick={closeMenu} role="menuitem">
-              Contact Us
-            </Link>
-          </li>
-
-          {/* Mobile Auth Buttons */}
-          <div className={styles.mobileAuthButtons} role="none">
+          {/* Mobile Auth Buttons (outside ul to avoid invalid markup) */}
+          <div className={styles.mobileAuthButtons}>
             {user ? (
               <Link
                 href={getDashboardLink()}
@@ -253,34 +251,26 @@ export default function Nav() {
               </Link>
             ) : (
               <>
-                <Link href="/login">
-                  <button className={styles.loginBtn} onClick={closeMenu} aria-label="Login to your account">
-                    Login
-                  </button>
+                <Link href="/login" className={styles.loginBtn} onClick={closeMenu}>
+                  Login
                 </Link>
-                <Link href="/register">
-                  <button className={styles.signUpBtn} onClick={closeMenu} aria-label="Create a new account">
-                    Register
-                  </button>
+                <Link href="/register" className={styles.signUpBtn} onClick={closeMenu}>
+                  Register
                 </Link>
               </>
             )}
           </div>
-        </ul>
+        </div>
 
-        <div className={styles.actions} role="none">
+        <div className={styles.actions}>
           {user ? (
             <Link href={getDashboardLink()} className={styles.dashboardBtn} aria-label={`Dashboard - ${userName}`}>
               <FaUser aria-hidden="true" /> {userName}
             </Link>
           ) : (
             <>
-              <Link href="/login">
-                <button className={styles.loginBtn} aria-label="Login to your account">Login</button>
-              </Link>
-              <Link href="/register">
-                <button className={styles.signUpBtn} aria-label="Create a new account">Register</button>
-              </Link>
+              <Link href="/login" className={styles.loginBtn}>Login</Link>
+              <Link href="/register" className={styles.signUpBtn}>Register</Link>
             </>
           )}
         </div>

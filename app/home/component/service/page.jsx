@@ -89,7 +89,6 @@ const Services = () => {
   return (
     <section className={styles.services} id="services">
       <div className={styles.container}>
-        {/* Header Section */}
         <div className={styles.header}>
           <h2 className={styles.title}>Our Services</h2>
           <p className={styles.subtitle}>
@@ -98,11 +97,9 @@ const Services = () => {
           </p>
         </div>
 
-        {/* Services Grid */}
         <div className={styles.servicesGrid}>
           {services.map((service, index) => (
             <div key={index} className={styles.serviceCard}>
-              {/* Service Image - Larger size with high quality */}
               <div className={styles.imageContainer}>
                 <Image
                   src={service.image}
@@ -110,13 +107,12 @@ const Services = () => {
                   width={140}
                   height={140}
                   className={styles.serviceImage}
-                  quality={100}
+                  
                   priority={index < 3}
-                  unoptimized={true} // Bypass Next.js optimization for original quality
+                  
                 />
               </div>
 
-              {/* Service Content */}
               <div className={styles.content}>
                 <div className={styles.headerSection}>
                   <h3 className={styles.serviceTitle}>{service.title}</h3>
@@ -132,11 +128,9 @@ const Services = () => {
                   ))}
                 </ul>
 
-                <Link href={service.link || "#"} className={styles.serviceLink}>
-                  <button className={styles.ctaButton}>
-                    {service.buttonText}
-                    <FaArrowRight className={styles.arrowIcon} />
-                  </button>
+                <Link href={service.link || "#"} className={styles.ctaButton}>
+                  {service.buttonText}
+                  <FaArrowRight className={styles.arrowIcon} />
                 </Link>
               </div>
             </div>

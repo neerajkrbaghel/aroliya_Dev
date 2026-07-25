@@ -224,6 +224,7 @@ export default function Contact() {
 
                 {error && (
                   <motion.div
+                    role="alert"
                     className={styles.errorMessage}
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -233,6 +234,7 @@ export default function Contact() {
                     <button
                       onClick={() => setError("")}
                       className={styles.errorClose}
+                      aria-label="Close error message"
                     >
                       ×
                     </button>
@@ -584,23 +586,11 @@ export default function Contact() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
               >
-                <a href="tel:+919870519002">
-                  <motion.button
-                    className={styles.primaryButton}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <FaPhoneAlt /> Call Now
-                  </motion.button>
+                <a href="tel:+919870519002" className={styles.primaryButton}>
+                  <FaPhoneAlt /> Call Now
                 </a>
-                <a href="mailto:info@aroliya.com">
-                  <motion.button
-                    className={styles.secondaryButton}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <MdEmail /> Send Email
-                  </motion.button>
+                <a href="mailto:info@aroliya.com" className={styles.secondaryButton}>
+                  <MdEmail /> Send Email
                 </a>
               </motion.div>
             </motion.div>

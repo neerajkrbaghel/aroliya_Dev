@@ -204,7 +204,7 @@
 }
 
 .subtitle {
-  color: #718096;
+  color: #4a5568;
   font-size: 1rem;
 }
 
@@ -263,7 +263,7 @@
   position: relative;
   text-align: center;
   margin: 24px 0;
-  color: #718096;
+  color: #4a5568;
   font-size: 0.875rem;
 }
 
@@ -347,7 +347,7 @@
 .roleDescription {
   display: block;
   font-size: 0.75rem;
-  color: #718096;
+  color: #4a5568;
 }
 
 /* Input Styles */
@@ -415,7 +415,7 @@
 
 .passwordHint {
   font-size: 0.75rem;
-  color: #718096;
+  color: #4a5568;
   margin-top: 4px;
 }
 
@@ -569,7 +569,7 @@
 }
 
 .footerText {
-  color: #718096;
+  color: #4a5568;
   font-size: 0.875rem;
 }
 
@@ -663,7 +663,7 @@
 }
 
 .otpInput:focus {
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   outline: none;
 }
@@ -721,7 +721,7 @@
 .resendButton {
   background: none;
   border: none;
-  color: #3b82f6;
+  color: #1d4ed8;
   cursor: pointer;
   font-weight: 600;
   transition: color 0.2s;
@@ -736,7 +736,7 @@
 }
 
 .resendButton:disabled {
-  color: #9ca3af;
+  color: #6b7280;
   cursor: not-allowed;
 }
 

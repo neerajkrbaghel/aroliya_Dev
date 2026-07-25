@@ -63,7 +63,7 @@ export default function ProfessionalServicesHero() {
                 <FaUserTie />
               </div>
               <div className={styles.featureContent}>
-                <h4>Official Forms</h4>
+                <h3>Official Forms</h3>
                 <p>Accurate submissions with guaranteed compliance</p>
               </div>
             </div>
@@ -72,7 +72,7 @@ export default function ProfessionalServicesHero() {
                 <FaGraduationCap />
               </div>
               <div className={styles.featureContent}>
-                <h4>Exam Applications</h4>
+                <h3>Exam Applications</h3>
                 <p>Comprehensive exam & admission form assistance</p>
               </div>
             </div>
@@ -81,7 +81,7 @@ export default function ProfessionalServicesHero() {
                 <FaBuilding />
               </div>
               <div className={styles.featureContent}>
-                <h4>Business Forms</h4>
+                <h3>Business Forms</h3>
                 <p>Corporate and bulk form processing for companies</p>
               </div>
             </div>
@@ -90,18 +90,16 @@ export default function ProfessionalServicesHero() {
                 <MdSecurity />
               </div>
               <div className={styles.featureContent}>
-                <h4>Secure Handling</h4>
+                <h3>Secure Handling</h3>
                 <p>Confidential document processing with encryption</p>
               </div>
             </div>
           </div>
 
           <div className={styles.ctaContainer}>
-            <Link href="/services/form-filling">
-              <button className={`${styles.btn} ${styles.primaryBtn}`}>
+            <Link href="/services/form-filling" className={`${styles.btn} ${styles.primaryBtn}`}>
                 <span>Get Started Today</span>
                 <FaArrowRight className={styles.btnArrow} />
-              </button>
             </Link>
             <div className={styles.secondaryCta}>
               <Link href="/services/form-filling#pricing">
@@ -153,7 +151,7 @@ export default function ProfessionalServicesHero() {
                 <MdTravelExplore />
               </div>
               <div className={styles.featureContent}>
-                <h4>Best Price Guarantee</h4>
+                <h3>Best Price Guarantee</h3>
                 <p>Premium hotels and amenities at competitive rates</p>
               </div>
             </div>
@@ -162,7 +160,7 @@ export default function ProfessionalServicesHero() {
                 <FaPlane />
               </div>
               <div className={styles.featureContent}>
-                <h4>Flight Bookings</h4>
+                <h3>Flight Bookings</h3>
                 <p>Effortless bookings with instant confirmation</p>
               </div>
             </div>
@@ -171,7 +169,7 @@ export default function ProfessionalServicesHero() {
                 <FaHeadset />
               </div>
               <div className={styles.featureContent}>
-                <h4>24/7 Support</h4>
+                <h3>24/7 Support</h3>
                 <p>Dedicated travel assistance anytime, anywhere</p>
               </div>
             </div>
@@ -180,18 +178,16 @@ export default function ProfessionalServicesHero() {
                 <FaShieldAlt />
               </div>
               <div className={styles.featureContent}>
-                <h4>Travel Insurance</h4>
+                <h3>Travel Insurance</h3>
                 <p>Emergency support and comprehensive coverage</p>
               </div>
             </div>
           </div>
 
           <div className={styles.ctaContainer}>
-            <Link href="/services/travel-bookings">
-              <button className={`${styles.btn} ${styles.primaryBtn}`}>
+            <Link href="/services/travel-bookings" className={`${styles.btn} ${styles.primaryBtn}`}>
                 <span>Plan Your Trip</span>
                 <FaArrowRight className={styles.btnArrow} />
-              </button>
             </Link>
           </div>
         </div>

@@ -50,7 +50,7 @@ export default function BlogPage() {
           ) : (
             posts.map((post) => (
               <article key={post.slug} className={styles.card}>
-                <Link href={`/blogs/${post.slug}`}>
+                <Link href={`/blogs/${post.slug}`} aria-label={`Read more: ${post.data.title}`}>
                   <div className={styles.cardBody}>
                     {post.data.tags && (
                       <div className={styles.tags}>

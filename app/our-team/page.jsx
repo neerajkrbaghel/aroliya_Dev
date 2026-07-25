@@ -63,8 +63,8 @@ const Team = () => {
       experience: "4+ years",
       expertise: ["React.js", "Node.js", "MongoDB"],
       social: {
-        linkedin: "#",
-        github: "#",
+        linkedin: "https://www.linkedin.com/in/chintan-rabadiya/",
+        github: "https://github.com/chintanrabadiya",
       },
     },
     {
@@ -77,8 +77,8 @@ const Team = () => {
       experience: "3+ years",
       expertise: ["Content Strategy", "Community Management", "Analytics"],
       social: {
-        linkedin: "#",
-        instagram: "#",
+        linkedin: "https://www.linkedin.com/in/sela-pawestri/",
+        instagram: "https://www.instagram.com/selapawestri/",
       },
     },
     {
@@ -109,7 +109,7 @@ const Team = () => {
       experience: "2+ years",
       expertise: ["Administrative Support", "Communication", "Organization"],
       social: {
-        linkedin: "#",
+        linkedin: "https://www.linkedin.com/in/nidhi-hongal/",
       },
     },
     {
@@ -122,7 +122,7 @@ const Team = () => {
       experience: "6+ years",
       expertise: ["Client Support", "Operations", "Social Media Management"],
       social: {
-        linkedin: "#",
+        linkedin: "https://www.linkedin.com/in/jay-sikar/",
       },
     },
   ];

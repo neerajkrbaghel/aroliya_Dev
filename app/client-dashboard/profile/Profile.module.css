@@ -247,7 +247,7 @@
 
 .input:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -375,7 +375,7 @@
 
 .cancelButton:hover:not(:disabled) {
   background: #f9fafb;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .cancelButton:disabled {

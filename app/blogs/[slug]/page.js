@@ -51,7 +51,7 @@ export default async function BlogPostPage({ params }) {
         <link rel="canonical" href={`https://aroliya.com/blogs/${slug}`} />
       </Head>
       <Nav />
-      <div className={styles.container} id="main-content" role="main">
+      <div className={styles.container} role="main">
         <Link href="/blogs" className={styles.back}>
           &larr; Back to Blog
         </Link>

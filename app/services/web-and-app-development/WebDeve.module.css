@@ -79,7 +79,7 @@
 
 .heroSubtitle {
   font-size: 1.2rem;
-  color: #94a3b8;
+  color: #6b7280;
   line-height: 1.7;
   margin-bottom: 2rem;
 }
@@ -193,7 +193,7 @@
 
 .statLabel {
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: #6b7280;
   font-weight: 500;
 }
 
@@ -417,7 +417,7 @@
 }
 
 .projectsSection .sectionHeader p {
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 .projectsGrid {
@@ -475,7 +475,7 @@
 }
 
 .projectContent p {
-  color: #94a3b8;
+  color: #6b7280;
   font-size: 0.9rem;
   line-height: 1.6;
   margin-bottom: 1rem;
@@ -581,7 +581,7 @@
 
 .formRow input::placeholder,
 .formRowText textarea::placeholder {
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 .proSubmitBtn {

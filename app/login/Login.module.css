@@ -132,7 +132,7 @@
 }
 
 .cardSubtitle {
-  color: #718096;
+  color: #4a5568;
   font-size: 1rem;
 }
 
@@ -182,7 +182,7 @@
   position: relative;
   text-align: center;
   margin: 24px 0;
-  color: #718096;
+  color: #4a5568;
   font-size: 0.875rem;
 }
 
@@ -390,7 +390,7 @@
   margin-top: 24px;
   padding-top: 24px;
   border-top: 1px solid #e2e8f0;
-  color: #718096;
+  color: #4a5568;
   font-size: 0.875rem;
 }
 

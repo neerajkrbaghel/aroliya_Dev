@@ -413,7 +413,7 @@
 }
 
 .noSkills {
-  color: #94a3b8;
+  color: #6b7280;
   font-style: italic;
   font-size: 0.875rem;
 }
@@ -866,7 +866,7 @@
 
 .budgetChip:hover {
   background: #e2e8f0;
-  border-color: #94a3b8;
+  border-color: #6b7280;
 }
 
 /* Skills Input */
@@ -1234,7 +1234,7 @@
 
 .conversionNote {
   font-size: 0.875rem;
-  color: #718096;
+  color: #4a5568;
   margin-top: 0.5rem;
   font-style: italic;
 }
@@ -1255,7 +1255,7 @@
 .inputIcon {
   position: absolute;
   left: 1rem;
-  color: #718096;
+  color: #4a5568;
   font-size: 0.9rem;
 }
 
@@ -1276,7 +1276,7 @@
 }
 
 .budgetSuggestions span {
-  color: #718096;
+  color: #4a5568;
   font-size: 0.875rem;
 }
 

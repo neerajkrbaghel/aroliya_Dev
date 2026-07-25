@@ -85,7 +85,7 @@
 
 .exchangeIcon {
   font-size: 0.875rem;
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 /* Stats Grid */
@@ -177,7 +177,7 @@
   padding-top: 0.75rem;
   border-top: 1px solid #f1f5f9;
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 /* Content Grid */
@@ -275,7 +275,7 @@
 
 .arrowIcon {
   margin-left: auto;
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 /* Recent Activity */
@@ -340,7 +340,7 @@
 
 .originalSmall {
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 /* No Activity State */
@@ -448,7 +448,7 @@
 
 .toggleOption.active {
   background: white;
-  color: #3b82f6;
+  color: #1d4ed8;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #e2e8f0;
 }

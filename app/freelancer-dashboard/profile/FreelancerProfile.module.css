@@ -173,7 +173,7 @@
 .formInput:focus,
 .formTextarea:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -277,7 +277,7 @@
 
 .imageUploadButton:hover:not(:disabled) {
   background: #f1f5f9;
-  border-color: #94a3b8;
+  border-color: #6b7280;
 }
 
 .imageUploadButton:disabled {

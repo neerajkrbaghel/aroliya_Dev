@@ -267,7 +267,7 @@
 
 .statLabel {
   font-size: 0.875rem;
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 .statDivider {
@@ -308,7 +308,7 @@
 }
 
 .visualText small {
-  color: #94a3b8;
+  color: #6b7280;
   font-size: 0.75rem;
 }
 
@@ -380,7 +380,7 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   background-color: white;
 }
 
@@ -448,7 +448,7 @@
 
 .filterSelect:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   transform: translateY(-1px);
 }
 
@@ -596,13 +596,13 @@
 }
 
 .reviewCount {
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 .saveButton {
   background: none;
   border: none;
-  color: #94a3b8;
+  color: #6b7280;
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 8px;
@@ -870,7 +870,7 @@
 
 .paginationButton:hover:not(:disabled) {
   background-color: #f8fafc;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .paginationButton:disabled {

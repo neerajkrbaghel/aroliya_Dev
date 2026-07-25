@@ -51,7 +51,7 @@
 
 .subtitle {
   font-size: 1.25rem;
-  color: #718096;
+  color: #4a5568;
   max-width: 700px;
   margin: 0 auto 3rem;
   line-height: 1.6;
@@ -101,7 +101,7 @@
 
 .statLabel {
   font-size: 0.9rem;
-  color: #718096;
+  color: #4a5568;
   font-weight: 500;
 }
 
@@ -195,7 +195,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.featureContent h4 {
+.featureContent h3 {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.4rem;
@@ -204,7 +204,7 @@
 
 .featureContent p {
   font-size: 0.9rem;
-  color: #718096;
+  color: #4a5568;
   line-height: 1.5;
   margin: 0;
 }
@@ -330,7 +330,7 @@
 
 .cardText {
   font-size: 0.85rem;
-  color: #718096;
+  color: #4a5568;
   font-weight: 500;
 }
 
@@ -343,7 +343,7 @@
   position: absolute;
   top: 20px;
   left: 70px;
-  background: rgba(34, 197, 94, 0.95);
+  background: #166534;
   color: white;
   padding: 0.6rem 1rem;
   border-radius: 50px;
@@ -401,7 +401,7 @@
 
 .trustHeader p {
   font-size: 1.2rem;
-  color: #718096;
+  color: #4a5568;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -513,7 +513,7 @@
 
 .statLabel {
   font-size: 1.1rem;
-  color: #718096;
+  color: #4a5568;
   font-weight: 600;
   transition: color 0.3s ease;
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import Head from "next/head";
 import styles from "./FreelancerHub.module.css";
 import Nav from "../home/component/Nav/page";
 import Link from "next/link";

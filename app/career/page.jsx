@@ -317,10 +317,8 @@ export default function Careers() {
                   >
                     View Open Positions <FaArrowRight />
                   </button>
-                  <Link href="#culture">
-                    <button className={styles.secondaryButton}>
-                      Our Culture
-                    </button>
+                  <Link href="#culture" className={styles.secondaryButton}>
+                    Our Culture
                   </Link>
                 </motion.div>
               </motion.div>
@@ -623,7 +621,7 @@ export default function Careers() {
               <p>Hear from our talented professionals across different domains</p>
             </motion.div>
 
-            <div className={styles.testimonialSlider}>
+            <div className={styles.testimonialSlider} aria-live="polite" aria-label="Employee testimonials">
               <div className={styles.sliderContainer}>
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -670,6 +668,7 @@ export default function Careers() {
                     key={index}
                     className={`${styles.indicator} ${index === currentReviewIndex ? styles.active : ''}`}
                     onClick={() => setCurrentReviewIndex(index)}
+                    aria-label={`Go to testimonial ${index + 1} of ${jobReviews.length}`}
                   />
                 ))}
               </div>
@@ -715,10 +714,8 @@ export default function Careers() {
                 >
                   Explore Open Positions <FaArrowRight />
                 </button>
-                <Link href="/contact">
-                  <button className={styles.secondaryButton}>
-                    Contact HR
-                  </button>
+                <Link href="/contact" className={styles.secondaryButton}>
+                  Contact HR
                 </Link>
               </motion.div>
             </motion.div>

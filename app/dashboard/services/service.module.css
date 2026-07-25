@@ -276,7 +276,7 @@
 
 .originalPrice {
   font-size: 1rem;
-  color: #9ca3af;
+  color: #6b7280;
   text-decoration: line-through;
   font-weight: 500;
 }
@@ -1014,7 +1014,7 @@
 
 .cancelButton:hover:not(:disabled) {
   background: #f9fafb;
-  border-color: #9ca3af;
+  border-color: #6b7280;
   transform: translateY(-2px);
 }
 

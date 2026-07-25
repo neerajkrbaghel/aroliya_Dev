@@ -330,7 +330,7 @@
   left: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  color: #9ca3af;
+  color: #6b7280;
   font-size: 1rem;
 }
 
@@ -347,7 +347,7 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -383,7 +383,7 @@
 
 .filterSelect:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -477,7 +477,7 @@
 
 .currencyIconSmall {
   font-size: 0.875rem;
-  color: #3b82f6;
+  color: #1d4ed8;
 }
 
 .originalAmount {
@@ -535,7 +535,7 @@
 
 .actionBtn:hover {
   background: #f3f4f6;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .deleteBtn {
@@ -593,7 +593,7 @@
   width: 50px;
   height: 50px;
   border: 3px solid #e5e7eb;
-  border-top-color: #3b82f6;
+  border-top-color: #1d4ed8;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;

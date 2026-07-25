@@ -1,9 +1,8 @@
-// components/StickyWhatsApp.js
 import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
 
-const whatsappNumber = "9870519002"; // Replace with your number
-const message = "Hello! I want to chat."; // Optional default message
+const whatsappNumber = "9870519002";
+const message = "Hello! I want to chat.";
 
 export default function StickyWhatsApp() {
   return (
@@ -14,8 +13,9 @@ export default function StickyWhatsApp() {
       target="_blank"
       rel="noopener noreferrer"
       className="sticky-whatsapp"
+      aria-label="Chat with us on WhatsApp"
     >
-      <FaWhatsapp size={40} />
+      <FaWhatsapp size={40} aria-hidden="true" />
     </a>
   );
 }

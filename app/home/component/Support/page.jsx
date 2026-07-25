@@ -90,7 +90,7 @@ export default function EnterpriseCTA() {
             transition={{ duration: 0.7, delay: 0.4 }}
           >
             <Link href="/contact-us" className={styles.ctaLink}>
-              <motion.button
+              <motion.span
                 className={styles.primaryCta}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -98,7 +98,7 @@ export default function EnterpriseCTA() {
                 <span>Get Free Consultation</span>
                 <FaArrowRight className={styles.arrowIcon} />
                 <div className={styles.buttonHoverEffect}></div>
-              </motion.button>
+              </motion.span>
             </Link>
           </motion.div>
 

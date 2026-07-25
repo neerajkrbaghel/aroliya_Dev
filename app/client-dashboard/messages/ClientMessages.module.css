@@ -196,7 +196,7 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   background-color: white;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
@@ -260,7 +260,7 @@
   width: 48px;
   height: 48px;
   border-radius: 8px;
-  background-color: #3b82f6;
+  background-color: #1d4ed8;
   color: white;
   display: flex;
   align-items: center;
@@ -436,7 +436,7 @@
 }
 
 .typingIndicator {
-  color: #3b82f6;
+  color: #1d4ed8;
   font-style: italic;
 }
 
@@ -518,7 +518,7 @@
   width: 32px;
   height: 32px;
   border-radius: 6px;
-  background-color: #3b82f6;
+  background-color: #1d4ed8;
   color: white;
   display: flex;
   align-items: center;
@@ -544,7 +544,7 @@
 }
 
 .sent .messageBubble {
-  background-color: #3b82f6;
+  background-color: #1d4ed8;
   color: white;
   border-bottom-right-radius: 4px;
 }
@@ -804,7 +804,7 @@
 
 .messageInput:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   background-color: white;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
@@ -817,7 +817,7 @@
 }
 
 .sendButton {
-  background-color: #3b82f6;
+  background-color: #1d4ed8;
   color: white;
   padding: 10px;
 }
@@ -864,7 +864,7 @@
 }
 
 .showConversationsButton {
-  background-color: #3b82f6;
+  background-color: #1d4ed8;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -1011,13 +1011,13 @@
 }
 
 .amountButton:hover {
-  border-color: #3b82f6;
-  color: #3b82f6;
+  border-color: #1d4ed8;
+  color: #1d4ed8;
 }
 
 .amountButton.selected {
-  background-color: #3b82f6;
-  border-color: #3b82f6;
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
   color: white;
 }
 
@@ -1046,7 +1046,7 @@
 
 .amountInput input:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -1323,13 +1323,13 @@
 }
 
 .currencyOption:hover {
-  border-color: #3b82f6;
-  color: #3b82f6;
+  border-color: #1d4ed8;
+  color: #1d4ed8;
 }
 
 .currencyOption.selected {
-  background-color: #3b82f6;
-  border-color: #3b82f6;
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
   color: white;
 }
 

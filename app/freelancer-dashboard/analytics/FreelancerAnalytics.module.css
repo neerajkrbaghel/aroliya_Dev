@@ -472,7 +472,7 @@
 }
 
 .actionArrow {
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 .actionBadge {
@@ -587,7 +587,7 @@
 
 .viewDetailsBtn:hover {
   background: #f8fafc;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .reviewActionButton:hover {
@@ -877,7 +877,7 @@
 
 .emptySubtext {
   font-size: 0.9rem;
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 /* Pending Reviews Grid */
@@ -964,7 +964,7 @@
 
 .viewProjectDetails:hover {
   background: #f8fafc;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .reviewActionBtn:hover {
@@ -1213,7 +1213,7 @@
 
 .cancelButton:hover {
   background: #f8fafc;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .submitButton {
@@ -1394,7 +1394,7 @@
 }
 
 .currencyOption.active {
-  color: #3b82f6;
+  color: #1d4ed8;
   background: #eff6ff;
   font-weight: 600;
 }

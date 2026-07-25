@@ -21,13 +21,16 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="preload" href="/hero/hero-section.jpg" as="image" fetchpriority="high" />
       </head>
       <body suppressHydrationWarning>
         <GoogleAnalytics />
         <a href="#main-content" className="skip-to-content">
           Skip to main content
         </a>
-        <main id="main-content">{children}</main>
+        <div id="main-content" role="main">{children}</div>
       </body>
     </html>
   );

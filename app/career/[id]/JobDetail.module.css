@@ -86,7 +86,7 @@
 
 .backButton:hover {
   background-color: #f9fafb;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 /* Job Header */
@@ -167,7 +167,7 @@
 
 .shareButton:hover {
   background-color: #f9fafb;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .shareButton.copied {
@@ -513,7 +513,7 @@
 
 .ctaBackButton:hover {
   background-color: #f9fafb;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 /* Responsive Design */

@@ -263,10 +263,8 @@ export default function ClientDashboardLayout({ children }) {
 
         {/* Settings and Logout */}
         <div className={styles.bottomActions}>
-          <Link href="/client-dashboard/settings">
-            <button className={styles.settings}>
+          <Link href="/client-dashboard/settings" className={styles.settings}>
               <IoMdSettings /> Settings
-            </button>
           </Link>
           <button onClick={handleLogout} className={styles.logoutBtn}>
             <FaSignOutAlt /> Logout

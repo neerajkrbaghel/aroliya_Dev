@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Head from "next/head";
 import styles from "./Register.module.css";
 import {
   FaEye,
@@ -255,6 +256,10 @@ useEffect(() => {
     <>
       <Nav />
       <WhatsApp />
+      <Head>
+        <title>Create Account | Aroliya - Web & Mobile App Development Agency</title>
+        <meta name="description" content="Join Aroliya's professional community. Sign up as a client, freelancer, or user to access world-class digital services and opportunities." />
+      </Head>
       <div className={styles.container}>
         <div className={styles.registerWrapper}>
           {/* Left Side - Brand & Features Section */}
@@ -540,10 +545,10 @@ useEffect(() => {
                   {/* Registration Form */}
                   <form onSubmit={handleSubmit} className={styles.form}>
                     {/* User Type Selection */}
-                    <div className={styles.inputGroup}>
-                      <label htmlFor="userType" className={styles.label}>
+                    <fieldset className={styles.inputGroup}>
+                      <legend className={styles.label}>
                         I want to join as
-                      </label>
+                      </legend>
                       <div className={styles.roleSelection}>
                         {[
                           {
@@ -591,7 +596,7 @@ useEffect(() => {
                           {errors.userType}
                         </span>
                       )}
-                    </div>
+                    </fieldset>
 
                     {/* Name */}
                     <div className={styles.inputGroup}>
@@ -765,7 +770,7 @@ useEffect(() => {
               {/* Status Message */}
               {message && (
                 <div
-                  className={`${styles.message} ${
+                  role="alert" className={`${styles.message} ${
                     message.toLowerCase().includes("error") ||
                     message.toLowerCase().includes("failed") ||
                     message.toLowerCase().includes("invalid") ||

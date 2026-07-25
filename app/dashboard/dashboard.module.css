@@ -261,7 +261,7 @@
 }
 
 .breadcrumb span:first-child {
-  color: #3b82f6;
+  color: #1d4ed8;
   font-weight: 500;
 }
 
@@ -468,7 +468,7 @@
 .viewAllButton {
   background: none;
   border: none;
-  color: #3b82f6;
+  color: #1d4ed8;
   font-weight: 500;
   cursor: pointer;
   font-size: 0.875rem;

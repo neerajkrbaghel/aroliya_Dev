@@ -1,17 +1,19 @@
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import Nav from "./component/Nav/page";
 import Hero from "./component/hero/page";
-import Service from "./component/service/page";
-import HowItWorks from "./component/HowItWorks/page";
-import TrustedCompanies from "./component/Trusted-Companies/page";
-import Review from "./component/testimonials/page";
 import Footer from "./footer/page";
-import FAQ from "./component/faqs/page";
-import Right from "./component/left-right/page";
-import WhyChooseAroliya from "./WhyChooseAroliya/page";
-import ServicesHeader from "./component/ServiceHeader/page";
-import Support from "./component/Support/page";
 import Whatsapp from "../whatsapp_icon/page";
+
+const Service = dynamic(() => import("./component/service/page"));
+const HowItWorks = dynamic(() => import("./component/HowItWorks/page"));
+const TrustedCompanies = dynamic(() => import("./component/Trusted-Companies/page"));
+const Review = dynamic(() => import("./component/testimonials/page"));
+const FAQ = dynamic(() => import("./component/faqs/page"));
+const Right = dynamic(() => import("./component/left-right/page"));
+const WhyChooseAroliya = dynamic(() => import("./WhyChooseAroliya/page"));
+const ServicesHeader = dynamic(() => import("./component/ServiceHeader/page"));
+const Support = dynamic(() => import("./component/Support/page"));
 export default function page() {
   return (
     <>
@@ -32,10 +34,8 @@ export default function page() {
         <link rel="canonical" href="https://aroliya.com" />
         <meta name="geo.region" content="IN" />
         <meta name="geo.placename" content="India" />
-        <html lang="en" />
       </Head>
-      <a href="#main-content" className="skip-link">Skip to main content</a>
-      <main id="main-content" role="main">
+<main role="main">
       <Nav />
       <Hero />
       <Right />

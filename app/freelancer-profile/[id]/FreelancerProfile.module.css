@@ -188,7 +188,7 @@
 
 .secondaryButton:hover {
   background: #f9fafb;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 /* Tab Navigation */
@@ -334,7 +334,7 @@
 
 .socialLink svg:last-child {
   margin-left: auto;
-  color: #9ca3af;
+  color: #6b7280;
   font-size: 0.875rem;
 }
 
@@ -523,7 +523,7 @@
 }
 
 .reviewDate {
-  color: #9ca3af;
+  color: #6b7280;
   font-size: 0.875rem;
 }
 
@@ -962,7 +962,7 @@
 .formGroup textarea:focus,
 .formGroup select:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
 }
 
 .formGroup input:disabled,
@@ -1069,7 +1069,7 @@
 
 .secondaryButton:hover:not(:disabled) {
   background: #f8fafc;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .secondaryButton:disabled {

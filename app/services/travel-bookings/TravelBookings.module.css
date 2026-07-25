@@ -84,7 +84,7 @@
 
 .statLabel {
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: #6b7280;
   font-weight: 500;
 }
 
@@ -195,7 +195,7 @@
 }
 
 .graphicCard p {
-  color: #94a3b8;
+  color: #6b7280;
   margin: 0;
   font-size: 0.875rem;
 }
@@ -265,7 +265,7 @@
 
 .currencyNote {
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 /* Services Section */
@@ -323,7 +323,7 @@
 
 .serviceIcon {
   font-size: 2.25rem;
-  color: #3b82f6;
+  color: #1d4ed8;
 }
 
 .serviceCard h3 {
@@ -458,7 +458,7 @@
 
 .travelTypeButton {
   background: transparent;
-  color: #3b82f6;
+  color: #1d4ed8;
   border: 2px solid #3b82f6;
   padding: 12px 24px;
   border-radius: 8px;
@@ -516,7 +516,7 @@
 
 .destinationIcon {
   font-size: 3.5rem;
-  color: #3b82f6;
+  color: #1d4ed8;
   margin-bottom: 1rem;
 }
 
@@ -672,7 +672,7 @@
 
 .stepIcon {
   font-size: 2.25rem;
-  color: #3b82f6;
+  color: #1d4ed8;
 }
 
 .stepTitle {
@@ -775,7 +775,7 @@
 
 .testimonialCard:hover {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
   transform: translateY(-5px);
 }
 
@@ -807,7 +807,7 @@
 .testimonialContent p::before {
   content: '"';
   font-size: 3rem;
-  color: #3b82f6;
+  color: #1d4ed8;
   position: absolute;
   top: -1rem;
   left: -1rem;

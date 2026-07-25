@@ -30,6 +30,7 @@ jobs:
         run: npm run build
         env:
           NODE_OPTIONS: 'max-old-space-size=4096'
+          NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
 
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25

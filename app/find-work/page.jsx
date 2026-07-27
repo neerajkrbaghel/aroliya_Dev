@@ -317,7 +317,21 @@ export default function FreelancerHub() {
   };
 
   return (
-    <div className={styles.container}>
+    <>
+      <Head>
+        <title>Find Work | Freelance Web Development Jobs | Aroliya</title>
+        <meta name="description" content="Find freelance web development, app development, and digital projects on Aroliya. Join India's top freelance platform for website development and software development jobs." />
+        <meta name="keywords" content="freelance web development jobs, find work online, freelance developer india, website development jobs, app development freelance, hire freelance developers" />
+        <link rel="canonical" href="https://www.aroliya.com/find-work" />
+        <meta property="og:title" content="Find Work | Freelance Web Development Jobs | Aroliya" />
+        <meta property="og:description" content="Find freelance web development, app development, and digital projects on Aroliya." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.aroliya.com/find-work" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Find Work | Freelance Web Development Jobs | Aroliya" />
+        <meta name="twitter:description" content="Find freelance web development and app development jobs on Aroliya." />
+      </Head>
+      <div className={styles.container}>
       <Nav />
 
       {/* Professional Header Banner with Animations */}
@@ -937,5 +951,6 @@ export default function FreelancerHub() {
       </section>
       <Footer />
     </div>
+    </>
   );
 }

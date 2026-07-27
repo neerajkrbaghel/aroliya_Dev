@@ -169,3 +169,49 @@
   border-top: 1px solid #e2e8f0;
   margin: 2rem 0;
 }
+
+
+/* Related Links Section */
+.relatedLinks {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 2px solid #eee;
+}
+
+.relatedLinks h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.relatedGrid a {
+  display: block;
+  padding: 1rem 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+}
+
+.relatedGrid a:hover {
+  background: #ff6600;
+  color: white;
+  border-color: #ff6600;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .relatedGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -193,7 +193,28 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
+    <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "Aroliya",
+              "description": "Website development agency in India offering custom web apps, mobile apps, Shopify development, and WordPress development.",
+              "url": "https://www.aroliya.com",
+              "telephone": "+91-9870519002",
+              "email": "info@aroliya.com",
+              "areaServed": "India",
+              "serviceType": ["Website Development", "App Development", "Shopify Development", "WordPress Development"],
+              "sameAs": [
+                "https://www.instagram.com/aroliya5280/",
+                "https://www.facebook.com/profile.php?id=61571008499035",
+                "https://www.linkedin.com/company/aroliya-group/"
+              ]
+            })
+          }}
+        />
+      </footer>
   );
 };
 

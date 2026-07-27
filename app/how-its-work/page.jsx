@@ -22,6 +22,7 @@ import {
   FaRocket,
   FaChartLine,
 } from "react-icons/fa";
+import Head from "next/head";
 import styles from "./HowItWorks.module.css";
 
 const HowItWorks = () => {

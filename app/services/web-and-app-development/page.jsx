@@ -212,9 +212,9 @@ const Services = () => {
   return (
     <>
       <Head>
-        <title>Web & App Development Agency | Custom Web & Mobile Apps | Aroliya</title>
-        <meta name="description" content="Aroliya is a top web and app development agency. We build custom web apps using Next.js, React.js, Angular, Shopify, WooCommerce and mobile apps using React Native, Flutter, Kotlin, Swift. Contact the best web & app development company." />
-        <meta name="keywords" content="web and app development agency, mobile app development, web development company, nextjs development, react native development, flutter development, kotlin development, swift development, shopify development, woocommerce development, custom web apps, cross-platform apps, android app development, ios app development, full stack developers India" />
+        <title>Website Development Agency in India | App Development Agency | Aroliya</title>
+        <meta name="description" content="Aroliya is a leading website development agency in India and app development agency in India. We build custom web applications using Next.js, React.js, Angular, Shopify, WooCommerce and mobile apps using React Native, Flutter, Kotlin, Swift. Get custom software development, SaaS development, and enterprise web solutions from the best web development company in India." />
+        <meta name="keywords" content="website development agency in india, app development agency in india, website development in india, app development in india, web development company in india, mobile app development company in india, custom software development in india, nextjs development, react native development, flutter development, kotlin development, swift development, shopify development, woocommerce development, custom web apps, cross-platform apps, android app development, ios app development, full stack developers India, custom web application development, PWA development company, enterprise web development, SaaS development, UI UX development agency, custom mobile app development" />
         <meta name="author" content="Aroliya" />
         <meta name="robots" content="index, follow" />
         <meta property="og:title" content="Web & App Development Agency | Custom Web & Mobile Apps | Aroliya" />
@@ -228,7 +228,9 @@ const Services = () => {
         <link rel="canonical" href="https://aroliya.com/services/web-and-app-development" />
         <meta name="geo.region" content="IN" />
         <meta name="geo.placename" content="India" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{__html: `{"@context":"https://schema.org","@type":"ProfessionalService","name":"Aroliya","description":"Top web and app development agency offering custom web apps and mobile apps using Next.js, React, Flutter, Kotlin, Swift, Shopify, and WooCommerce.","url":"https://aroliya.com/services/web-and-app-development","areaServed":"India","serviceType":"Web & App Development","priceRange":"$$"}}`}} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html: '{"@context":"https://schema.org","@type":"ProfessionalService","name":"Aroliya","description":"Top web and app development agency offering custom web apps and mobile apps using Next.js, React, Flutter, Kotlin, Swift, Shopify, and WooCommerce.","url":"https://aroliya.com/services/web-and-app-development","areaServed":"India","serviceType":"Web & App Development","priceRange":"$$"}}'}} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: '{"@context": "https://schema.org", "@type": "Service", "serviceType": "Website Development & App Development", "provider": {"@type": "Organization", "name": "Aroliya", "url": "https://www.aroliya.com"}, "areaServed": "India", "description": "Aroliya is a leading website development agency in India and app development agency in India offering custom web applications, mobile apps, and enterprise software development."}'}} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html: '{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.aroliya.com"}, {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.aroliya.com/services"}, {"@type": "ListItem", "position": 3, "name": "Web & App Development", "item": "https://www.aroliya.com/services/web-and-app-development"}]}'}} />
       </Head>
       <Nav />
       <div className={styles.container} id="main-content" role="main">

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoMenu, IoClose, IoChevronDown } from "react-icons/io5";
@@ -22,6 +22,8 @@ export default function Nav() {
   const [user, setUser] = useState(null);
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState(null);
+  const menuRef = useRef(null);
+  const toggleRef = useRef(null);
 
   useEffect(() => {
     import("aos").then((mod) => mod.default.init({ duration: 1000 }));
@@ -44,6 +46,26 @@ export default function Nav() {
 
     return () => {
       document.body.classList.remove(styles.menuOpen);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (e) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target) &&
+        toggleRef.current &&
+        !toggleRef.current.contains(e.target)
+      ) {
+        closeMenu();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
     };
   }, [isOpen]);
 
@@ -128,7 +150,7 @@ export default function Nav() {
           <Image src={logo} alt="Aroliya Logo - Custom Web & Mobile App Development Agency" width={150} height={50} />
         </Link>
 
-        <div className={`${styles.navLinksContainer} ${isOpen ? styles.active : ""}`}>
+        <div ref={menuRef} className={`${styles.navLinksContainer} ${isOpen ? styles.active : ""}`}>
           {/* Close button for mobile */}
           <button className={styles.closeButton} onClick={closeMenu} aria-label="Close menu">
             <IoClose size={26} aria-hidden="true" />
@@ -276,6 +298,7 @@ export default function Nav() {
         </div>
 
         <button
+          ref={toggleRef}
           className={styles.menuToggle}
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}

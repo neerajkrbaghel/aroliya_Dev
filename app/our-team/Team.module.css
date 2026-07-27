@@ -145,7 +145,7 @@
 /* Team Grid */
 .teamGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(366px, 2fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(366px, 100%), 2fr));
   gap: 30px;
   margin-bottom: 80px;
   max-width: 1200px;

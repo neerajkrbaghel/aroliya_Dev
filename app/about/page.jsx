@@ -170,15 +170,16 @@ export default function About() {
   return (
     <div>
       <Head>
-        <title>About Us | Aroliya - Custom Web & Mobile App Development Agency</title>
+        <title>About Aroliya | Website Development Company in India | App Development Company</title>
         <meta
           name="description"
           content="Learn about Aroliya - a leading custom web app, Shopify, WordPress, and mobile app development agency. Founded in 2023, we've delivered 50+ successful projects worldwide."
         />
         <meta
           name="keywords"
-          content="about aroliya, web development agency, shopify experts, wordpress developers, mobile app developers, custom software company"
+          content="about aroliya, website development company in india, app development company in india, web development agency, shopify experts, wordpress developers, mobile app developers, custom software company, React Next.js developers, Flutter app developers, WooCommerce development, SaaS development company, enterprise software development"
         />
+              <script type="application/ld+json" dangerouslySetInnerHTML={{__html: '{"@context": "https://schema.org", "@type": "AboutPage", "name": "About Aroliya - Website Development Company in India", "url": "https://www.aroliya.com/about", "mainEntity": {"@type": "Organization", "name": "Aroliya", "foundingDate": "2023", "description": "Aroliya is a leading website development company in India and app development company in India."}}'}} />
       </Head>
       <Nav />
       <Whasapp />

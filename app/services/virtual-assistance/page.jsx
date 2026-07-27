@@ -373,7 +373,7 @@ const VirtualAssistance = () => {
         />
         <meta
           name="keywords"
-          content="virtual assistant, wordpress support, website maintenance, administrative support, virtual assistant services, technical support, business process outsourcing"
+          content="virtual assistant services india, wordpress support, website maintenance, administrative support, technical support, business process outsourcing, WooCommerce maintenance, Shopify store management, WordPress plugin updates, website admin support, e-commerce virtual assistant, remote technical assistant, IT support outsourcing"
         />
       </Head>
       <Nav />

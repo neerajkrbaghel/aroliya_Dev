@@ -3,6 +3,7 @@
   width: 100%;
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
   margin: 6rem 0 0;
 }

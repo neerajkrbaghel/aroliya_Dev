@@ -344,6 +344,8 @@ const DataVisualization = () => {
           name="description"
           content="Professional data visualization solutions with interactive dashboards, predictive analytics, and enterprise-grade security for data-driven decision making."
         />
+              <script type="application/ld+json" dangerouslySetInnerHTML={{__html: '{"@context": "https://schema.org", "@type": "Service", "serviceType": "AI Automation & Data Visualization", "provider": {"@type": "Organization", "name": "Aroliya", "url": "https://www.aroliya.com"}, "areaServed": "India", "description": "AI automation company in India offering data visualization, predictive analytics, and enterprise dashboard solutions."}'}} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html: '{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.aroliya.com"}, {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.aroliya.com/services"}, {"@type": "ListItem", "position": 3, "name": "Data & AI Solutions", "item": "https://www.aroliya.com/services/data-visualization"}]}'}} />
       </Head>
       <Nav />
       <WhatsApp />

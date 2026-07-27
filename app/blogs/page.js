@@ -7,9 +7,9 @@ import Whatsapp from "@/app/whatsapp_icon/page";
 import styles from "./Blog.module.css";
 
 export const metadata = {
-  title: "Top Blog - Web Development, Shopify & Digital Marketing Insights | Aroliya",
-  description: "Discover expert insights on web development, Shopify stores, WordPress, SEO, digital marketing, and e-commerce strategies. Aroliya's top-rated blog for business growth.",
-  keywords: "web development blog, Shopify tips, WordPress development, digital marketing blog, e-commerce tips, SEO guide, web development insights, top digital blog, best tech blog India, online business growth, website optimization, ecommerce strategies, React development tips, Shopify SEO, WordPress tutorials",
+  title: "Blog | Website Development & App Development Insights | Aroliya",
+  description: "Discover expert insights on website development, app development, Shopify stores, WordPress, SEO, and digital marketing. Aroliya's blog - a leading website development agency in India sharing industry knowledge.",
+  keywords: "website development blog india, app development blog, web development tips, Shopify tips, WordPress development, digital marketing blog, ecommerce tips, SEO guide, web development insights, best tech blog India, website optimization, React development tips, Next.js tutorials, Flutter development guide, software development blog, SaaS development tips",
 };
 
 export default function BlogPage() {
@@ -18,7 +18,7 @@ export default function BlogPage() {
   return (
     <>
       <Head>
-        <meta name="keywords" content="web development blog, Shopify tips, WordPress development, digital marketing blog, e-commerce tips, SEO guide, web development insights, top digital blog, best tech blog India, online business growth, website optimization, ecommerce strategies, React development tips, Shopify SEO, WordPress tutorials" />
+        <meta name="keywords" content="website development blog india, app development blog, web development tips, Shopify tips, WordPress development, digital marketing blog, ecommerce tips, SEO guide, web development insights, best tech blog India, website optimization, React development tips, Next.js tutorials, Flutter development guide, software development blog, SaaS development tips" />
         <meta name="author" content="Aroliya" />
         <meta name="robots" content="index, follow" />
         <meta property="og:title" content="Top Blog - Web Development & Digital Marketing Insights | Aroliya" />
@@ -32,6 +32,7 @@ export default function BlogPage() {
         <link rel="canonical" href="https://aroliya.com/blogs" />
         <meta name="geo.region" content="IN" />
         <meta name="geo.placename" content="India" />
+              <script type="application/ld+json" dangerouslySetInnerHTML={{__html: '{"@context": "https://schema.org", "@type": "Blog", "name": "Aroliya Blog - Website Development & App Development Insights", "url": "https://www.aroliya.com/blogs", "description": "Expert insights on website development, app development, Shopify, WordPress, SEO, and digital marketing from Aroliya, a leading website development agency in India."}'}} />
       </Head>
       <Nav />
       <Whatsapp />

@@ -95,15 +95,16 @@ export default function Contact() {
   return (
     <>
       <Head>
-        <title>Contact Us | Aroliya - Web & Mobile App Development Agency</title>
+        <title>Contact Aroliya | Website Development Agency in India | Hire Developers</title>
         <meta
           name="description"
-          content="Get in touch with Aroliya for custom web development, Shopify stores, WordPress websites, and mobile app development. Contact our team for a free consultation."
+          content="Get in touch with Aroliya, a leading website development agency in India. Contact us for custom web development, mobile app development, Shopify stores, WordPress websites, and software development. Get a free consultation from our expert team."
         />
         <meta
           name="keywords"
-          content="contact web development agency, hire shopify developer, hire wordpress developer, hire mobile app developer, web development inquiry, aroliya contact"
+          content="contact website development agency in india, hire web developers india, hire app developers, hire shopify developer, hire wordpress developer, hire mobile app developer, web development inquiry, aroliya contact, hire React Next.js developer, hire Flutter developer, free web development consultation, hire full stack developer India"
         />
+              <script type="application/ld+json" dangerouslySetInnerHTML={{__html: '{"@context": "https://schema.org", "@type": "ContactPage", "name": "Contact Aroliya - Website Development Agency in India", "url": "https://www.aroliya.com/contact-us", "mainEntity": {"@type": "Organization", "name": "Aroliya", "telephone": "+91-9870519002", "email": "info@aroliya.com"}}'}} />
       </Head>
       <Nav />
 

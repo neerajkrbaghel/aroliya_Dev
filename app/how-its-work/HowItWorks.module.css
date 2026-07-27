@@ -107,7 +107,6 @@
 
 .stepsGrid > div:last-of-type {
   position: relative;
-  left: 115%;
 }
 
 .stepCard {
@@ -461,11 +460,11 @@
   }
 
   .stepsGrid {
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
   }
   .stepsGrid > div:last-of-type {
     position: relative;
-    left: 55%;
+    left: 0;
   }
 }
 

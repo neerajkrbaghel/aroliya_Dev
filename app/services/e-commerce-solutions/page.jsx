@@ -532,15 +532,17 @@ const EcommerceSolutions = () => {
   return (
     <>
       <Head>
-        <title>Shopify & E-Commerce Development | Aroliya</title>
+        <title>Ecommerce Website Development in India | Shopify & WooCommerce | Aroliya</title>
         <meta
           name="description"
-          content="Professional Shopify store development and e-commerce solutions by Aroliya. Custom Shopify themes, WooCommerce, and multi-platform e-commerce development for businesses worldwide."
+          content="Aroliya offers ecommerce website development in India including Shopify store development, WooCommerce development, and custom e-commerce solutions. As a leading website development agency in India, we build high-converting online stores for businesses worldwide."
         />
         <meta
           name="keywords"
-          content="shopify developer, shopify store development, ecommerce development, woocommerce developer, shopify expert, ecommerce agency, online store development, custom shopify theme"
+          content="ecommerce website development in india, shopify developer india, shopify store development, ecommerce development, woocommerce developer, shopify expert, ecommerce agency, online store development, custom shopify theme, shopify migration services, shopify SEO optimization, shopify plus development, dropshipping store development, multi-vendor marketplace development, website development agency in india"
         />
+              <script type="application/ld+json" dangerouslySetInnerHTML={{__html: '{"@context": "https://schema.org", "@type": "Service", "serviceType": "Ecommerce Website Development", "provider": {"@type": "Organization", "name": "Aroliya", "url": "https://www.aroliya.com"}, "areaServed": "India", "description": "Ecommerce website development in India including Shopify store development, WooCommerce development, and custom e-commerce solutions.", "hasOfferCatalog": {"@type": "OfferCatalog", "name": "E-commerce Development Services", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Shopify Store Development"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "WooCommerce Development"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom E-commerce Development"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Shopify Plus Development"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Multi-vendor Marketplace"}}]}}'}} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html: '{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.aroliya.com"}, {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.aroliya.com/services"}, {"@type": "ListItem", "position": 3, "name": "E-commerce Solutions", "item": "https://www.aroliya.com/services/e-commerce-solutions"}]}'}} />
       </Head>
       <Nav />
       <WhatsApp />

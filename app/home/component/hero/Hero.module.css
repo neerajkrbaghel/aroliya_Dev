@@ -192,9 +192,16 @@
 }
 
 @media (max-width: 768px) {
+  .heroContainer {
+    overflow: visible;
+    min-height: auto;
+  }
+  .heroContainer {
+    margin: 5rem 0 0;
+  }
   .slide {
     height: 80vh;
-    padding: 2rem 1rem;
+    padding: 0;
   }
 
   .slide h1,
@@ -234,6 +241,9 @@
 }
 
 @media (max-width: 480px) {
+  .heroContainer {
+    margin: 4.5rem 0 0;
+  }
   .slide h1,
 .slide h2 {
     font-size: 1.8rem;

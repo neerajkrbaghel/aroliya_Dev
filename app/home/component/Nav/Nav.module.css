@@ -349,9 +349,6 @@
 
 /* ---------- Mobile (max-width: 1192px) ---------- */
 @media (max-width: 1192px) {
-  .topBar {
-    display: none;
-  }
 
   .nav {
     padding: 0.8rem 1.2rem;
@@ -513,6 +510,19 @@
 }
 
 @media (max-width: 768px) {
+  .topBar {
+    padding: 0.3rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .topLeft,
+  .topRight {
+    gap: 0.6rem;
+  }
+
+  .topRight a {
+    font-size: 0.9rem;
+  }
   .nav {
     padding: 0.7rem 1rem;
   }
@@ -527,6 +537,18 @@
 }
 
 @media (max-width: 480px) {
+  .topBar {
+    padding: 0.2rem 0.7rem;
+    font-size: 0.65rem;
+  }
+
+  .topLeft span {
+    display: none;
+  }
+
+  .topRight a {
+    font-size: 0.8rem;
+  }
   .navLinksContainer {
     width: 100%;
   }

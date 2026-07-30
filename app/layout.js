@@ -69,7 +69,7 @@ export const metadata = {
   },
   verification: {},
   other: {
-    "theme-color": "#ff6600",
+    "theme-color": "#1a1a2e",
     "geo.region": "IN",
     "geo.placename": "India",
     "geo.position": "28.6139;77.2090",
@@ -90,7 +90,7 @@ export default function RootLayout({ children }) {
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
-        <link rel="preload" href="/hero/hero-section.jpg" as="image" fetchpriority="high" />
+        <link rel="preload" href="/hero/hero-section.jpg" as="image" fetchPriority="high" />
       </head>
       <body suppressHydrationWarning>
         <GoogleAnalytics />

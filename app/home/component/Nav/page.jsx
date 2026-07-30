@@ -151,10 +151,6 @@ export default function Nav() {
         </Link>
 
         <div ref={menuRef} className={`${styles.navLinksContainer} ${isOpen ? styles.active : ""}`}>
-          {/* Close button for mobile */}
-          <button className={styles.closeButton} onClick={closeMenu} aria-label="Close menu">
-            <IoClose size={26} aria-hidden="true" />
-          </button>
           <ul className={styles.navLinks}>
 
             <li>

@@ -231,12 +231,12 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 0;
+    padding: 0 16px;
   }
 
   .mainContent {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
     padding: 40px 0 30px;
   }
 

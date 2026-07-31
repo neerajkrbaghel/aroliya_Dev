@@ -428,6 +428,15 @@ img {
   border: 0;
 }
 
+/* Remove underline from all links while keeping them clickable */
+a,
+a:visited,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none !important;
+}
+
 /* Screen reader only class */
 .sr-only {
   position: absolute;

@@ -600,6 +600,10 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .heroSection {
+    margin-top: 5.5rem;
+  }
+
   .heroTitle {
     font-size: 2.5rem;
   }

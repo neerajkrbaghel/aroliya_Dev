@@ -145,8 +145,12 @@
 
 /* Services Section */
 .services {
-  padding: 70px 5%;
+  padding: 40px 5%;
   background: #ffffff;
+}
+
+.services .sectionHeader {
+  margin-bottom: 2rem;
 }
 
 .servicesGrid {
@@ -814,8 +818,12 @@
 }
 
 @media (max-width: 768px) {
+  .container {
+    margin-top: 6rem;
+  }
+
   .hero {
-    padding: 100px 5% 60px;
+    padding: 40px 5% 60px;
   }
 
   .heroTitle {

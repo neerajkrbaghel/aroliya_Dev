@@ -740,6 +740,7 @@
 
   .heroButtons {
     flex-direction: column;
+    align-items: center;
   }
 
   .sectionTitle {

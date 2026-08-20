@@ -114,6 +114,7 @@ export default function TermsAndConditions() {
       animate="visible"
       variants={containerVariants}
     >
+      <link rel="canonical" href="https://www.aroliya.com/terms-and-conditions" />
       <Head>
         <title>
           Terms and Conditions | Aroliya - Complete Digital Solutions

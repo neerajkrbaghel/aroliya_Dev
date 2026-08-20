@@ -17,6 +17,7 @@ const Support = dynamic(() => import("./component/Support/page"));
 export default function page() {
   return (
     <>
+      <link rel="canonical" href="https://www.aroliya.com" />
       <Head>
         <title>Website Development Agency in India | App Development Agency | Aroliya</title>
         <meta name="description" content="Aroliya is a top website development agency in India and app development agency in India. We deliver custom web applications, Shopify stores, WordPress websites, and mobile apps. Contact the best web development company for your digital needs." />
@@ -34,7 +35,6 @@ export default function page() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Aroliya - Top Digital Agency | Web Development & E-Commerce" />
         <meta name="twitter:description" content="Top-rated digital agency specializing in web development, Shopify stores, and e-commerce solutions." />
-        <link rel="canonical" href="https://aroliya.com" />
         <meta name="geo.region" content="IN" />
         <meta name="geo.placename" content="India" />
       </Head>

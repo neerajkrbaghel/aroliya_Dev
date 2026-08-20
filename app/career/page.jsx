@@ -257,6 +257,7 @@ export default function Careers() {
 
   return (
     <>
+      <link rel="canonical" href="https://www.aroliya.com/career" />
       <Head>
         <title>Careers at Aroliya | Join Our Innovative Team</title>
         <meta name="description" content="Build your career with Aroliya. We offer opportunities in freelancing, e-commerce, AI solutions, and more." />

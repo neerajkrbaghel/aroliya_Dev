@@ -336,6 +336,7 @@ const DataVisualization = () => {
 
   return (
     <>
+      <link rel="canonical" href="https://www.aroliya.com/services/data-visualization" />
       <Head>
         <title>
           Data Visualization Solutions | Transform Data into Actionable Insights

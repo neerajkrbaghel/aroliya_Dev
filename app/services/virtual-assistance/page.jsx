@@ -365,6 +365,7 @@ const VirtualAssistance = () => {
 
   return (
     <>
+      <link rel="canonical" href="https://www.aroliya.com/services/virtual-assistance" />
       <Head>
         <title>Virtual Assistant Services | Administrative & Technical Support | Aroliya</title>
         <meta

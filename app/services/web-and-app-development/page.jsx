@@ -211,6 +211,7 @@ const Services = () => {
 
   return (
     <>
+      <link rel="canonical" href="https://www.aroliya.com/services/web-and-app-development" />
       <Head>
         <title>Website Development Agency in India | App Development Agency | Aroliya</title>
         <meta name="description" content="Aroliya is a leading website development agency in India and app development agency in India. We build custom web applications using Next.js, React.js, Angular, Shopify, WooCommerce and mobile apps using React Native, Flutter, Kotlin, Swift. Get custom software development, SaaS development, and enterprise web solutions from the best web development company in India." />
@@ -225,7 +226,6 @@ const Services = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Web & App Development Agency | Aroliya" />
         <meta name="twitter:description" content="Best web and app development services using Next.js, React, Flutter, Kotlin, Swift and more." />
-        <link rel="canonical" href="https://aroliya.com/services/web-and-app-development" />
         <meta name="geo.region" content="IN" />
         <meta name="geo.placename" content="India" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html: '{"@context":"https://schema.org","@type":"ProfessionalService","name":"Aroliya","description":"Top web and app development agency offering custom web apps and mobile apps using Next.js, React, Flutter, Kotlin, Swift, Shopify, and WooCommerce.","url":"https://aroliya.com/services/web-and-app-development","areaServed":"India","serviceType":"Web & App Development","priceRange":"$$"}}'}} />

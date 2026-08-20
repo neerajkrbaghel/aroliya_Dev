@@ -204,10 +204,10 @@ export default function PrivacyPolicy() {
 
   return (
     <>
+      <link rel="canonical" href="https://www.aroliya.com/terms-and-privacy" />
       <Head>
         <title>Privacy Policy | Aroliya - Website Development Company in India</title>
         <meta name="description" content="Aroliya Privacy Policy. Learn how we collect, use, and protect your data across our website development, app development, and digital services." />
-        <link rel="canonical" href="https://www.aroliya.com/terms-and-privacy" />
       </Head>
     <>
       <Nav />

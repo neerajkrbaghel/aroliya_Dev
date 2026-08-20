@@ -601,6 +601,7 @@ const FreelancerHub = () => {
 
   return (
     <div>
+      <link rel="canonical" href="https://www.aroliya.com/services/freelancer-hub/freelancer-plan" />
       <Nav />
       <motion.div
         className={`${styles.container} ${isVisible ? styles.visible : ""}`}

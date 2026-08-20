@@ -316,6 +316,7 @@ export default function JobDetail() {
   if (isLoading) {
     return (
       <div className={styles.loadingContainer}>
+        <link rel="canonical" href={`https://www.aroliya.com/career/${params?.id}`} />
         <div className={styles.loadingSpinner}></div>
         <p>Loading job details...</p>
       </div>
@@ -325,6 +326,7 @@ export default function JobDetail() {
   if (!job) {
     return (
       <div className={styles.notFound}>
+        <link rel="canonical" href={`https://www.aroliya.com/career/${params?.id}`} />
         <div className={styles.notFoundContent}>
           <h2>Job Opportunity Not Found</h2>
           <p>
@@ -344,6 +346,7 @@ export default function JobDetail() {
 
   return (
     <>
+      <link rel="canonical" href={`https://www.aroliya.com/career/${params?.id}`} />
       <Head>
         <title>{job.title} - Aroliya Careers</title>
         <meta name="description" content={job.description} />

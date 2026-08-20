@@ -169,6 +169,7 @@ export default function About() {
 
   return (
     <div>
+      <link rel="canonical" href="https://www.aroliya.com/about" />
       <Head>
         <title>About Aroliya | Website Development Company in India | App Development Company</title>
         <meta

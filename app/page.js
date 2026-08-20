@@ -19,9 +19,6 @@ export const metadata = {
     "digital transformation services",
     "ecommerce website development",
   ],
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Aroliya - Website Development in India | App Development Company",
     description:

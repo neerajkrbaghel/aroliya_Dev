@@ -29,9 +29,6 @@ export const metadata = {
     "UI/UX design services",
   ],
   metadataBase: new URL("https://www.aroliya.com"),
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Website Development in India | App Development Company | Aroliya",
     description:

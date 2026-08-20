@@ -188,6 +188,7 @@ const ServiceDetail = () => {
 
   return (
     <>
+      <link rel="canonical" href="https://www.aroliya.com/services/form-filling" />
       <Head>
         <title>Professional Form Filling Services | Aroliya Consultants</title>
         <meta

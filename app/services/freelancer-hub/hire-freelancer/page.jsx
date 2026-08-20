@@ -507,6 +507,7 @@ const ClientServices = () => {
 
   return (
     <div className={styles.pageWrapper}>
+      <link rel="canonical" href="https://www.aroliya.com/services/freelancer-hub/hire-freelancer" />
       <Nav />
       <motion.div
         className={styles.container}

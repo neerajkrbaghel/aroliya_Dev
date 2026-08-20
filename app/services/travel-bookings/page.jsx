@@ -677,6 +677,7 @@ const TravelBookings = () => {
 
   return (
     <>
+      <link rel="canonical" href="https://www.aroliya.com/services/travel-bookings" />
       <Head>
         <title>
           Premium Travel & Hotel Booking Services | Luxury Travel Experiences

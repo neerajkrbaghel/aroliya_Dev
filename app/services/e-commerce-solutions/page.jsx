@@ -531,6 +531,7 @@ const EcommerceSolutions = () => {
 
   return (
     <>
+      <link rel="canonical" href="https://www.aroliya.com/services/e-commerce-solutions" />
       <Head>
         <title>Ecommerce Website Development in India | Shopify & WooCommerce | Aroliya</title>
         <meta

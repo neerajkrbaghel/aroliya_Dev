@@ -256,11 +256,11 @@ const Team = () => {
 
   return (
     <>
+      <link rel="canonical" href="https://www.aroliya.com/our-team" />
       <Head>
         <title>Our Team | Website Development Company in India | Aroliya</title>
         <meta name="description" content="Meet the expert team behind Aroliya - a top website development company in India. Our developers, designers, and project managers deliver custom web apps, mobile apps, and digital solutions." />
         <meta name="keywords" content="website development company in india, app development company in india, web development team, expert developers india, software development team" />
-        <link rel="canonical" href="https://www.aroliya.com/our-team" />
         <meta property="og:title" content="Our Team | Website Development Company in India | Aroliya" />
         <meta property="og:description" content="Meet the expert team behind Aroliya - a top website development company in India delivering custom web and mobile solutions." />
         <meta property="og:type" content="website" />

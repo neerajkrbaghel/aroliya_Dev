@@ -21,6 +21,9 @@ export async function generateMetadata({ params }) {
     title: `${post.data.title} | Aroliya - Website Development Agency in India`,
     description: post.data.excerpt || `Read about ${post.data.title} - Expert insights on website development, app development, and digital strategies from Aroliya, a leading website development agency in India.`,
     keywords: post.data.tags ? post.data.tags.join(", ") + ", website development in india, app development in india, web development tips, Aroliya blog" : "website development in india, app development in india, web development tips, Aroliya blog",
+    alternates: {
+      canonical: `/blogs/${slug}`,
+    },
     authors: post.data.author ? [{ name: post.data.author }] : undefined,
     openGraph: {
       title: `${post.data.title} | Aroliya Blog`,
@@ -48,7 +51,6 @@ export default async function BlogPostPage({ params }) {
     <>
       <Head>
         <meta property="og:url" content={`https://www.aroliya.com/blogs/${slug}`} />
-        <link rel="canonical" href={`https://www.aroliya.com/blogs/${slug}`} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -10,6 +10,9 @@ export const metadata = {
   title: "Blog | Website Development & App Development Insights | Aroliya",
   description: "Discover expert insights on website development, app development, Shopify stores, WordPress, SEO, and digital marketing. Aroliya's blog - a leading website development agency in India sharing industry knowledge.",
   keywords: "website development blog india, app development blog, web development tips, Shopify tips, WordPress development, digital marketing blog, ecommerce tips, SEO guide, web development insights, best tech blog India, website optimization, React development tips, Next.js tutorials, Flutter development guide, software development blog, SaaS development tips",
+  alternates: {
+    canonical: "/blogs",
+  },
 };
 
 export default function BlogPage() {
@@ -29,7 +32,6 @@ export default function BlogPage() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Top Blog - Web Development & Digital Marketing | Aroliya" />
         <meta name="twitter:description" content="Expert insights on web development, Shopify, and digital marketing." />
-        <link rel="canonical" href="https://aroliya.com/blogs" />
         <meta name="geo.region" content="IN" />
         <meta name="geo.placename" content="India" />
               <script type="application/ld+json" dangerouslySetInnerHTML={{__html: '{"@context": "https://schema.org", "@type": "Blog", "name": "Aroliya Blog - Website Development & App Development Insights", "url": "https://www.aroliya.com/blogs", "description": "Expert insights on website development, app development, Shopify, WordPress, SEO, and digital marketing from Aroliya, a leading website development agency in India."}'}} />

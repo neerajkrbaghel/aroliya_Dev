@@ -248,6 +248,7 @@ const HowItWorks = () => {
 
   return (
     <>
+      <link rel="canonical" href="https://www.aroliya.com/how-its-work" />
       <div className={styles.container}>
         <Nav />
         {/* Header Section */}

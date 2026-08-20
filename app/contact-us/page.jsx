@@ -94,6 +94,7 @@ export default function Contact() {
 
   return (
     <>
+      <link rel="canonical" href="https://www.aroliya.com/contact-us" />
       <Head>
         <title>Contact Aroliya | Website Development Agency in India | Hire Developers</title>
         <meta

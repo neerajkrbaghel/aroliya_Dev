@@ -813,7 +813,7 @@ export default function About() {
               <Link href="/register" className={styles.primaryButton}>
                 Get Started
               </Link>
-              <Link href="/contact" className={styles.secondaryButton}>
+              <Link href="/contact-us" className={styles.secondaryButton}>
                 Contact Us
               </Link>
             </div>

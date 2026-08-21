@@ -327,7 +327,7 @@ This is a computer-generated invoice and does not require a signature.
   const handleSelectPlan = async (plan) => {
     if (!user) {
       alert("Please log in to select a plan");
-      router.push("/auth/login");
+      router.push("/login");
       return;
     }
     if (plan.id === "free") {

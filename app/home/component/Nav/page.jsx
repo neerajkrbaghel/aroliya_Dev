@@ -198,9 +198,6 @@ export default function Nav() {
                   <Link href="/services/form-filling" onClick={closeMenu} >
                     Online Form Filling
                   </Link>
-                  <Link href="/services/travel-bookings" onClick={closeMenu} >
-                    Travel & Hotel booking
-                  </Link>
                   <Link href="/services/data-visualization" onClick={closeMenu} >
                     Data & AI Solution
                   </Link>

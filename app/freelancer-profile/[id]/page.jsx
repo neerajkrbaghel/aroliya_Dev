@@ -179,7 +179,7 @@ export default function UserProfile() {
       <div className={styles.errorContainer}>
         <h2>Profile Not Available</h2>
         <p>The user profile is currently unavailable.</p>
-        <button onClick={() => router.push("/hire-freelancer")}>
+        <button onClick={() => router.push("/services/freelancer-hub/hire-freelancer")}>
           Browse Professionals
         </button>
       </div>

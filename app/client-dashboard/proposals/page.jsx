@@ -83,7 +83,7 @@ export default function ClientProposalsPage() {
         router.push("/unauthorized");
       }
     } else {
-      router.push("/auth/login");
+      router.push("/login");
     }
   };
 

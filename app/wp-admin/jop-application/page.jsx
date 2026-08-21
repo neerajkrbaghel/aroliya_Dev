@@ -21,6 +21,7 @@ import {
   FaTrash,
   FaEdit,
   FaChartBar,
+  FaBriefcase,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 

@@ -731,11 +731,11 @@ useEffect(() => {
                           <FaCheck className={styles.checkIcon} />
                         </span>
                         I agree to the{" "}
-                        <a href="/terms" className={styles.termsLink}>
+                        <a href="/terms-and-conditions" className={styles.termsLink}>
                           Terms and Conditions
                         </a>{" "}
                         and{" "}
-                        <a href="/privacy" className={styles.termsLink}>
+                        <a href="/terms-and-privacy" className={styles.termsLink}>
                           Privacy Policy
                         </a>
                       </label>

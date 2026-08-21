@@ -421,14 +421,6 @@ export default function DashboardLayout({ children }) {
                         <FiUser size={16} />
                         <span>My Profile</span>
                       </Link>
-                      <Link
-                        href="/dashboard/settings"
-                        className={styles.dropdownItem}
-                        onClick={() => setUserMenuOpen(false)}
-                      >
-                        <FiSettings size={16} />
-                        <span>Settings</span>
-                      </Link>
                       <div className={styles.dropdownDivider} />
                       <button
                         className={`${styles.dropdownItem} ${styles.logoutItem}`}

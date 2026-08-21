@@ -106,7 +106,7 @@ const Footer = () => {
             <ul className={styles.linksList}>
               <li>
                 <Link
-                  href="/services/virtual-assistant"
+                  href="/services/virtual-assistance"
                   className={styles.link}
                 >
                   Virtual Assistant
@@ -118,11 +118,6 @@ const Footer = () => {
                   className={styles.link}
                 >
                   E-Commerce Solutions
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/travel-bookings" className={styles.link}>
-                  Travel & Hotel Booking
                 </Link>
               </li>
               <li>

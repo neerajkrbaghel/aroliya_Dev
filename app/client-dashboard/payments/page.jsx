@@ -714,7 +714,7 @@ export default function ClientPayments() {
                                     className={styles.iconButton}
                                     onClick={() =>
                                       router.push(
-                                        `/messages?conversation=${request.conversationId}`
+                                        `/client-dashboard/messages?conversation=${request.conversationId}`
                                       )
                                     }
                                   >

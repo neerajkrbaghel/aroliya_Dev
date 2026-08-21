@@ -56,7 +56,7 @@ const Services = () => {
       ],
       buttonText: "Boost Sales",
       stat: "500+ Stores",
-      link: "/services/e-eommerce-solutions",
+      link: "/services/e-commerce-solutions",
     },
     {
       image: "/icons/travel-bookings1.jpg",

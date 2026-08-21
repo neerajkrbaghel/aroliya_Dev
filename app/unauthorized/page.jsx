@@ -9,7 +9,7 @@ export default function UnauthorizedPage() {
   useEffect(() => {
     // Redirect to login after 5 seconds
     const timer = setTimeout(() => {
-      router.push("/auth/login");
+      router.push("/login");
     }, 5000);
 
     return () => clearTimeout(timer);
@@ -31,7 +31,7 @@ export default function UnauthorizedPage() {
         </ul>
         <div className={styles.actions}>
           <button
-            onClick={() => router.push("/auth/login")}
+            onClick={() => router.push("/login")}
             className={styles.loginButton}
           >
             Login Again

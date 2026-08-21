@@ -462,7 +462,7 @@ export default function AcceptJobPage() {
                     {proposal.status === "accepted" && (
                       <div className={styles.acceptedActions}>
                         <motion.button
-                          onClick={() => router.push(`/messages?conversation=${proposal.conversationId}`)}
+                          onClick={() => router.push(`/freelancer-dashboard/messages?conversation=${proposal.conversationId}`)}
                           className={styles.messageButton}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}

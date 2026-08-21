@@ -81,8 +81,8 @@ export default function HeroSlider() {
               with a powerful portfolio that proves impact and builds credibility.
             </p>
             <div className={styles.heroButtons}>
-              <Link href="/freelancer-registration" className={styles.primaryBtn}>Register as Freelancer</Link>
-              <Link href="/post-job" className={styles.outlineBtn}>Post a Job</Link>
+              <Link href="/register?userType=freelancer" className={styles.primaryBtn}>Register as Freelancer</Link>
+              <Link href="/client-dashboard/post-job" className={styles.outlineBtn}>Post a Job</Link>
             </div>
             <div className={styles.trustBadge}>
               <Image src={shild} alt="" width={25} height={25} aria-hidden="true" />

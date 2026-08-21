@@ -150,7 +150,7 @@ const FAQ = () => {
                 Register as a freelancer and start working on exciting projects
               </p>
               <Link
-                href="/freelancer-registration"
+                href="/register?userType=freelancer"
                 className={styles.ctaButton}
               >
                 Register as Freelancer

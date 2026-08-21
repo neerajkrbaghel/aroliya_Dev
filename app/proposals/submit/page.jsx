@@ -289,7 +289,7 @@ function SubmitProposalContent() {
           <h2>Unable to Load Job</h2>
           <p>{error}</p>
           <motion.button
-            onClick={() => router.push("/freelancer-hub")}
+            onClick={() => router.push("/services/freelancer-hub/freelancer-plan")}
             className={styles.backButton}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

@@ -715,7 +715,7 @@ export default function Careers() {
                 >
                   Explore Open Positions <FaArrowRight />
                 </button>
-                <Link href="/contact" className={styles.secondaryButton}>
+                <Link href="/contact-us" className={styles.secondaryButton}>
                   Contact HR
                 </Link>
               </motion.div>

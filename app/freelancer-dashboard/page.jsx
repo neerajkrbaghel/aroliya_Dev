@@ -106,8 +106,8 @@ export default function DashboardPage() {
 
       loadProjects(1);
       loadWalletData(1);
-      useMockMessages();
-      useMockActivity();
+      getMockMessages();
+      getMockActivity();
       setStats({
         totalEarnings: 48500,
         completedProjects: 12,
@@ -188,10 +188,10 @@ export default function DashboardPage() {
 
   const loadMessages = async (userId) => {
     console.log("🔄 Loading messages for user:", userId);
-    useMockMessages();
+    getMockMessages();
   };
 
-  const useMockMessages = () => {
+  const getMockMessages = () => {
     const mockMessages = [
       {
         id: 1,
@@ -222,10 +222,10 @@ export default function DashboardPage() {
 
   const loadRecentActivity = async (userId) => {
     console.log("🔄 Loading activity for user:", userId);
-    useMockActivity();
+    getMockActivity();
   };
 
-  const useMockActivity = () => {
+  const getMockActivity = () => {
     const mockActivity = [
       {
         id: 1,

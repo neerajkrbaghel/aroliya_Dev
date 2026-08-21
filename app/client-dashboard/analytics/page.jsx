@@ -791,7 +791,7 @@ export default function ClientAnalytics() {
         setLoading(false);
       }
     } else {
-      router.push("/auth/login");
+      router.push("/login");
     }
   }, [router, timeRange]);
 

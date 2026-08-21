@@ -1036,7 +1036,7 @@ const PaymentRequestRow = ({
         <div className={styles.actionCells}>
           <button
             onClick={() =>
-              router.push(`/messages?conversation=${request.conversationId}`)
+              router.push(`/freelancer-dashboard/messages?conversation=${request.conversationId}`)
             }
             className={styles.iconButton}
             title="View Conversation"

@@ -29,6 +29,7 @@ import {
   FaArrowRight,
   FaQuoteLeft,
   FaExchangeAlt,
+  FaBriefcase,
 } from "react-icons/fa";
 import Link from "next/link";
 import Footer from "@/app/home/footer/page";
